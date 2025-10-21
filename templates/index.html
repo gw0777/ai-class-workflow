@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 발표 지원 시스템 - Presentation Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 AI 발표 지원 시스템</h1>
+            <p class="subtitle">발표 자료를 업로드하고 AI 기반 발표 준비를 시작하세요</p>
+        </header>
+
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <div class="upload-box" id="uploadBox">
+                <div class="upload-icon">📄</div>
+                <h3>발표 자료 업로드</h3>
+                <p>PDF 또는 PowerPoint 파일을 드래그하거나 클릭하여 업로드하세요</p>
+                <input type="file" id="fileInput" accept=".pdf,.ppt,.pptx" hidden>
+                <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+                    파일 선택
+                </button>
+            </div>
+            <div class="file-info" id="fileInfo" style="display: none;">
+                <h4>📊 파일 정보</h4>
+                <div id="fileDetails"></div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section class="settings-section" id="settingsSection" style="display: none;">
+            <h3>⚙️ 설정</h3>
+            <div class="settings-grid">
+                <div class="setting-item">
+                    <label for="totalTime">발표 시간 (분)</label>
+                    <input type="number" id="totalTime" value="10" min="1" max="60">
+                </div>
+                <div class="setting-item">
+                    <label for="presentationStyle">발표 스타일</label>
+                    <select id="presentationStyle">
+                        <option value="professional">전문적 (Professional)</option>
+                        <option value="casual">캐주얼 (Casual)</option>
+                        <option value="academic">학술적 (Academic)</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label for="qaCount">예상 질문 개수</label>
+                    <input type="number" id="qaCount" value="5" min="1" max="10">
+                </div>
+            </div>
+            <button class="btn btn-success" id="analyzeBtn">
+                🚀 분석 시작
+            </button>
+        </section>
+
+        <!-- Loading Section -->
+        <div class="loading-section" id="loadingSection" style="display: none;">
+            <div class="loader"></div>
+            <p>AI가 발표 자료를 분석하고 있습니다...</p>
+        </div>
+
+        <!-- Results Section -->
+        <section class="results-section" id="resultsSection" style="display: none;">
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="script">📝 발표 스크립트</button>
+                <button class="tab-btn" data-tab="timing">⏱️ 시간 배분</button>
+                <button class="tab-btn" data-tab="qa">❓ 예상 질문</button>
+                <button class="tab-btn" data-tab="tips">💡 발표 팁</button>
+            </div>
+
+            <!-- Tab Contents -->
+            <div class="tab-content active" id="scriptTab">
+                <h3>📝 발표 스크립트</h3>
+                <div id="scriptContent"></div>
+            </div>
+
+            <div class="tab-content" id="timingTab">
+                <h3>⏱️ 슬라이드별 시간 배분</h3>
+                <div id="timingContent"></div>
+            </div>
+
+            <div class="tab-content" id="qaTab">
+                <h3>❓ 예상 질문 및 답변</h3>
+                <div id="qaContent"></div>
+            </div>
+
+            <div class="tab-content" id="tipsTab">
+                <h3>💡 발표 팁 & 체크리스트</h3>
+                <div id="tipsContent"></div>
+            </div>
+
+            <!-- Export Buttons -->
+            <div class="export-section">
+                <button class="btn btn-secondary" id="exportBtn">
+                    📥 결과 내보내기 (Markdown)
+                </button>
+                <button class="btn btn-secondary" id="printBtn">
+                    🖨️ 인쇄
+                </button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>AI 기반 체육교육 워크플로우 프로젝트 - Presentation Assistant</p>
+            <p class="ai-status" id="aiStatus"></p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
