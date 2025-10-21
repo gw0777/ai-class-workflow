@@ -1,0 +1,124 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 헬퍼 함수들
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+    }
+
+    // 사용자 프로필
+    match /users/{userId} {
+      // 읽기: 본인만 가능
+      allow read: if isOwner(userId) || isAdmin();
+
+      // 생성: 본인 계정 생성만 가능
+      allow create: if isOwner(userId);
+
+      // 업데이트: 본인만 가능 (관리자 필드 제외)
+      allow update: if isOwner(userId) &&
+                      (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['isAdmin']));
+
+      // 삭제: 불가 (관리자만 가능)
+      allow delete: if isAdmin();
+    }
+
+    // 구독 정보
+    match /subscriptions/{userId} {
+      // 읽기: 본인 또는 관리자만 가능
+      allow read: if isOwner(userId) || isAdmin();
+
+      // 생성: Cloud Functions만 가능
+      allow create: if false;
+
+      // 업데이트: Cloud Functions만 가능 (취소는 본인 가능)
+      allow update: if isOwner(userId) &&
+                      request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'autoRenew', 'cancelledAt', 'updatedAt']) &&
+                      request.resource.data.status == 'cancelled' &&
+                      request.resource.data.autoRenew == false;
+
+      // 삭제: 불가
+      allow delete: if false;
+    }
+
+    // 결제 이력
+    match /paymentHistory/{paymentId} {
+      // 읽기: 본인 결제 내역만 가능
+      allow read: if isAuthenticated() &&
+                    (resource.data.userId == request.auth.uid || isAdmin());
+
+      // 생성, 업데이트, 삭제: Cloud Functions만 가능
+      allow create, update, delete: if false;
+    }
+
+    // 이메일 큐 (시스템용)
+    match /emailQueue/{emailId} {
+      allow read, write: if false;
+    }
+
+    // ATS 분석 결과
+    match /atsAnalysis/{analysisId} {
+      // 읽기: 본인 분석 결과만 가능
+      allow read: if isAuthenticated() &&
+                    resource.data.userId == request.auth.uid;
+
+      // 생성: 인증된 사용자만 가능 (본인 userId로만)
+      allow create: if isAuthenticated() &&
+                      request.resource.data.userId == request.auth.uid;
+
+      // 업데이트, 삭제: 본인만 가능
+      allow update, delete: if isAuthenticated() &&
+                              resource.data.userId == request.auth.uid;
+    }
+
+    // 이력서 템플릿
+    match /resumeTemplates/{templateId} {
+      // 읽기: 모든 인증된 사용자 가능
+      allow read: if isAuthenticated();
+
+      // 생성, 업데이트, 삭제: 관리자만 가능
+      allow create, update, delete: if isAdmin();
+    }
+
+    // 사용자 이력서
+    match /userResumes/{resumeId} {
+      // 읽기: 본인 이력서만 가능
+      allow read: if isAuthenticated() &&
+                    resource.data.userId == request.auth.uid;
+
+      // 생성: 인증된 사용자만 가능 (본인 userId로만)
+      allow create: if isAuthenticated() &&
+                      request.resource.data.userId == request.auth.uid;
+
+      // 업데이트, 삭제: 본인만 가능
+      allow update, delete: if isAuthenticated() &&
+                              resource.data.userId == request.auth.uid;
+    }
+
+    // 사용량 추적 (일일/월간 사용량)
+    match /usageTracking/{userId} {
+      // 읽기: 본인만 가능
+      allow read: if isOwner(userId);
+
+      // 생성, 업데이트: Cloud Functions만 가능
+      allow create, update: if false;
+
+      // 삭제: 불가
+      allow delete: if false;
+    }
+
+    // 기본 규칙: 모든 다른 경로는 차단
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
