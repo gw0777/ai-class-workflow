@@ -1,0 +1,339 @@
+// Prisma 스키마 파일
+// 출판 규정 및 교재 관리 데이터베이스
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 사용자 모델
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  role      UserRole @default(EDITOR)
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 관계
+  textbooks      Textbook[]
+  editSessions   EditSession[]
+  comments       Comment[]
+  workflowSteps  WorkflowStep[]
+}
+
+enum UserRole {
+  ADMIN
+  EDITOR
+  AUTHOR
+  REVIEWER
+}
+
+// 출판 규정 모델
+model PublishingRegulation {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  content     String   @db.Text
+  category    RegulationCategory
+  country     String   // 국가 코드 (KR, US, etc.)
+  version     String
+  effectiveDate DateTime
+  source      String?  // 출처 URL
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // 관계
+  tags        RegulationTag[]
+}
+
+enum RegulationCategory {
+  COPYRIGHT        // 저작권
+  ISBN             // ISBN 등록
+  FORMATTING       // 포맷팅 규정
+  CONTENT_STANDARD // 콘텐츠 기준
+  DISTRIBUTION     // 유통 규정
+  QUALITY          // 품질 기준
+  LEGAL            // 법적 요구사항
+}
+
+// 규정 태그
+model RegulationTag {
+  id    String @id @default(cuid())
+  name  String @unique
+
+  regulations PublishingRegulation[]
+}
+
+// 교재 모델
+model Textbook {
+  id          String   @id @default(cuid())
+  title       String
+  subtitle    String?
+  description String?  @db.Text
+  isbn        String?  @unique
+  author      String
+  edition     Int      @default(1)
+  language    String   @default("ko")
+  status      TextbookStatus @default(DRAFT)
+  coverImage  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  publishedAt DateTime?
+
+  // 관계
+  editor      User     @relation(fields: [editorId], references: [id])
+  editorId    String
+  chapters    Chapter[]
+  metadata    TextbookMetadata?
+  versions    TextbookVersion[]
+  editSessions EditSession[]
+  workflow    PublishingWorkflow?
+}
+
+enum TextbookStatus {
+  DRAFT           // 초안
+  IN_REVIEW       // 검토중
+  REVISION        // 수정중
+  APPROVED        // 승인됨
+  READY_TO_PUBLISH // 출판 준비
+  PUBLISHED       // 출판됨
+}
+
+// 교재 메타데이터
+model TextbookMetadata {
+  id           String   @id @default(cuid())
+  textbook     Textbook @relation(fields: [textbookId], references: [id], onDelete: Cascade)
+  textbookId   String   @unique
+
+  subject      String   // 주제 영역
+  targetAudience String // 대상 독자
+  difficulty   String   // 난이도
+  pageCount    Int?
+  wordCount    Int?
+  estimatedReadTime Int? // 예상 독서 시간 (분)
+  keywords     String[] // 키워드 배열
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// 챕터 모델
+model Chapter {
+  id          String   @id @default(cuid())
+  textbook    Textbook @relation(fields: [textbookId], references: [id], onDelete: Cascade)
+  textbookId  String
+
+  number      Int      // 챕터 번호
+  title       String
+  content     String   @db.Text
+  learningObjectives String[] // 학습 목표
+  summary     String?  @db.Text
+  order       Int      // 정렬 순서
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // 관계
+  sections    Section[]
+  assessments Assessment[]
+}
+
+// 섹션 모델 (챕터의 하위 단위)
+model Section {
+  id        String   @id @default(cuid())
+  chapter   Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  chapterId String
+
+  number    Int
+  title     String
+  content   String   @db.Text
+  type      SectionType @default(TEXT)
+  order     Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum SectionType {
+  TEXT          // 텍스트
+  EXAMPLE       // 예제
+  EXERCISE      // 연습문제
+  CASE_STUDY    // 사례 연구
+  SUMMARY       // 요약
+}
+
+// 평가 문항
+model Assessment {
+  id          String   @id @default(cuid())
+  chapter     Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  chapterId   String
+
+  question    String   @db.Text
+  type        AssessmentType
+  options     Json?    // 객관식 옵션
+  answer      String   @db.Text
+  explanation String?  @db.Text
+  difficulty  Int      @default(1) // 1-5
+  points      Int      @default(1)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum AssessmentType {
+  MULTIPLE_CHOICE  // 객관식
+  TRUE_FALSE       // 참/거짓
+  SHORT_ANSWER     // 단답형
+  ESSAY            // 서술형
+}
+
+// 교재 버전 관리
+model TextbookVersion {
+  id          String   @id @default(cuid())
+  textbook    Textbook @relation(fields: [textbookId], references: [id], onDelete: Cascade)
+  textbookId  String
+
+  versionNumber String
+  description String?  @db.Text
+  snapshot    Json     // 전체 콘텐츠 스냅샷
+  createdAt   DateTime @default(now())
+}
+
+// 편집 세션
+model EditSession {
+  id          String   @id @default(cuid())
+  textbook    Textbook @relation(fields: [textbookId], references: [id], onDelete: Cascade)
+  textbookId  String
+  editor      User     @relation(fields: [editorId], references: [id])
+  editorId    String
+
+  startTime   DateTime @default(now())
+  endTime     DateTime?
+  changes     Json     // 변경 사항 로그
+
+  comments    Comment[]
+}
+
+// 댓글 및 피드백
+model Comment {
+  id            String      @id @default(cuid())
+  editSession   EditSession @relation(fields: [editSessionId], references: [id], onDelete: Cascade)
+  editSessionId String
+  author        User        @relation(fields: [authorId], references: [id])
+  authorId      String
+
+  content       String      @db.Text
+  type          CommentType @default(GENERAL)
+  resolved      Boolean     @default(false)
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+enum CommentType {
+  GENERAL       // 일반
+  SUGGESTION    // 제안
+  CORRECTION    // 수정 요청
+  QUESTION      // 질문
+  APPROVAL      // 승인
+}
+
+// 출판 워크플로우
+model PublishingWorkflow {
+  id          String   @id @default(cuid())
+  textbook    Textbook @relation(fields: [textbookId], references: [id], onDelete: Cascade)
+  textbookId  String   @unique
+
+  currentStep WorkflowStepType
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+
+  steps       WorkflowStep[]
+}
+
+enum WorkflowStepType {
+  MANUSCRIPT_SUBMISSION  // 원고 제출
+  INITIAL_REVIEW         // 초기 검토
+  CONTENT_EDITING        // 내용 편집
+  COPY_EDITING           // 문장 편집
+  DESIGN_LAYOUT          // 디자인 및 레이아웃
+  PROOFREADING           // 교정
+  FINAL_APPROVAL         // 최종 승인
+  PRODUCTION             // 제작
+  PUBLICATION            // 출판
+}
+
+// 워크플로우 단계
+model WorkflowStep {
+  id          String   @id @default(cuid())
+  workflow    PublishingWorkflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  workflowId  String
+
+  step        WorkflowStepType
+  status      StepStatus @default(PENDING)
+  assignee    User?      @relation(fields: [assigneeId], references: [id])
+  assigneeId  String?
+  notes       String?    @db.Text
+
+  startedAt   DateTime?
+  completedAt DateTime?
+  dueDate     DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum StepStatus {
+  PENDING      // 대기중
+  IN_PROGRESS  // 진행중
+  COMPLETED    // 완료
+  BLOCKED      // 차단됨
+  SKIPPED      // 건너뜀
+}
+
+// 원본 자료 (PDF/PPTX 등)
+model SourceMaterial {
+  id          String   @id @default(cuid())
+  filename    String
+  originalName String
+  filepath    String
+  fileType    String   // pdf, pptx, docx
+  fileSize    Int      // bytes
+  pageCount   Int?
+
+  extractedText String? @db.Text
+  metadata    Json?
+
+  converted   Boolean  @default(false)
+  convertedTextbookId String?
+
+  uploadedAt  DateTime @default(now())
+}
+
+// 템플릿
+model Template {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  category    TemplateCategory
+  content     Json     // 템플릿 구조
+  isDefault   Boolean  @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum TemplateCategory {
+  TEXTBOOK     // 교재
+  CHAPTER      // 챕터
+  SECTION      // 섹션
+  ASSESSMENT   // 평가
+  COVER        // 표지
+}
