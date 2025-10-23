@@ -11,6 +11,7 @@ import regulationRoutes from './routes/regulation.routes.js';
 import userRoutes from './routes/user.routes.js';
 import workflowRoutes from './routes/workflow.routes.js';
 import uploadRoutes from './routes/upload.routes.js';
+import converterRoutes from './routes/converter.routes.js';
 
 // 환경 변수 로드
 dotenv.config();
@@ -35,6 +36,7 @@ app.use('/api/regulations', regulationRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/workflow', workflowRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/converter', converterRoutes);
 
 // 헬스 체크 엔드포인트
 app.get('/health', (req, res) => {
@@ -56,6 +58,7 @@ app.get('/', (req, res) => {
       users: '/api/users',
       workflow: '/api/workflow',
       upload: '/api/upload',
+      converter: '/api/converter',
       health: '/health'
     }
   });
