@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실시간 토너먼트 대진표</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .setup-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .participants-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .participant-chip {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .remove-btn {
+            background: rgba(255,255,255,0.3);
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-size: 12px;
+            transition: background 0.2s;
+        }
+
+        .remove-btn:hover {
+            background: rgba(255,255,255,0.5);
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .bracket-container {
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+
+        .bracket {
+            display: flex;
+            gap: 50px;
+            min-width: max-content;
+            padding: 20px;
+        }
+
+        .round {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            min-width: 250px;
+        }
+
+        .round-title {
+            text-align: center;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .match {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .match:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .match-header {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            font-size: 12px;
+            color: #777;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .player {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s;
+            position: relative;
+        }
+
+        .player:last-child {
+            border-bottom: none;
+        }
+
+        .player:hover {
+            background: #f8f9ff;
+        }
+
+        .player.winner {
+            background: #d4edda;
+            font-weight: bold;
+            color: #155724;
+        }
+
+        .player.winner::before {
+            content: "🏆";
+            position: absolute;
+            left: -25px;
+            font-size: 20px;
+            animation: bounce 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .player.loser {
+            background: #f8f9fa;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .player-name {
+            flex: 1;
+            font-size: 16px;
+        }
+
+        .player-score {
+            font-weight: bold;
+            color: #667eea;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .player.empty {
+            color: #ccc;
+            font-style: italic;
+            cursor: default;
+        }
+
+        .player.empty:hover {
+            background: white;
+        }
+
+        .champion-banner {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            animation: celebrate 1s ease;
+        }
+
+        @keyframes celebrate {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .champion-banner h2 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .champion-banner .champion-name {
+            font-size: 3em;
+            font-weight: bold;
+            color: #d4af37;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .bracket {
+                gap: 30px;
+            }
+
+            .round {
+                min-width: 200px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏆 실시간 토너먼트 대진표</h1>
+
+        <div id="setupSection" class="setup-section">
+            <div class="input-group">
+                <label>참가자 이름 입력:</label>
+                <input type="text" id="participantInput" placeholder="참가자 이름을 입력하고 Enter를 누르세요">
+            </div>
+
+            <div class="participants-list" id="participantsList"></div>
+
+            <div class="controls">
+                <button onclick="generateBracket()" id="generateBtn">대진표 생성</button>
+                <button onclick="clearParticipants()">참가자 초기화</button>
+                <button onclick="addRandomParticipants()">샘플 참가자 추가</button>
+            </div>
+
+            <div class="stats" style="margin-top: 20px;">
+                <div class="stat-item">
+                    <div class="stat-value" id="participantCount">0</div>
+                    <div class="stat-label">참가자 수</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="roundCount">0</div>
+                    <div class="stat-label">예상 라운드</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="matchCount">0</div>
+                    <div class="stat-label">총 경기 수</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="bracketSection" class="hidden">
+            <div class="controls">
+                <button onclick="resetTournament()">토너먼트 초기화</button>
+                <button onclick="exportResults()">결과 내보내기</button>
+            </div>
+
+            <div class="bracket-container">
+                <div id="bracket" class="bracket"></div>
+            </div>
+
+            <div id="championBanner" class="champion-banner hidden">
+                <h2>🎉 우승자 🎉</h2>
+                <div class="champion-name" id="championName"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let participants = [];
+        let bracket = [];
+        let currentRound = 0;
+
+        // 참가자 입력 처리
+        document.getElementById('participantInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addParticipant();
+            }
+        });
+
+        function addParticipant() {
+            const input = document.getElementById('participantInput');
+            const name = input.value.trim();
+
+            if (name && !participants.includes(name)) {
+                participants.push(name);
+                input.value = '';
+                updateParticipantsList();
+                updateStats();
+            } else if (participants.includes(name)) {
+                alert('이미 추가된 참가자입니다.');
+            }
+        }
+
+        function removeParticipant(name) {
+            participants = participants.filter(p => p !== name);
+            updateParticipantsList();
+            updateStats();
+        }
+
+        function updateParticipantsList() {
+            const list = document.getElementById('participantsList');
+            list.innerHTML = participants.map(name => `
+                <div class="participant-chip">
+                    <span>${name}</span>
+                    <button class="remove-btn" onclick="removeParticipant('${name}')">✕</button>
+                </div>
+            `).join('');
+        }
+
+        function updateStats() {
+            document.getElementById('participantCount').textContent = participants.length;
+
+            if (participants.length > 1) {
+                const rounds = Math.ceil(Math.log2(participants.length));
+                const matches = participants.length - 1;
+                document.getElementById('roundCount').textContent = rounds;
+                document.getElementById('matchCount').textContent = matches;
+            } else {
+                document.getElementById('roundCount').textContent = '0';
+                document.getElementById('matchCount').textContent = '0';
+            }
+        }
+
+        function clearParticipants() {
+            if (confirm('모든 참가자를 삭제하시겠습니까?')) {
+                participants = [];
+                updateParticipantsList();
+                updateStats();
+            }
+        }
+
+        function addRandomParticipants() {
+            const sampleNames = [
+                '김민수', '이영희', '박지훈', '최서연', '정우진', '강예은', '조현우', '윤지아',
+                '임태영', '송하윤', '한준서', '노수빈', '권도현', '장서윤', '오준혁', '신유진'
+            ];
+
+            participants = [];
+            const count = Math.min(8, sampleNames.length);
+            for (let i = 0; i < count; i++) {
+                participants.push(sampleNames[i]);
+            }
+
+            updateParticipantsList();
+            updateStats();
+        }
+
+        function generateBracket() {
+            if (participants.length < 2) {
+                alert('최소 2명의 참가자가 필요합니다.');
+                return;
+            }
+
+            // 참가자를 섞기
+            const shuffled = [...participants].sort(() => Math.random() - 0.5);
+
+            // 2의 거듭제곱으로 맞추기
+            const nextPowerOf2 = Math.pow(2, Math.ceil(Math.log2(shuffled.length)));
+            const firstRound = [...shuffled];
+
+            // 빈 자리 채우기
+            while (firstRound.length < nextPowerOf2) {
+                firstRound.push(null);
+            }
+
+            // 대진표 초기화
+            bracket = [firstRound];
+            currentRound = 0;
+
+            // UI 업데이트
+            document.getElementById('setupSection').classList.add('hidden');
+            document.getElementById('bracketSection').classList.remove('hidden');
+
+            renderBracket();
+        }
+
+        function renderBracket() {
+            const bracketDiv = document.getElementById('bracket');
+            bracketDiv.innerHTML = '';
+
+            const totalRounds = Math.ceil(Math.log2(bracket[0].length));
+
+            for (let roundIndex = 0; roundIndex < totalRounds; roundIndex++) {
+                const roundDiv = document.createElement('div');
+                roundDiv.className = 'round';
+
+                const roundTitle = document.createElement('div');
+                roundTitle.className = 'round-title';
+
+                if (roundIndex === totalRounds - 1) {
+                    roundTitle.textContent = '결승';
+                } else if (roundIndex === totalRounds - 2) {
+                    roundTitle.textContent = '준결승';
+                } else if (roundIndex === totalRounds - 3) {
+                    roundTitle.textContent = '준준결승';
+                } else {
+                    roundTitle.textContent = `${roundIndex + 1}라운드`;
+                }
+
+                roundDiv.appendChild(roundTitle);
+
+                const currentRoundData = bracket[roundIndex] || [];
+                const matchesInRound = currentRoundData.length / 2;
+
+                for (let matchIndex = 0; matchIndex < matchesInRound; matchIndex++) {
+                    const player1 = currentRoundData[matchIndex * 2];
+                    const player2 = currentRoundData[matchIndex * 2 + 1];
+
+                    const matchDiv = createMatchElement(player1, player2, roundIndex, matchIndex);
+                    roundDiv.appendChild(matchDiv);
+                }
+
+                bracketDiv.appendChild(roundDiv);
+            }
+        }
+
+        function createMatchElement(player1, player2, roundIndex, matchIndex) {
+            const matchDiv = document.createElement('div');
+            matchDiv.className = 'match';
+
+            const matchHeader = document.createElement('div');
+            matchHeader.className = 'match-header';
+            matchHeader.textContent = `경기 ${matchIndex + 1}`;
+            matchDiv.appendChild(matchHeader);
+
+            const nextRound = bracket[roundIndex + 1];
+            const winner = nextRound ? nextRound[matchIndex] : null;
+
+            const player1Div = createPlayerElement(player1, winner, roundIndex, matchIndex, 0);
+            const player2Div = createPlayerElement(player2, winner, roundIndex, matchIndex, 1);
+
+            matchDiv.appendChild(player1Div);
+            matchDiv.appendChild(player2Div);
+
+            return matchDiv;
+        }
+
+        function createPlayerElement(player, winner, roundIndex, matchIndex, playerIndex) {
+            const playerDiv = document.createElement('div');
+            playerDiv.className = 'player';
+
+            if (!player) {
+                playerDiv.classList.add('empty');
+                playerDiv.innerHTML = '<span class="player-name">대기 중...</span>';
+                return playerDiv;
+            }
+
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'player-name';
+            nameSpan.textContent = player;
+            playerDiv.appendChild(nameSpan);
+
+            if (winner === player) {
+                playerDiv.classList.add('winner');
+            } else if (winner && winner !== player) {
+                playerDiv.classList.add('loser');
+            }
+
+            // 클릭 이벤트: 승자 선택
+            if (!winner) {
+                playerDiv.onclick = () => selectWinner(player, roundIndex, matchIndex);
+            }
+
+            return playerDiv;
+        }
+
+        function selectWinner(winner, roundIndex, matchIndex) {
+            // 다음 라운드가 없으면 생성
+            if (!bracket[roundIndex + 1]) {
+                const nextRoundSize = Math.ceil(bracket[roundIndex].length / 2);
+                bracket[roundIndex + 1] = new Array(nextRoundSize).fill(null);
+            }
+
+            // 승자를 다음 라운드에 배치
+            bracket[roundIndex + 1][matchIndex] = winner;
+
+            // UI 업데이트
+            renderBracket();
+
+            // 우승자 확인
+            if (bracket[roundIndex + 1].length === 1 && bracket[roundIndex + 1][0]) {
+                showChampion(bracket[roundIndex + 1][0]);
+            }
+        }
+
+        function showChampion(champion) {
+            const banner = document.getElementById('championBanner');
+            const nameDiv = document.getElementById('championName');
+
+            nameDiv.textContent = champion;
+            banner.classList.remove('hidden');
+
+            // 스크롤하여 배너 보이기
+            banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function resetTournament() {
+            if (confirm('토너먼트를 초기화하시겠습니까?')) {
+                bracket = [];
+                currentRound = 0;
+
+                document.getElementById('setupSection').classList.remove('hidden');
+                document.getElementById('bracketSection').classList.add('hidden');
+                document.getElementById('championBanner').classList.add('hidden');
+            }
+        }
+
+        function exportResults() {
+            let results = '=== 토너먼트 결과 ===\n\n';
+            results += `참가자: ${participants.join(', ')}\n\n`;
+
+            bracket.forEach((round, index) => {
+                results += `라운드 ${index + 1}: ${round.filter(p => p).join(', ')}\n`;
+            });
+
+            const winner = bracket[bracket.length - 1] && bracket[bracket.length - 1][0];
+            if (winner) {
+                results += `\n우승자: ${winner}\n`;
+            }
+
+            // 결과를 텍스트 파일로 다운로드
+            const blob = new Blob([results], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `tournament_results_${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // 초기 통계 업데이트
+        updateStats();
+    </script>
+</body>
+</html>
