@@ -1,11 +1,11 @@
-"""메인 MCP 서버 + n8n 연동용 REST API.
+"""메인 MCP 서버 + n8n 연동용 REST API + 구독 SaaS 수익화 인프라.
 
 구성
 ----
-- MCP(Model Context Protocol) 서버: 각 Stage(1~7)와 전체 실행을 MCP tool로 노출.
-    MCP Streamable HTTP 엔드포인트는 `/mcp` 에 마운트된다.
-- FastAPI REST API: n8n의 HTTP Request 노드가 호출할 수 있는 엔드포인트.
-    `/api/...` 경로.
+- MCP(Model Context Protocol) 서버: 각 Stage(1~7)와 전체 실행을 MCP tool로 노출. `/mcp` 마운트.
+- FastAPI REST API: n8n HTTP Request 노드가 호출. `/api/...`.
+- 수익화: API 키 인증 + 테넌트별 사용량 미터링 + 월간 한도(Free 3편/월, Pro 무제한)
+    + Stripe 웹훅 + /api/plans, /api/usage, /api/signup.
 
 실행
 ----
@@ -19,9 +19,10 @@ import os
 from contextlib import asynccontextmanager
 from typing import Any
 
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, Header, HTTPException, Request
 from mcp.server.fastmcp import FastMCP
 
+import billing
 from models import (
     EvidenceStructure,
     PipelineRequest,
@@ -31,6 +32,11 @@ from models import (
 from pipeline import PaperPipeline, settings
 
 pipeline = PaperPipeline()
+
+# 수익화 토글: 기본 활성. 끄면 인증/한도 없이 동작(개발용).
+BILLING_ENABLED = os.getenv("BILLING_ENABLED", "true").lower() in ("1", "true", "yes")
+# 데모/셌프호스트 편의를 위한 공개 가입(키 발급) 허용 여부.
+SIGNUP_OPEN = os.getenv("SIGNUP_OPEN", "true").lower() in ("1", "true", "yes")
 
 # --------------------------------------------------------------------------- #
 # MCP 서버 정의 — 각 Stage를 도구로 노출
@@ -119,31 +125,63 @@ async def run_full_pipeline(
 
 
 # --------------------------------------------------------------------------- #
-# FastAPI 앱 — MCP 마운트 + n8n용 REST
+# FastAPI 앱 — MCP 마운트 + REST + 수익화
 # --------------------------------------------------------------------------- #
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # MCP Streamable HTTP 세션 매니저 구동
+    billing.init_db()
     async with mcp.session_manager.run():
         yield
 
 
 app = FastAPI(
-    title="논문생산 무인 파이프라인 v2",
-    description="한국특수체육학회지 SEM 논문 자동생산 시스템 (FastAPI + MCP SDK)",
-    version="2.0.0",
+    title="논문생산 파이프라인 v2 (구독 SaaS)",
+    description="한국특수체육학회지 SEM 논문 자동생산 + 구독 기반 수익화 (FastAPI + MCP SDK)",
+    version="2.1.0",
     lifespan=lifespan,
 )
 
-# MCP 엔드포인트 마운트: http(s)://host:8000/mcp
 app.mount("/mcp", mcp.streamable_http_app())
 
 
+# ----- 사용량 추적 미들웨어 (per-user API call counting) -------------------- #
+@app.middleware("http")
+async def usage_counter(request: Request, call_next):
+    response = await call_next(request)
+    try:
+        if BILLING_ENABLED and request.url.path.startswith("/api/"):
+            api_key = request.headers.get("x-api-key")
+            if api_key:
+                user = billing.get_user_by_api_key(api_key)
+                if user:
+                    billing.record_api_call(user["id"], request.url.path, response.status_code)
+    except Exception:  # noqa: BLE001 - 미터링 실패가 요청을 막지 않도록
+        pass
+    return response
+
+
+# ----- 인증 의존성 ---------------------------------------------------------- #
+async def current_user(x_api_key: str | None = Header(default=None, alias="X-API-Key")) -> dict[str, Any]:
+    if not BILLING_ENABLED:
+        return {"id": 0, "email": "billing-disabled", "plan": "enterprise"}
+    if not x_api_key:
+        raise HTTPException(
+            status_code=401,
+            detail="X-API-Key 헤더가 필요합니다. POST /api/signup 으로 키를 발급받으세요.",
+        )
+    user = billing.get_user_by_api_key(x_api_key)
+    if not user:
+        raise HTTPException(status_code=401, detail="유효하지 않은 API 키입니다.")
+    return user
+
+
+# ----- 공개 엔드포인트 ------------------------------------------------------ #
 @app.get("/health")
 async def health() -> dict[str, Any]:
-    """헬스체크 + 키 설정 여부(값은 노출하지 않음)."""
     return {
         "status": "ok",
+        "version": "2.1.0",
+        "billing_enabled": BILLING_ENABLED,
         "claude_model": settings.claude_model,
         "gemini_model": settings.gemini_model,
         "gemini_key_set": bool(settings.gemini_api_key),
@@ -151,53 +189,105 @@ async def health() -> dict[str, Any]:
     }
 
 
+@app.get("/api/plans")
+async def api_plans() -> dict[str, Any]:
+    """구독 플랜 카탈로그(공개)."""
+    return {"plans": billing.PLANS, "currency": "USD", "billing_period": "month"}
+
+
+@app.post("/api/signup")
+async def api_signup(payload: dict[str, Any] | None = None) -> dict[str, Any]:
+    """API 키 발급(데모/셌프호스트). body: {\"email\": \"...\"} (선택)."""
+    if not SIGNUP_OPEN:
+        raise HTTPException(status_code=403, detail="공개 가입이 비활성화되어 있습니다.")
+    email = (payload or {}).get("email")
+    user = billing.create_user(email=email)
+    return {
+        "message": "API 키가 발급되었습니다. X-API-Key 헤더로 사용하세요.",
+        "api_key": user["api_key"],
+        "plan": user["plan"],
+        "quota": billing.quota_status(user["id"]),
+    }
+
+
+# ----- 인증 필요 엔드포인트 ------------------------------------------------- #
+@app.get("/api/usage")
+async def api_usage(user: dict = Depends(current_user)) -> dict[str, Any]:
+    """현재 사용자의 플랜/사용량/잔여 한도 + 최근 이력."""
+    if user["id"] == 0:  # billing 비활성
+        return {"billing_enabled": False}
+    return {
+        "billing_enabled": True,
+        "quota": billing.quota_status(user["id"]),
+        "recent": billing.recent_events(user["id"], limit=20),
+    }
+
+
 @app.post("/api/pipeline/run")
-async def api_run(request: PipelineRequest) -> dict[str, Any]:
-    """전체 파이프라인 실행 (n8n HTTP Request 노드용 메인 엔드포인트)."""
+async def api_run(request: PipelineRequest, user: dict = Depends(current_user)) -> dict[str, Any]:
+    """전체 파이프라인 실행 (인증 + 월간 한도 적용)."""
+    if BILLING_ENABLED and user["id"] != 0 and not billing.can_generate(user["id"]):
+        q = billing.quota_status(user["id"])
+        raise HTTPException(
+            status_code=402,  # Payment Required
+            detail=(
+                f"이번 달 무료 한도({q['monthly_paper_limit']}편)를 모두 사용했습니다. "
+                f"Pro 플랜으로 업그레이드하면 무제한 생성이 가능합니다. (사용 {q['used_this_month']}편)"
+            ),
+        )
     try:
         result = await pipeline.run(request)
-        return result.to_public_dict()
+    except HTTPException:
+        raise
     except Exception as exc:  # noqa: BLE001
         raise HTTPException(status_code=500, detail=f"{type(exc).__name__}: {exc}") from exc
 
+    if BILLING_ENABLED and user["id"] != 0:
+        billing.record_paper(
+            user["id"],
+            request.topic,
+            {"passed": result.passed, "total": (result.evaluation.total if result.evaluation else None)},
+        )
+    out = result.to_public_dict()
+    if BILLING_ENABLED and user["id"] != 0:
+        out["quota"] = billing.quota_status(user["id"])
+    return out
+
+
+def _require(payload: dict[str, Any], key: str) -> Any:
+    if key not in payload:
+        raise HTTPException(status_code=422, detail=f"'{key}' is required")
+    return payload[key]
+
 
 @app.post("/api/stage1")
-async def api_stage1(payload: dict[str, Any]) -> dict[str, Any]:
-    """Stage 1 단독 실행. body: {\"topic\": str, \"keywords\": [str]}"""
-    topic = payload.get("topic")
-    if not topic:
-        raise HTTPException(status_code=422, detail="'topic' is required")
-    result = await pipeline.stage1_parallel_search(topic, payload.get("keywords") or [])
+async def api_stage1(payload: dict[str, Any], user: dict = Depends(current_user)) -> dict[str, Any]:
+    result = await pipeline.stage1_parallel_search(_require(payload, "topic"), payload.get("keywords") or [])
     return result.model_dump(mode="json")
 
 
 @app.post("/api/stage2")
-async def api_stage2(payload: dict[str, Any]) -> dict[str, Any]:
-    """Stage 2 단독 실행. body: {\"stage1\": {...}}"""
-    result = await pipeline.stage2_dedup_normalize(
-        Stage1Result.model_validate(payload["stage1"])
-    )
+async def api_stage2(payload: dict[str, Any], user: dict = Depends(current_user)) -> dict[str, Any]:
+    result = await pipeline.stage2_dedup_normalize(Stage1Result.model_validate(_require(payload, "stage1")))
     return result.model_dump(mode="json")
 
 
 @app.post("/api/stage3")
-async def api_stage3(payload: dict[str, Any]) -> dict[str, Any]:
-    """Stage 3 단독 실행. body: {\"topic\": str, \"stage1\": {...}, \"stage2\": {...}}"""
+async def api_stage3(payload: dict[str, Any], user: dict = Depends(current_user)) -> dict[str, Any]:
     result = await pipeline.stage3_researcher(
-        payload["topic"],
-        Stage1Result.model_validate(payload["stage1"]),
-        Stage2Result.model_validate(payload["stage2"]),
+        _require(payload, "topic"),
+        Stage1Result.model_validate(_require(payload, "stage1")),
+        Stage2Result.model_validate(_require(payload, "stage2")),
     )
     return result.model_dump(mode="json")
 
 
 @app.post("/api/stage4")
-async def api_stage4(payload: dict[str, Any]) -> dict[str, Any]:
-    """Stage 4 단독 실행. body: {\"topic\", \"evidence\", \"stage2\", \"iteration\", \"feedback\"}"""
+async def api_stage4(payload: dict[str, Any], user: dict = Depends(current_user)) -> dict[str, Any]:
     result = await pipeline.stage4_generator(
-        payload["topic"],
-        EvidenceStructure.model_validate(payload["evidence"]),
-        Stage2Result.model_validate(payload["stage2"]),
+        _require(payload, "topic"),
+        EvidenceStructure.model_validate(_require(payload, "evidence")),
+        Stage2Result.model_validate(_require(payload, "stage2")),
         iteration=int(payload.get("iteration", 1)),
         feedback=payload.get("feedback", ""),
     )
@@ -205,23 +295,32 @@ async def api_stage4(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 @app.post("/api/stage5")
-async def api_stage5(payload: dict[str, Any]) -> dict[str, Any]:
-    """Stage 5 단독 실행. body: {\"markdown\": str}"""
+async def api_stage5(payload: dict[str, Any], user: dict = Depends(current_user)) -> dict[str, Any]:
     from models import PaperDraft
 
-    result = await pipeline.stage5_proofreader(
-        PaperDraft(body_markdown=payload["markdown"])
-    )
+    result = await pipeline.stage5_proofreader(PaperDraft(body_markdown=_require(payload, "markdown")))
     return result.model_dump(mode="json")
 
 
 @app.post("/api/stage6")
-async def api_stage6(payload: dict[str, Any]) -> dict[str, Any]:
-    """Stage 6 단독 실행. body: {\"markdown\": str, \"gate_threshold\": float}"""
+async def api_stage6(payload: dict[str, Any], user: dict = Depends(current_user)) -> dict[str, Any]:
     result = await pipeline.stage6_evaluator(
-        payload["markdown"], float(payload.get("gate_threshold", 70.0))
+        _require(payload, "markdown"), float(payload.get("gate_threshold", 70.0))
     )
     return result.model_dump(mode="json")
+
+
+# ----- Stripe 웹훅 ---------------------------------------------------------- #
+@app.post("/webhooks/stripe")
+async def stripe_webhook(request: Request) -> dict[str, Any]:
+    """Stripe 결제 이벤트 수신 → 구독 상태 갱신."""
+    payload = await request.body()
+    sig = request.headers.get("stripe-signature")
+    try:
+        event = billing.verify_and_parse_webhook(payload, sig)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return billing.handle_stripe_event(event)
 
 
 if __name__ == "__main__":  # pragma: no cover
