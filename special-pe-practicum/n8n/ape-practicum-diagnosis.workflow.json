@@ -3,9 +3,9 @@
   "meta": {
     "aiBuilderAssisted": true,
     "builderVariant": "mcp",
-    "exportedFrom": "https://aigw2026.app.n8n.cloud/workflow/Kp9XmZ2QrLs7VtN4",
-    "workflowId": "Kp9XmZ2QrLs7VtN4",
-    "notes": "준비도 컷오프 65/40, 장애유형별 교수적합화, 결과 Data Table 자동기록. dataTableId 'r3Wq8vTxY2mNpZ5K'는 사용자 n8n 프로젝트 종속 — import 시 본인 Data Table ID로 교체 필요."
+    "exportedFrom": "https://aigw2026.app.n8n.cloud/workflow/GShLyUWZH8rMcPVt",
+    "workflowId": "GShLyUWZH8rMcPVt",
+    "notes": "준비도 컷오프 65/40, 장애유형별 교수적합화, 결과 Data Table 자동기록. dataTableId 's7lc68owevdCH6wV'는 사용자 n8n 프로젝트 종속 — import 시 본인 Data Table ID로 교체 필요."
   },
   "settings": { "executionOrder": "v1" },
   "nodes": [
@@ -190,7 +190,7 @@
       "parameters": {
         "resource": "row",
         "operation": "insert",
-        "dataTableId": { "__rl": true, "mode": "id", "value": "r3Wq8vTxY2mNpZ5K" },
+        "dataTableId": { "__rl": true, "mode": "id", "value": "s7lc68owevdCH6wV" },
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
