@@ -3,3 +3,9 @@
 __pycache__/
 *.pyc
 output/
+
+# 수익화 DB(로컬 상태) — 커밋 금지
+*.db
+*.db-wal
+*.db-shm
+billing.db
