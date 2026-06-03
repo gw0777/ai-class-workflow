@@ -40,12 +40,13 @@ npm run android    # Android emulator
 ## Architecture Notes
 
 ### Backend structure
-- `app/main.py` — FastAPI app factory, CORS, and router mounting under `/api/v1/*`. Currently only mounts `auth`, `activities`, and `users`. The `locations` and `analysis` routers referenced in `ARCHITECTURE.md` are **not yet implemented** (TODO comment in `main.py`).
+- `app/main.py` — FastAPI app factory, CORS, and router mounting under `/api/v1/*`. Currently mounts `auth`, `activities`, `users`, and `documents`. The `locations` and `analysis` routers referenced in `ARCHITECTURE.md` are **not yet implemented** (TODO comment in `main.py`). Lifespan also `mkdir`s `settings.UPLOAD_DIR` on startup.
 - `app/database.py` — Maintains both an **async engine** (`asyncpg`, used by request handlers via the `get_db` dependency) and a **sync engine** (`psycopg2`, intended for Alembic). `get_db` auto-commits on successful yield and rolls back on exception — handlers should not call `db.commit()` themselves for the happy path.
 - `app/config.py` — Pydantic `BaseSettings` reads `backend/.env`. `DATABASE_URL` (async) and `DATABASE_URL_SYNC` are required and have no defaults; the app will fail to import without them.
 - `app/main.py` lifespan calls `create_tables()` only when `DEBUG=True`. There are no Alembic migrations checked in yet despite the sync engine being set up for them — schema currently comes from `Base.metadata.create_all`.
 - `app/services/auth.py` — JWT auth (HS256). `get_current_user` is the FastAPI dependency for protected routes; tokens carry `sub=user_id` and a `type` of `access` or `refresh`. Access token TTL 15 min, refresh 7 days.
-- `app/models/` — SQLAlchemy 2.0 models: `User`, `ActivityLog`, `LocationContext`, `UserInput`, `AnalysisReport`, `LocationCluster`. All keyed by UUID. See `ARCHITECTURE.md` for field-by-field breakdown.
+- `app/models/` — SQLAlchemy 2.0 models: `User`, `ActivityLog`, `LocationContext`, `UserInput`, `AnalysisReport`, `LocationCluster`, `Document`. All keyed by UUID. See `ARCHITECTURE.md` for field-by-field breakdown (note: `Document` is newer and not yet in `ARCHITECTURE.md`).
+- `app/services/hwp_extractor.py` — Plain-text extraction for HWP/HWPX. HWPX is parsed with stdlib `zipfile` + `ElementTree` against the `hp:` namespace (`hp:p` per-paragraph, `hp:t` for runs). HWP (binary OLE) only reads the `PrvText` preview stream via `olefile` — **full body parsing is intentionally out of scope**; if `PrvText` is absent the upload still succeeds but `extraction_error` is set on the `Document` row. Uploaded files live under `settings.UPLOAD_DIR/{user_id}/{uuid}.{ext}`.
 
 ### Mobile structure
 - `App.js` wraps the navigator in three providers in this order: `PaperProvider` → `AuthProvider` → `NotificationProvider`. Auth state must be available before notifications because notification scheduling depends on the logged-in user.
