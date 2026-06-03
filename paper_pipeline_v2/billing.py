@@ -1,6 +1,6 @@
-"""수익화 인프라: 구독 플랜 / 사용량 추적 / 한도 / Stripe 웹훅 (SQLite).
+"""수익화 인프라: 구독 플랜 / 사용량 추적 / 한도 / Stripe 웹훅·체크아웃 (SQLite).
 
-- 외부 의존성 없이 표준 라이브러리 sqlite3로 동작 (stripe는 웹훅에서만 지연 import).
+- 외부 의존성 없이 표준 라이브러리 sqlite3로 동작 (stripe는 결제에서만 지연 import).
 - API 키 기반 테넌트 식별, 월간 논문 생성 한도(Free 3편/월, Pro·Enterprise 무제한).
 - mcp_server.py 가 이 모듈을 사용해 인증/한도/미터링을 적용한다.
 """
@@ -323,3 +323,36 @@ def handle_stripe_event(event: dict[str, Any]) -> dict[str, Any]:
             result.update(handled=True, user_id=user["id"], plan="free")
 
     return result
+
+
+# ---------------------------------------------------------------- checkout
+def stripe_configured() -> bool:
+    return bool(os.getenv("STRIPE_SECRET_KEY") and os.getenv("STRIPE_PRICE_PRO"))
+
+
+def create_checkout_session(
+    api_key: str, success_url: str, cancel_url: str, plan: str = "pro"
+) -> dict[str, Any]:
+    """Stripe Checkout 세션 생성 → 결제 URL 반환.
+
+    STRIPE_SECRET_KEY / STRIPE_PRICE_PRO(또는 ENTERPRISE) 환경변수 필요.
+    client_reference_id 에 api_key 를 실어 결제 완료 웹훅에서 사용자를 식별한다.
+    """
+    if not stripe_configured():
+        raise RuntimeError(
+            "Stripe 미설정: STRIPE_SECRET_KEY 와 STRIPE_PRICE_PRO 환경변수를 설정하세요."
+        )
+    import stripe  # 지연 import
+
+    stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+    price = os.getenv(
+        "STRIPE_PRICE_ENTERPRISE" if plan == "enterprise" else "STRIPE_PRICE_PRO"
+    )
+    session = stripe.checkout.Session.create(
+        mode="subscription",
+        line_items=[{"price": price, "quantity": 1}],
+        success_url=success_url,
+        cancel_url=cancel_url,
+        client_reference_id=api_key,
+    )
+    return {"checkout_url": session.url, "session_id": session.id}

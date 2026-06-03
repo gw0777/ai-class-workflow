@@ -5,7 +5,7 @@
 - MCP(Model Context Protocol) 서버: 각 Stage(1~7)와 전체 실행을 MCP tool로 노출. `/mcp` 마운트.
 - FastAPI REST API: n8n HTTP Request 노드가 호출. `/api/...`.
 - 수익화: API 키 인증 + 테넌트별 사용량 미터링 + 월간 한도(Free 3편/월, Pro 무제한)
-    + Stripe 웹훅 + /api/plans, /api/usage, /api/signup.
+    + Stripe 웹훅/체크아웃 + 비동기 작업큐 + /api/plans, /api/usage, /api/signup.
 
 실행
 ----
@@ -15,14 +15,17 @@
 """
 from __future__ import annotations
 
+import asyncio
 import os
 from contextlib import asynccontextmanager
 from typing import Any
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request
+from fastapi.responses import HTMLResponse
 from mcp.server.fastmcp import FastMCP
 
 import billing
+import jobs
 from models import (
     EvidenceStructure,
     PipelineRequest,
@@ -130,6 +133,7 @@ async def run_full_pipeline(
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     billing.init_db()
+    jobs.init_db()
     async with mcp.session_manager.run():
         yield
 
@@ -137,7 +141,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="논문생산 파이프라인 v2 (구독 SaaS)",
     description="한국특수체육학회지 SEM 논문 자동생산 + 구독 기반 수익화 (FastAPI + MCP SDK)",
-    version="2.1.0",
+    version="2.2.0",
     lifespan=lifespan,
 )
 
@@ -180,7 +184,7 @@ async def current_user(x_api_key: str | None = Header(default=None, alias="X-API
 async def health() -> dict[str, Any]:
     return {
         "status": "ok",
-        "version": "2.1.0",
+        "version": "2.2.0",
         "billing_enabled": BILLING_ENABLED,
         "claude_model": settings.claude_model,
         "gemini_model": settings.gemini_model,
@@ -321,6 +325,117 @@ async def stripe_webhook(request: Request) -> dict[str, Any]:
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     return billing.handle_stripe_event(event)
+
+
+# ----- Stripe Checkout (결제 페이지 세션 생성) ------------------------------ #
+@app.post("/api/checkout")
+async def api_checkout(payload: dict[str, Any] | None = None, user: dict = Depends(current_user)) -> dict[str, Any]:
+    """Pro 구독 결제를 위한 Stripe Checkout 세션 생성 → 결제 URL 반환."""
+    if user.get("id", 0) == 0 or not user.get("api_key"):
+        raise HTTPException(status_code=400, detail="유효한 API 키 사용자만 결제할 수 있습니다.")
+    if not billing.stripe_configured():
+        raise HTTPException(
+            status_code=501,
+            detail="Stripe 미설정: STRIPE_SECRET_KEY 와 STRIPE_PRICE_PRO 환경변수를 설정하세요.",
+        )
+    payload = payload or {}
+    success = payload.get("success_url", "https://example.com/success")
+    cancel = payload.get("cancel_url", "https://example.com/cancel")
+    plan = payload.get("plan", "pro")
+    try:
+        return billing.create_checkout_session(user["api_key"], success, cancel, plan)
+    except Exception as exc:  # noqa: BLE001
+        raise HTTPException(status_code=500, detail=f"Checkout 생성 실패: {exc}") from exc
+
+
+# ----- 비동기 작업 큐 (긴 논문 생성을 job 으로 처리) ------------------------- #
+async def _run_job(job_id: str, request: PipelineRequest, user_id: int) -> None:
+    jobs.set_running(job_id)
+    try:
+        result = await pipeline.run(request)
+        if BILLING_ENABLED and user_id != 0:
+            billing.record_paper(
+                user_id, request.topic,
+                {"passed": result.passed, "total": (result.evaluation.total if result.evaluation else None)},
+            )
+        jobs.set_result(job_id, result.to_public_dict())
+    except Exception as exc:  # noqa: BLE001
+        jobs.set_error(job_id, f"{type(exc).__name__}: {exc}")
+
+
+@app.post("/api/pipeline/jobs")
+async def api_create_job(request: PipelineRequest, user: dict = Depends(current_user)) -> dict[str, Any]:
+    """논문 생성을 비동기 job 으로 시작. 즉시 job_id 반환(타임아웃 회피)."""
+    if BILLING_ENABLED and user["id"] != 0 and not billing.can_generate(user["id"]):
+        q = billing.quota_status(user["id"])
+        raise HTTPException(
+            status_code=402,
+            detail=f"이번 달 무료 한도({q['monthly_paper_limit']}편)를 모두 사용했습니다. Pro로 업그레이드하세요.",
+        )
+    job_id = jobs.create_job(user["id"], request.topic)
+    asyncio.create_task(_run_job(job_id, request, user["id"]))
+    return {"job_id": job_id, "status": "queued", "poll": f"/api/pipeline/jobs/{job_id}"}
+
+
+@app.get("/api/pipeline/jobs/{job_id}")
+async def api_get_job(job_id: str, user: dict = Depends(current_user)) -> dict[str, Any]:
+    """job 상태/결과 조회."""
+    job = jobs.get_job(job_id, user_id=(None if user["id"] == 0 else user["id"]))
+    if not job:
+        raise HTTPException(status_code=404, detail="job 을 찾을 수 없습니다.")
+    return job
+
+
+@app.get("/api/pipeline/jobs")
+async def api_list_jobs(user: dict = Depends(current_user)) -> dict[str, Any]:
+    """내 job 목록."""
+    if user["id"] == 0:
+        return {"jobs": []}
+    return {"jobs": jobs.list_jobs(user["id"])}
+
+
+# ----- 랜딩/대시보드 (간단 HTML) -------------------------------------------- #
+_LANDING_HTML = """<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>논문생산 파이프라인 v2</title>
+<style>
+ body{font-family:system-ui,-apple-system,'Malgun Gothic',sans-serif;max-width:860px;margin:40px auto;padding:0 16px;color:#1a1a2e;line-height:1.6}
+ h1{font-size:1.9rem} .sub{color:#555}
+ .plans{display:flex;gap:16px;flex-wrap:wrap;margin:24px 0}
+ .card{flex:1;min-width:220px;border:1px solid #e0e0e8;border-radius:12px;padding:20px}
+ .card.pro{border-color:#4a6cf7;box-shadow:0 4px 16px rgba(74,108,247,.12)}
+ .price{font-size:1.6rem;font-weight:700;margin:8px 0}
+ .badge{display:inline-block;background:#4a6cf7;color:#fff;border-radius:6px;padding:2px 8px;font-size:.75rem}
+ code{background:#f4f4f8;padding:2px 6px;border-radius:4px}
+ ul{padding-left:18px} li{margin:4px 0}
+</style></head><body>
+<h1>논문생산 무인 파이프라인 v2</h1>
+<p class="sub">주제만 입력하면 한국특수체육학회지 양식의 SEM 논문 초안과 DOCX를 자동 생성합니다.</p>
+<div class="plans">
+ <div class="card"><span class="badge" style="background:#888">Free</span>
+  <div class="price">$0<span style="font-size:.9rem;color:#888">/월</span></div>
+  <ul><li>월 3편 생성</li><li>DOCX 내보내기</li><li>문헌 자동 수집</li></ul></div>
+ <div class="card pro"><span class="badge">Pro</span>
+  <div class="price">$29<span style="font-size:.9rem;color:#888">/월</span></div>
+  <ul><li>무제한 생성</li><li>우선 처리</li><li>생성 이력 보관</li><li>이메일 지원</li></ul></div>
+ <div class="card"><span class="badge" style="background:#333">Enterprise</span>
+  <div class="price">문의</div>
+  <ul><li>팀 좌석 · 온프레미스</li><li>SSO · 감사로그</li><li>전용 지원 · SLA</li></ul></div>
+</div>
+<h3>시작하기</h3>
+<ol>
+ <li>API 키 발급: <code>POST /api/signup</code></li>
+ <li>플랜 확인: <code>GET /api/plans</code> · 사용량: <code>GET /api/usage</code></li>
+ <li>논문 생성(비동기): <code>POST /api/pipeline/jobs</code> → <code>GET /api/pipeline/jobs/{id}</code></li>
+ <li>Pro 결제: <code>POST /api/checkout</code></li>
+</ol>
+<p class="sub">⚠️ 생성 결과의 통계·인용은 초안용 예시 수치입니다. 실제 게재 전 실측 데이터로 검증하세요.</p>
+</body></html>"""
+
+
+@app.get("/", response_class=HTMLResponse)
+async def landing() -> str:
+    return _LANDING_HTML
 
 
 if __name__ == "__main__":  # pragma: no cover
