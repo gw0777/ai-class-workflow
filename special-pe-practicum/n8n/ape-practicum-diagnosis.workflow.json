@@ -1,0 +1,224 @@
+{
+  "name": "특수체육 현장실습 역량진단·교수적합화 (5영역)",
+  "meta": {
+    "aiBuilderAssisted": true,
+    "builderVariant": "mcp",
+    "exportedFrom": "https://aigw2026.app.n8n.cloud/workflow/GShLyUWZH8rMcPVt",
+    "workflowId": "GShLyUWZH8rMcPVt",
+    "notes": "준비도 컷오프 65/40, 장애유형별 교수적합화, 결과 Data Table 자동기록. dataTableId 's7lc68owevdCH6wV'는 사용자 n8n 프로젝트 종속 — import 시 본인 Data Table ID로 교체 필요."
+  },
+  "settings": { "executionOrder": "v1" },
+  "nodes": [
+    {
+      "id": "intake-001",
+      "name": "Practicum Competency Intake",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [0, 192],
+      "parameters": {
+        "formTitle": "특수체육 현장 교육실습 — 역량진단",
+        "formDescription": "미국 APAQ·일본 연구 기반 실습생 사전 역량진단입니다. 솔직하게 응답해 주세요.",
+        "formFields": {
+          "values": [
+            { "fieldLabel": "실습생 이름/식별자", "fieldName": "traineeName", "fieldType": "text", "requiredField": true },
+            { "fieldLabel": "장애유형 이해도 (1=낮음 ~ 5=높음)", "fieldName": "understanding", "fieldType": "number", "requiredField": true },
+            { "fieldLabel": "지도 경험", "fieldName": "experience", "fieldType": "dropdown", "fieldOptions": { "values": [{ "option": "없음" }, { "option": "1-2회" }, { "option": "여러 번" }] }, "requiredField": true },
+            { "fieldLabel": "지도 자기효능감 (1=낮음 ~ 5=높음)", "fieldName": "selfEfficacy", "fieldType": "number", "requiredField": true },
+            { "fieldLabel": "안전·응급 지식 (1=낮음 ~ 5=높음)", "fieldName": "safety", "fieldType": "number", "requiredField": true },
+            { "fieldLabel": "의사소통 전략 숙지 (1=낮음 ~ 5=높음)", "fieldName": "communication", "fieldType": "number", "requiredField": true },
+            { "fieldLabel": "담당 학습자 주 장애유형", "fieldName": "disabilityType", "fieldType": "dropdown", "fieldOptions": { "values": [{ "option": "자폐성장애" }, { "option": "지적장애" }, { "option": "지체장애" }, { "option": "시각장애" }, { "option": "청각장애" }] }, "requiredField": true },
+            { "fieldLabel": "수업 활동 유형", "fieldName": "activityType", "fieldType": "dropdown", "fieldOptions": { "values": [{ "option": "기초운동/이동" }, { "option": "구기/게임" }, { "option": "수영/수중" }, { "option": "표현/리듬" }] }, "requiredField": true }
+          ]
+        },
+        "responseMode": "lastNode"
+      }
+    },
+    {
+      "id": "engine-002",
+      "name": "Competency Engine (영역①②)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [224, 192],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "language": "javaScript",
+        "jsCode": "const d = $json;\nconst expMap = { \"없음\": 1, \"1-2회\": 3, \"여러 번\": 5 };\nconst expScore = expMap[d.experience] || 1;\nconst items = [Number(d.understanding)||1, Number(d.selfEfficacy)||1, Number(d.safety)||1, Number(d.communication)||1, expScore];\nconst sum = items.reduce((a,b)=>a+b,0);\nconst readinessScore = Math.round(((sum - 5) / 20) * 100);\nlet gaps = [];\nif (Number(d.understanding) <= 2) gaps.push(\"장애유형 이해 부족\");\nif (Number(d.selfEfficacy) <= 2) gaps.push(\"자기효능감 낮음\");\nif (Number(d.safety) <= 2) gaps.push(\"안전·응급 지식 부족\");\nif (Number(d.communication) <= 2) gaps.push(\"의사소통 전략 미흡\");\nif (expScore <= 1) gaps.push(\"현장 지도 경험 없음\");\nconst gapsText = gaps.length ? gaps.join(\", \") : \"주요 결손 없음\";\nconst noteMap = {\n  \"자폐성장애\": \"구조화·예측가능 루틴, 시각적 단서, 감각 고려\",\n  \"지적장애\": \"과제 단순화·단계화, 반복·구체적 피드백\",\n  \"지체장애\": \"용기구·환경 수정, 보조기구·접근성 확보\",\n  \"시각장애\": \"청각·촉각 단서, 공간 안내, 음향 신호\",\n  \"청각장애\": \"시각 신호·수어/제스처, 시범 중심 지도\"\n};\nconst disabilityNote = noteMap[d.disabilityType] || \"개별 특성 고려\";\nreturn { ...d, readinessScore, gaps, gapsText, disabilityNote };"
+      }
+    },
+    {
+      "id": "if-high-003",
+      "name": "주도지도 가능?(>=65) (영역③)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [448, 192],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose" },
+          "conditions": [{ "leftValue": "={{ $json.readinessScore }}", "operator": { "type": "number", "operation": "gte" }, "rightValue": 65 }],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "adapt-high-004",
+      "name": "주도지도 적합화 (영역③④)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [672, 0],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": true,
+        "assignments": {
+          "assignments": [
+            { "id": "lv", "name": "readinessLevel", "value": "높음(주도지도)", "type": "string" },
+            { "id": "role", "name": "fieldRole", "value": "주도지도(lead) — 수퍼바이저 관찰 하 단독 진행", "type": "string" },
+            { "id": "ad", "name": "adaptationPlan", "value": "=학습자 프로파일 기반 개별 과제 설계 + 또래교수 활용. 장애 고려: {{ $json.disabilityNote }}. 직접교수→개별화 모형 전이.", "type": "string" },
+            { "id": "re", "name": "reassessPlan", "value": "실습 2주차 역량 재평가", "type": "string" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "report-high-005",
+      "name": "Result (영역⑤·높음)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [896, 0],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": true,
+        "assignments": {
+          "assignments": [
+            { "id": "rep", "name": "report", "value": "=실습 역량진단: {{ $json.readinessLevel }} (준비도 {{ $json.readinessScore }}/100)\n담당: {{ $json.disabilityType }} / 활동: {{ $json.activityType }}\n보완 필요: {{ $json.gapsText }}\n현장 역할: {{ $json.fieldRole }}\n교수적합화: {{ $json.adaptationPlan }}\n재평가: {{ $json.reassessPlan }}", "type": "string" },
+            { "id": "dis", "name": "disclaimer", "value": "본 결과는 실습 지도·자기개발 참고용이며 공식 평가를 대체하지 않습니다.", "type": "string" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "if-mid-006",
+      "name": "공동지도 가능?(>=40) (영역③)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [672, 288],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose" },
+          "conditions": [{ "leftValue": "={{ $json.readinessScore }}", "operator": { "type": "number", "operation": "gte" }, "rightValue": 40 }],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "adapt-mid-007",
+      "name": "공동지도 적합화 (영역③④)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [896, 192],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": true,
+        "assignments": {
+          "assignments": [
+            { "id": "lv", "name": "readinessLevel", "value": "중간(공동지도)", "type": "string" },
+            { "id": "role", "name": "fieldRole", "value": "공동지도(co-teach) — 수퍼바이저와 분담 진행", "type": "string" },
+            { "id": "ad", "name": "adaptationPlan", "value": "=과제 난이도 조절 + 환경/용기구 수정, 수업 전 수퍼바이저 협의. 장애 고려: {{ $json.disabilityNote }}. 직접교수 모형 중심.", "type": "string" },
+            { "id": "re", "name": "reassessPlan", "value": "실습 1주차 + 종료 시 재평가", "type": "string" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "report-mid-008",
+      "name": "Result (영역⑤·중간)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1120, 192],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": true,
+        "assignments": {
+          "assignments": [
+            { "id": "rep", "name": "report", "value": "=실습 역량진단: {{ $json.readinessLevel }} (준비도 {{ $json.readinessScore }}/100)\n담당: {{ $json.disabilityType }} / 활동: {{ $json.activityType }}\n보완 필요: {{ $json.gapsText }}\n현장 역할: {{ $json.fieldRole }}\n교수적합화: {{ $json.adaptationPlan }}\n재평가: {{ $json.reassessPlan }}", "type": "string" },
+            { "id": "dis", "name": "disclaimer", "value": "본 결과는 실습 지도·자기개발 참고용이며 공식 평가를 대체하지 않습니다.", "type": "string" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "adapt-low-009",
+      "name": "보조·관찰 배정 (영역③④)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [896, 384],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": true,
+        "assignments": {
+          "assignments": [
+            { "id": "lv", "name": "readinessLevel", "value": "낮음(보조·관찰)", "type": "string" },
+            { "id": "role", "name": "fieldRole", "value": "보조·관찰(assist/observe) — 사전연수 우선", "type": "string" },
+            { "id": "ad", "name": "adaptationPlan", "value": "=결손 영역 사전연수 + 안전 프로토콜 숙지 후 보조 투입. 장애 고려: {{ $json.disabilityNote }}. 관찰 체크리스트 기반 학습.", "type": "string" },
+            { "id": "re", "name": "reassessPlan", "value": "사전연수 후 + 매주 재평가", "type": "string" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "report-low-010",
+      "name": "Result (영역⑤·낮음)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1120, 384],
+      "parameters": {
+        "mode": "manual",
+        "includeOtherFields": true,
+        "assignments": {
+          "assignments": [
+            { "id": "rep", "name": "report", "value": "=실습 역량진단: {{ $json.readinessLevel }} (준비도 {{ $json.readinessScore }}/100)\n담당: {{ $json.disabilityType }} / 활동: {{ $json.activityType }}\n보완 필요: {{ $json.gapsText }}\n현장 역할: {{ $json.fieldRole }}\n교수적합화: {{ $json.adaptationPlan }}\n재평가: {{ $json.reassessPlan }}", "type": "string" },
+            { "id": "dis", "name": "disclaimer", "value": "본 결과는 실습 지도·자기개발 참고용이며 공식 평가를 대체하지 않습니다.", "type": "string" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "log-011",
+      "name": "실습 기록 (영역⑤ 현장추적)",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [1344, 192],
+      "parameters": {
+        "resource": "row",
+        "operation": "insert",
+        "dataTableId": { "__rl": true, "mode": "id", "value": "s7lc68owevdCH6wV" },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "submittedAt": "={{ $now.toISO() }}",
+            "traineeName": "={{ $json.traineeName }}",
+            "disabilityType": "={{ $json.disabilityType }}",
+            "activityType": "={{ $json.activityType }}",
+            "readinessScore": "={{ $json.readinessScore }}",
+            "readinessLevel": "={{ $json.readinessLevel }}",
+            "gapsText": "={{ $json.gapsText }}",
+            "adaptationPlan": "={{ $json.adaptationPlan }}",
+            "fieldRole": "={{ $json.fieldRole }}",
+            "reassessPlan": "={{ $json.reassessPlan }}"
+          }
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Practicum Competency Intake": { "main": [[{ "node": "Competency Engine (영역①②)", "type": "main", "index": 0 }]] },
+    "Competency Engine (영역①②)": { "main": [[{ "node": "주도지도 가능?(>=65) (영역③)", "type": "main", "index": 0 }]] },
+    "주도지도 가능?(>=65) (영역③)": { "main": [[{ "node": "주도지도 적합화 (영역③④)", "type": "main", "index": 0 }], [{ "node": "공동지도 가능?(>=40) (영역③)", "type": "main", "index": 0 }]] },
+    "주도지도 적합화 (영역③④)": { "main": [[{ "node": "Result (영역⑤·높음)", "type": "main", "index": 0 }]] },
+    "Result (영역⑤·높음)": { "main": [[{ "node": "실습 기록 (영역⑤ 현장추적)", "type": "main", "index": 0 }]] },
+    "공동지도 가능?(>=40) (영역③)": { "main": [[{ "node": "공동지도 적합화 (영역③④)", "type": "main", "index": 0 }], [{ "node": "보조·관찰 배정 (영역③④)", "type": "main", "index": 0 }]] },
+    "공동지도 적합화 (영역③④)": { "main": [[{ "node": "Result (영역⑤·중간)", "type": "main", "index": 0 }]] },
+    "Result (영역⑤·중간)": { "main": [[{ "node": "실습 기록 (영역⑤ 현장추적)", "type": "main", "index": 0 }]] },
+    "보조·관찰 배정 (영역③④)": { "main": [[{ "node": "Result (영역⑤·낮음)", "type": "main", "index": 0 }]] },
+    "Result (영역⑤·낮음)": { "main": [[{ "node": "실습 기록 (영역⑤ 현장추적)", "type": "main", "index": 0 }]] }
+  }
+}
