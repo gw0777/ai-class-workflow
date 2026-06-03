@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import logging
 
+from pathlib import Path
+
 from .config import settings
 from .database import create_tables
 
@@ -19,6 +21,9 @@ async def lifespan(app: FastAPI):
     # Startup
     logger.info("Starting up application...")
     logger.info(f"Database URL: {settings.DATABASE_URL.split('@')[1] if '@' in settings.DATABASE_URL else 'Not configured'}")
+
+    # Ensure upload directory exists
+    Path(settings.UPLOAD_DIR).mkdir(parents=True, exist_ok=True)
 
     # Create tables (in production, use Alembic migrations instead)
     if settings.DEBUG:
@@ -71,11 +76,12 @@ async def health_check():
 
 
 # Import and include routers
-from .routers import auth, activities, users
+from .routers import auth, activities, users, documents
 
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["Authentication"])
 app.include_router(activities.router, prefix="/api/v1/activities", tags=["Activities"])
 app.include_router(users.router, prefix="/api/v1/users", tags=["Users"])
+app.include_router(documents.router, prefix="/api/v1/documents", tags=["Documents"])
 
 # TODO: Add these routers later
 # from .routers import locations, analysis

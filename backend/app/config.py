@@ -33,6 +33,10 @@ class Settings(BaseSettings):
     # Timezone
     DEFAULT_TIMEZONE: str = "Asia/Seoul"
 
+    # File uploads
+    UPLOAD_DIR: str = "./uploads"
+    MAX_UPLOAD_SIZE_MB: int = 20
+
     class Config:
         env_file = ".env"
         case_sensitive = True

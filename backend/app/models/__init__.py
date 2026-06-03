@@ -6,6 +6,7 @@ from .location_context import LocationContext
 from .user_input import UserInput
 from .analysis_report import AnalysisReport
 from .location_cluster import LocationCluster
+from .document import Document
 
 __all__ = [
     "User",
@@ -14,4 +15,5 @@ __all__ = [
     "UserInput",
     "AnalysisReport",
     "LocationCluster",
+    "Document",
 ]

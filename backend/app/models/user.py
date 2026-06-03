@@ -33,6 +33,7 @@ class User(Base):
     user_inputs = relationship("UserInput", back_populates="user", cascade="all, delete-orphan")
     analysis_reports = relationship("AnalysisReport", back_populates="user", cascade="all, delete-orphan")
     location_clusters = relationship("LocationCluster", back_populates="user", cascade="all, delete-orphan")
+    documents = relationship("Document", back_populates="user", cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"<User(id={self.id}, username={self.username})>"

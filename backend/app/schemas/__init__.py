@@ -21,6 +21,11 @@ from .location import (
     LocationClusterCreate,
     LocationClusterUpdate,
 )
+from .document import (
+    DocumentSummary,
+    DocumentDetail,
+    DocumentList,
+)
 
 __all__ = [
     "User",
@@ -43,4 +48,7 @@ __all__ = [
     "LocationCluster",
     "LocationClusterCreate",
     "LocationClusterUpdate",
+    "DocumentSummary",
+    "DocumentDetail",
+    "DocumentList",
 ]
