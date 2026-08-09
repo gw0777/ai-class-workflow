@@ -1,0 +1,118 @@
+version: "1.0"
+name: education-co-design
+language: ko
+default_duration_minutes: 180
+human_owner: professor
+completion_policy:
+  structure_score_min: 98
+  operation_score_min: 90
+  weekly_operation_score_min: 80
+  critical_defects_max: 0
+  require_human_approval: true
+retry_policy:
+  max_revision_cycles: 2
+  escalate_after: 2
+  never_auto_approve: true
+
+roles:
+  co_designer:
+    id: EDU-DESIGNER
+    stage: proposal
+    purpose: "교수자의 의도와 학습자 맥락을 180분 수업 설계로 변환"
+    tools:
+      - source_search
+      - curriculum_read
+      - prior_artifact_read
+      - rubric_read
+    writes:
+      - design_proposal
+      - decision_log
+    cannot:
+      - overwrite_final_artifacts
+      - approve_own_proposal
+  producer:
+    id: EDU-PRODUCER
+    stage: build
+    purpose: "승인된 설계를 사용 가능한 수업자료로 구현"
+    tools:
+      - approved_proposal_read
+      - template_read
+      - artifact_create
+      - artifact_render
+    writes:
+      - presentation
+      - worksheet
+      - source_packet
+      - assessment_packet
+    cannot:
+      - change_learning_goals_without_reapproval
+      - mark_ready
+  qa:
+    id: EDU-QA
+    stage: verification
+    purpose: "근거·운영성·특수교육적 적합성을 독립 검수"
+    tools:
+      - artifact_read
+      - source_verify
+      - render_inspect
+      - rubric_score
+    writes:
+      - qa_report
+      - defect_list
+    cannot:
+      - silently_repair_artifacts
+      - approve_missing_evidence
+
+states:
+  - INTAKE
+  - PROPOSAL
+  - HUMAN_REVIEW
+  - BUILD
+  - QA
+  - REVISION
+  - READY
+  - BLOCKED
+
+transitions:
+  INTAKE: PROPOSAL
+  PROPOSAL: HUMAN_REVIEW
+  HUMAN_REVIEW:
+    approved: BUILD
+    revise: PROPOSAL
+    hold: BLOCKED
+  BUILD: QA
+  QA:
+    pass: READY
+    artifact_fix: BUILD
+    design_fix: PROPOSAL
+    blocked: BLOCKED
+  REVISION: QA
+
+required_weekly_outputs:
+  - instructor_runbook
+  - presentation
+  - source_or_case_packet
+  - student_worksheet
+  - worked_example
+  - incomplete_example
+  - assessment_or_exit_ticket
+  - differentiated_support
+  - next_week_link
+
+lesson_frame:
+  - minutes: 10
+    block: opening_recall
+  - minutes: 25
+    block: concept_input
+  - minutes: 30
+    block: source_case_analysis
+  - minutes: 10
+    block: break_transition
+  - minutes: 45
+    block: guided_practice
+  - minutes: 30
+    block: artifact_production
+  - minutes: 20
+    block: sharing_feedback
+  - minutes: 10
+    block: formative_check
