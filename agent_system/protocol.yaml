@@ -1,4 +1,4 @@
-version: "1.0"
+version: "1.1"
 name: education-co-design
 language: ko
 default_duration_minutes: 180
@@ -62,6 +62,23 @@ roles:
     cannot:
       - silently_repair_artifacts
       - approve_missing_evidence
+  lead_reviewer:
+    id: EDU-LEAD
+    stage: governance
+    purpose: "QA 결과와 결함 종료 여부를 상위 관점에서 재검토"
+    tools:
+      - qa_report_read
+      - decision_log_read
+      - score_recalculate
+      - defect_history_read
+      - escalation_write
+    writes:
+      - upper_review
+      - release_decision
+    cannot:
+      - approve_unresolved_critical_defects
+      - waive_human_approval
+      - silently_edit_artifacts
 
 states:
   - INTAKE
@@ -69,7 +86,8 @@ states:
   - HUMAN_REVIEW
   - BUILD
   - QA
-  - REVISION
+  - LOOP_STATION
+  - LEAD_REVIEW
   - READY
   - BLOCKED
 
@@ -81,12 +99,43 @@ transitions:
     revise: PROPOSAL
     hold: BLOCKED
   BUILD: QA
-  QA:
-    pass: READY
+  QA: LOOP_STATION
+  LOOP_STATION:
     artifact_fix: BUILD
     design_fix: PROPOSAL
+    clear: LEAD_REVIEW
     blocked: BLOCKED
-  REVISION: QA
+  LEAD_REVIEW:
+    pass: READY
+    return_to_loop: LOOP_STATION
+    return_to_design: PROPOSAL
+    blocked: BLOCKED
+
+loop_station:
+  max_cycles: 2
+  required_passes:
+    - id: preflight
+      question: "파일이 열리고 필수 산출물이 모두 존재하는가?"
+    - id: evidence
+      question: "성취기준·법령·사례·통계의 근거가 확인되는가?"
+    - id: pedagogy
+      question: "학습목표·활동·산출물·평가가 연결되는가?"
+    - id: operation
+      question: "학습자가 180분 동안 실제로 수행할 일이 충분한가?"
+    - id: render
+      question: "PPT·실습지의 시각적 배치와 사용성이 정상인가?"
+  exit_rule:
+    - "모든 pass가 PASS"
+    - "Critical 결함 0"
+    - "운영 점수 90점 이상"
+    - "교수자 승인 기록 존재"
+  repeat_record:
+    required:
+      - cycle_number
+      - pass_results
+      - changed_files
+      - remaining_defects
+      - next_transition
 
 required_weekly_outputs:
   - instructor_runbook
