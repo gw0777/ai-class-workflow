@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>루프 스테이션 대시보드</title>
+<style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#5c5c5c; --line:#dcdcdc;
+  --card:#f6f6f6; --accent:#2456a6; --pass:#1c7a3d; --fail:#b32424;
+  --bar:#2456a6; --barbg:#e4e4e4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#16181c; --fg:#e8e8e8; --muted:#a0a0a0; --line:#3a3d44;
+    --card:#20232a; --accent:#7fa7e0; --pass:#54c078; --fail:#e06c6c;
+    --bar:#7fa7e0; --barbg:#33363d; } }
+* { box-sizing: border-box; }
+body { margin:0; padding:2rem 1rem; background:var(--bg); color:var(--fg);
+  font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif; line-height:1.6; }
+main { max-width:60rem; margin:0 auto; }
+h1 { font-size:1.5rem; } h2 { font-size:1.15rem; margin-top:2rem; }
+a { color:var(--accent); }
+table { border-collapse:collapse; width:100%; margin:0.5rem 0; }
+th, td { border:1px solid var(--line); padding:0.4rem 0.6rem; text-align:left;
+  font-size:0.92rem; }
+th { background:var(--card); }
+.tablewrap { overflow-x:auto; }
+.tiles { display:flex; flex-wrap:wrap; gap:0.8rem; margin:1rem 0; }
+.tile { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding:0.8rem 1.2rem; min-width:9rem; }
+.tile .num { font-size:1.6rem; font-weight:bold; }
+.tile .lbl { color:var(--muted); font-size:0.85rem; }
+.badge { display:inline-block; padding:0.1rem 0.55rem; border-radius:999px;
+  font-size:0.8rem; font-weight:bold; }
+.badge.pass { background:var(--pass); color:#fff; }
+.badge.fail { background:var(--fail); color:#fff; }
+.bar { background:var(--barbg); border-radius:4px; height:0.6rem; width:100%;
+  min-width:6rem; overflow:hidden; }
+.bar > span { display:block; height:100%; background:var(--bar); }
+.muted { color:var(--muted); font-size:0.88rem; }
+.sev-critical { color:var(--fail); font-weight:bold; }
+.sev-major { color:var(--fail); }
+.sev-minor { color:var(--muted); }
+footer { margin-top:3rem; color:var(--muted); font-size:0.85rem; }
+
+</style>
+</head>
+<body>
+<main>
+<h1>루프 스테이션 대시보드</h1>
+<p class="muted">모든 산출물은 98/100점 게이트를 통과해야 합니다. (agent.md 참조)</p>
+<div class="tiles">
+<div class="tile"><div class="num">1</div><div class="lbl">총 실행 수</div></div>
+<div class="tile"><div class="num">1</div><div class="lbl">통과 실행</div></div>
+<div class="tile"><div class="num">99.0</div><div class="lbl">평균 최종 점수</div></div>
+<div class="tile"><div class="num">2.0</div><div class="lbl">평균 회전 수</div></div>
+</div>
+<p class="muted">유형별: 교육/수업 자료 1건</p>
+<div class="tablewrap"><table>
+<tr><th>run_id</th><th>일시</th><th>유형</th><th>제목</th><th>회전</th>
+<th>최종 점수</th><th></th><th>판정</th></tr>
+<tr><td><a href="run-20260825-101500-cooperative-pe-worksheet.html">20260825-101500-cooperative-pe-worksheet</a></td><td>2026-08-25T10:15:00+09:00</td><td>교육/수업 자료</td><td>협동학습 줄넘기 활동지 — 함께 뛰는 우리 모둠</td><td>2회전</td><td>99/100</td><td><div class="bar" role="img" aria-label="99점"><span style="width:99%"></span></div></td><td><span class="badge pass">통과</span></td></tr></table></div>
+
+<footer>루프 스테이션 — 98점 게이트 품질 시스템 (loopstation.py build 로 생성됨)</footer>
+</main>
+</body>
+</html>
