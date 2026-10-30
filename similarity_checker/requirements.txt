@@ -1,0 +1,10 @@
+# 핵심 기능은 표준 라이브러리만으로 동작(텍스트/마크다운 입력, 색인, 비교, 리포트).
+# 아래는 파일 형식별 추출 및 온라인 검증을 위한 선택 의존성.
+pdfplumber>=0.11      # PDF 본문 추출(한글 띄어쓰기 품질 우수). 없으면 pypdf → pdftotext 순으로 대체
+pypdf>=4.0            # PDF 보조 추출기
+python-docx>=1.1      # DOCX
+python-pptx>=1.0      # PPTX
+requests>=2.31        # Crossref/OpenAlex/GitHub API
+
+# 테스트
+pytest>=8.0
