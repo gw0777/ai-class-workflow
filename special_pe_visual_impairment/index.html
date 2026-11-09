@@ -1,0 +1,1454 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!-- 아티팩트 본문 시작: 아티팩트로 올릴 때는 이 줄과 「아티팩트 본문 끝」 줄 사이만 올립니다(바깥 문서 틀은 게시할 때 자동으로 붙습니다). -->
+<title>특수체육 시각장애 교재</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Gothic:wght@400;700;800&family=Nanum+Myeongjo:wght@400;700&family=Nanum+Gothic+Coding&display=swap">
+<style>
+/* Layout: 원본 교재의 실무 안내서 판형(왼쪽 고정 차례 260px + 본문 단 720px)을 그대로 쓴다.
+   흰 종이·검은 굵은 제목에 강조는 점자블록 노랑 하나. 노랑은 「바탕」으로만 쓰고 그 위 글자는 늘 검정.
+   점형 블록 무늬(점) = 멈춤·안전, 선형 블록 무늬(줄) = 가이드·이동 방향. 저시력 독자를 위해 본문은 고딕, 글자 크기·고대비 설정을 둔다. */
+:root{
+  --bg:#ffffff; --paper:#ffffff; --sunk:#f3f3ef; --ink:#151515; --muted:#5d5b55; --line:#dcdbd3;
+  --tile:#f5c400; --on-tile:#151515; --tile-soft:#fff6cf; --stop:#b3261e; --ok:#2f6f3e;
+  --code:#f8f7f2; --ph:#ffffff;
+  --display:"Nanum Gothic","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --serif:"Nanum Myeongjo","AppleMyungjo","Batang",serif;
+  --heavy:"Black Han Sans","Nanum Gothic","Apple SD Gothic Neo",sans-serif;
+  --mono:"Nanum Gothic Coding","D2Coding",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121212; --paper:#1a1a19; --sunk:#242421; --ink:#f3f1ea; --muted:#aba79d; --line:#3a3934;
+  --tile:#ffd21f; --on-tile:#121212; --tile-soft:#352c06; --stop:#ff8a80; --ok:#86d494;
+  --code:#1c1c1a; --ph:#121212; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121212; --paper:#1a1a19; --sunk:#242421; --ink:#f3f1ea; --muted:#aba79d; --line:#3a3934;
+  --tile:#ffd21f; --on-tile:#121212; --tile-soft:#352c06; --stop:#ff8a80; --ok:#86d494;
+  --code:#1c1c1a; --ph:#121212; color-scheme:dark}
+/* 고대비: 회색 글자와 옅은 선을 없앤다 */
+:root[data-contrast="high"]{--muted:#262626; --line:#151515; --sunk:#ffffff; --code:#ffffff; --tile-soft:#ffffff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"])[data-contrast="high"]{--muted:#ecebe5; --line:#f3f1ea; --sunk:#121212; --code:#121212; --tile-soft:#121212}}
+:root[data-theme="dark"][data-contrast="high"]{--muted:#ecebe5; --line:#f3f1ea; --sunk:#121212; --code:#121212; --tile-soft:#121212}
+:root[data-fs="l"]{font-size:112.5%}
+:root[data-fs="xl"]{font-size:125%}
+*{box-sizing:border-box}
+html{scroll-padding-top:calc(16px + env(safe-area-inset-top,0px))}
+body{background:var(--bg);color:var(--ink);font-family:var(--display);font-size:1rem;line-height:1.75;word-break:keep-all;overflow-wrap:break-word}
+h1,h2,h3,h4{text-wrap:balance;line-height:1.3;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px;box-shadow:0 0 0 6px var(--tile)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.skip{position:absolute;z-index:30;left:max(16px,env(safe-area-inset-left,0px));top:calc(8px + env(safe-area-inset-top,0px));transform:translateY(-300%);background:var(--tile);color:var(--on-tile);font-weight:800;padding:8px 14px;border-radius:8px;text-decoration:none}
+.skip:focus{transform:none}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 96px;display:grid;grid-template-columns:260px minmax(0,1fr);gap:48px;align-items:start}
+@media (max-width:900px){.wrap{grid-template-columns:minmax(0,1fr);gap:24px}}
+.olbl{display:inline-block;align-self:flex-start;justify-self:start;background:var(--tile);color:var(--on-tile);font-weight:800;font-size:.8rem;letter-spacing:.03em;line-height:1.5;padding:1px 8px;border-radius:4px}
+/* 점자블록 무늬 타일: 점 = 멈춤·안전, 줄 = 가이드·이동 */
+.tl{display:inline-block;flex:none;width:1.15em;height:1.15em;border-radius:3px;background-color:var(--tile);vertical-align:-.2em;border:1px solid var(--on-tile)}
+.tl.dot{background-image:radial-gradient(circle,var(--on-tile) 0 26%,transparent 30%);background-size:33.333% 33.333%}
+.tl.line{background-image:linear-gradient(90deg,transparent 30%,var(--on-tile) 30% 62%,transparent 62%);background-size:25% 100%}
+/* 차례 */
+nav.toc{position:sticky;top:calc(16px + env(safe-area-inset-top,0px));max-height:calc(100vh - 32px);overflow:auto;font-size:.875rem;display:flex;flex-direction:column;gap:18px;padding-right:4px}
+@media (max-width:900px){nav.toc{position:static;max-height:none}}
+.tocbox{display:flex;flex-direction:column;gap:8px}
+nav.toc details{border-top:2px solid var(--ink);padding-top:10px}
+nav.toc summary{cursor:pointer;font-weight:800;display:flex;justify-content:space-between;gap:8px;list-style:none}
+nav.toc summary::-webkit-details-marker{display:none}
+nav.toc summary small{font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+nav.toc ol{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column}
+nav.toc li a{display:grid;grid-template-columns:3.4em minmax(0,1fr) 14px;gap:6px;align-items:baseline;text-decoration:none;padding:5px 2px;border-bottom:1px solid var(--line)}
+nav.toc li a:hover .tt{text-decoration:underline;text-decoration-color:var(--tile);text-decoration-thickness:3px}
+nav.toc .tn{color:var(--muted);font-weight:700;font-size:.78rem}
+nav.toc .tick{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--muted);align-self:center}
+nav.toc a.is-done .tick{background:var(--tile);border-color:var(--ink)}
+nav.toc a.is-here .tt{font-weight:800}
+nav.toc ol.quick{margin:0;flex-direction:row;flex-wrap:wrap;gap:6px}
+nav.toc ol.quick a{display:inline-block;border:1.5px solid var(--ink);border-radius:999px;padding:3px 12px;font-weight:800;text-decoration:none}
+.bar{height:10px;border-radius:999px;background:var(--sunk);overflow:hidden;border:1.5px solid var(--ink)}
+.bar i{display:block;height:100%;width:0;background:var(--tile);transition:width .3s}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button,.hcb{font:inherit;font-size:.8rem;font-weight:800;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:999px;padding:3px 10px;cursor:pointer}
+.seg button[aria-pressed="true"],.hcb[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.hcb{align-self:flex-start}
+/* 본문 */
+main{min-width:0;display:flex;flex-direction:column;gap:56px;max-width:720px}
+.cover{display:flex;flex-direction:column;gap:18px;padding-bottom:8px}
+.cover .kicker{font-weight:800;font-size:.95rem}
+.cover h1{font-family:var(--heavy);font-weight:400;font-synthesis:none;font-size:clamp(2.3rem,7vw,4.1rem);line-height:1.14;letter-spacing:-.01em}
+.cover h1 em{font-style:normal;background:linear-gradient(transparent 60%,var(--tile) 60% 94%,transparent 94%);-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0 .06em}
+.cover p{font-family:var(--serif);font-size:1.06rem;line-height:1.9;max-width:62ch;margin:0}
+.pages{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13.5rem),1fr));gap:12px}
+.page{display:flex;flex-direction:column;gap:4px;text-decoration:none;border:1.5px solid var(--ink);border-radius:12px;padding:14px 16px;background:var(--paper)}
+.page:hover{background:var(--tile-soft)}
+.page b{font-size:1.06rem}
+.page span{font-size:.85rem;color:var(--muted);line-height:1.55}
+.page .go-arrow{color:var(--ink);font-weight:800;font-size:.8rem;margin-top:auto}
+.note{font-size:.85rem;color:var(--muted);margin:0}
+.map,.deckwrap{display:flex;flex-direction:column;gap:12px}
+.map h2,.deckwrap h2,.parthead h2{font-size:clamp(1.5rem,4vw,1.9rem);font-weight:800}
+.parthead{display:flex;flex-direction:column;gap:10px;border-top:3px solid var(--ink);padding-top:26px}
+.parthead .pn{font-family:var(--heavy);font-size:clamp(2.4rem,7vw,3.4rem);line-height:1;align-self:flex-start;background:linear-gradient(transparent 62%,var(--tile) 62% 96%,transparent 96%)}
+.parthead p{font-family:var(--serif);margin:0;max-width:62ch;font-size:1.03rem}
+.ch{display:flex;flex-direction:column;gap:18px;min-width:0}
+.chh{display:flex;flex-direction:column;gap:8px;border-top:2px solid var(--ink);padding-top:18px}
+.chh h2{font-size:clamp(1.375rem,3.6vw,1.7rem);font-weight:800}
+.gobar{display:flex;flex-direction:column;gap:8px;background:var(--sunk);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.gos{display:flex;flex-wrap:wrap;gap:8px}
+a.go{display:flex;flex-direction:column;text-decoration:none;background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:8px 12px;min-width:0}
+a.go:hover{border-color:var(--ink)}
+a.go small{font-size:.72rem;font-weight:800;color:var(--muted)}
+a.go span{font-size:.875rem;font-weight:700}
+a.go span::after{content:" →";color:var(--muted);font-weight:400}
+.prose{display:flex;flex-direction:column;gap:14px;min-width:0}
+.prose>*{margin:0}
+.prose p,.prose li{font-size:1rem;line-height:1.85}
+.prose h3{font-size:1.15rem;font-weight:800;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+.prose ol,.prose ul{padding-left:1.4em;display:flex;flex-direction:column;gap:2px}
+.prose code{font-family:var(--mono);font-size:.88em;background:var(--sunk);padding:1px 5px;border-radius:4px}
+.prose strong{font-weight:800}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:.875rem}
+th,td{text-align:left;vertical-align:top;padding:9px 12px;border-bottom:1px solid var(--line);font-family:var(--display);line-height:1.6}
+th{background:var(--sunk);font-size:.8rem;font-weight:800}
+tr:last-child td{border-bottom:0}
+.prose td,.prose th{font-size:.875rem}
+.map table td a{font-weight:800;text-decoration-color:var(--tile);text-decoration-thickness:3px;text-underline-offset:2px}
+.chk{display:inline-block;font-family:var(--display);font-size:.72rem;font-weight:800;line-height:1.45;color:var(--stop);border:1.5px dashed var(--stop);border-radius:999px;padding:0 7px;white-space:nowrap;vertical-align:.08em}
+/* 프롬프트 카드(원본과 같은 형식) */
+figure.prompt{margin:0;border:1.5px solid var(--ink);border-radius:12px;overflow:hidden;background:var(--code);min-width:0}
+figure.prompt figcaption{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--line);font-size:.78rem;font-weight:800;color:var(--muted)}
+.copy{font:inherit;font-size:.8rem;font-weight:800;border:0;background:var(--ink);color:var(--bg);border-radius:999px;padding:5px 14px;cursor:pointer}
+.copy.ok{background:var(--ok)}
+figure.prompt pre{margin:0;padding:14px 16px;overflow-x:auto;white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere;font-family:var(--mono);font-size:.85rem;line-height:1.75}
+figure.prompt code{font-family:inherit;background:none;padding:0}
+b.lab{background:var(--tile);color:var(--on-tile);border-radius:3px;padding:0 3px}
+mark.ph{background:var(--ph);color:var(--ink);border:1.5px dashed var(--ink);border-radius:4px;padding:0 3px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.formula{font-family:var(--mono);font-size:1.1rem;background:var(--sunk);border-radius:10px;padding:12px 16px;font-weight:700}
+ul.tasks{list-style:none;padding-left:0!important;gap:6px!important}
+li.task label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;font-size:.95rem;line-height:1.6}
+li.task input,.done input,.dk-chk input{width:18px;height:18px;margin-top:3px;accent-color:var(--ink);flex:none}
+li.task input:checked+span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--muted)}
+.done{align-self:flex-start;display:flex;gap:10px;align-items:center;border:1.5px solid var(--ink);border-radius:999px;padding:8px 18px;font-weight:800;cursor:pointer}
+.done:has(input:checked){background:var(--tile);color:var(--on-tile);border-color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.85rem;color:var(--muted);align-items:center}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.legend mark,.legend b{font-family:var(--mono)}
+/* 안전 상자 */
+.safe{border:2px solid var(--ink);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;background:var(--paper)}
+.safe .sh{display:flex;gap:8px;align-items:center;font-weight:800}
+.safe.stop{border-color:var(--stop)}
+.safe.stop .sh{color:var(--stop)}
+.safe ul,.safe ol{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:2px}
+.safe p{margin:0}
+/* 과제 카드(개별화 지도모형의 숙달 기준처럼 기준을 모두 채우면 통과) */
+.tcard{border:1.5px solid var(--ink);border-radius:12px;overflow:hidden;background:var(--paper);min-width:0}
+.tcard-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 12px;background:var(--tile);color:var(--on-tile);padding:8px 14px;font-weight:800;font-size:.85rem}
+.tcard-h span{display:inline-flex;gap:8px;align-items:center}
+.tc-count{font-variant-numeric:tabular-nums}
+.tc-pass{display:none;background:var(--on-tile);color:var(--tile);border-radius:999px;padding:0 9px}
+.tcard[data-pass] .tc-pass{display:inline-block}
+.tcard-b{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.tcard-b h4{font-size:1.06rem;font-weight:800}
+.tcard-b p{margin:0}
+.tcard-b ol{margin:0}
+.tcard-b .tsafe{display:flex;gap:8px;align-items:flex-start;font-size:.9rem;border-top:1px dashed var(--line);padding-top:10px}
+/* 학습 카드(장 안) */
+.fcs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,15rem),1fr));gap:10px;align-items:start}
+details.fc{border:1.5px solid var(--ink);border-radius:12px;background:var(--paper);min-width:0}
+details.fc summary{list-style:none;cursor:pointer;padding:12px 14px;display:flex;flex-direction:column;gap:6px;border-radius:10px}
+details.fc summary::-webkit-details-marker{display:none}
+.fc-n{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:.72rem;font-weight:800;color:var(--muted)}
+.fc-q{font-weight:800;line-height:1.55}
+.fc-hint{font-size:.78rem;color:var(--muted)}
+details.fc[open] summary{background:var(--tile-soft);border-radius:10px 10px 0 0}
+details.fc[open] .fc-hint{display:none}
+.fc-a{padding:10px 14px 14px;border-top:1px dashed var(--line);font-size:.95rem;line-height:1.75}
+.fc-a small{display:block;margin-top:6px;color:var(--muted);font-size:.78rem}
+.fc-st{border-radius:999px;padding:0 8px;font-size:.7rem;font-weight:800}
+details.fc[data-state="k"] .fc-st{background:var(--ok);color:var(--bg)}
+details.fc[data-state="r"] .fc-st{border:1.5px solid var(--stop);color:var(--stop)}
+/* 학습 카드 덱 */
+.deck{display:flex;flex-direction:column;gap:14px;border:2px solid var(--ink);border-radius:16px;padding:16px;background:var(--paper)}
+.dk-tools{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.dk-lab{font-size:.85rem;font-weight:800}
+.dk-tools select{font:inherit;font-size:.9rem;padding:6px 10px;border:1.5px solid var(--ink);border-radius:8px;background:var(--paper);color:var(--ink);max-width:100%;min-width:0}
+.dk-chk{display:inline-flex;gap:6px;align-items:center;font-size:.9rem;font-weight:700;cursor:pointer}
+.dk-chk input{margin-top:0}
+.btn{font:inherit;font-size:.88rem;font-weight:800;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.yes{background:var(--tile);color:var(--on-tile)}
+.btn.warn{border-color:var(--stop);color:var(--stop)}
+.dk-stage{perspective:1400px}
+.dk-card{display:block;width:100%;border:0;padding:0;margin:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;border-radius:14px}
+.dk-inner{display:grid;transition:transform .45s ease;transform-style:preserve-3d}
+.dk-card[aria-pressed="true"] .dk-inner{transform:rotateY(180deg)}
+.dk-face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:2px solid var(--ink);border-radius:14px;padding:22px 20px;min-height:15rem;display:flex;flex-direction:column;gap:10px;background:var(--paper)}
+.dk-back{transform:rotateY(180deg);background:var(--tile-soft)}
+.dk-ch{font-size:.78rem;font-weight:800;color:var(--muted)}
+.dk-q{font-size:1.3rem;font-weight:800;line-height:1.5}
+.dk-a{font-size:1.05rem;line-height:1.8}
+.dk-src{font-size:.8rem;color:var(--muted)}
+.dk-cue{margin-top:auto;font-size:.8rem;color:var(--muted)}
+.dk-empty{border:2px dashed var(--line);border-radius:14px;padding:22px 20px;min-height:15rem;display:flex;align-items:center}
+.dk-nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.dk-pos{font-variant-numeric:tabular-nums;font-weight:800}
+.dk-mark{display:flex;gap:8px;flex-wrap:wrap}
+.dk-stats{display:flex;flex-direction:column;gap:6px}
+.dk-stats p{margin:0;font-size:.88rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.dk-help{margin:0;font-size:.8rem;color:var(--muted)}
+/* 수업 자료 */
+.meta{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:4px 14px;font-size:.92rem;margin:0}
+.meta dt{font-weight:800}
+.meta dd{margin:0}
+.top{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:999px;padding:8px 14px;font:inherit;font-size:.8rem;font-weight:800;text-decoration:none}
+@media (prefers-reduced-motion:reduce){.bar i,.dk-inner{transition:none}html{scroll-behavior:auto}}
+@media print{nav.toc,.top,.skip,.dk-tools,.dk-nav,.dk-mark,.copy{display:none!important}.wrap{display:block}main{max-width:none}.fc-hint{display:none}}
+</style>
+<a class="skip" href="#main">본문 바로가기</a>
+<div class="wrap">
+<nav class="toc" aria-label="차례">
+  <div class="tocbox"><span class="olbl">진도</span><div class="bar" aria-hidden="true"><i id="barAll"></i></div><p class="note" id="progTxt">끝낸 장 0 / 16</p></div>
+  <div class="tocbox" role="group" aria-label="보기 설정"><span class="olbl">보기</span>
+    <div class="seg" role="group" aria-label="글자 크기"><button type="button" data-fs-set="m" aria-pressed="true">글자 보통</button><button type="button" data-fs-set="l" aria-pressed="false">크게</button><button type="button" data-fs-set="xl" aria-pressed="false">아주 크게</button></div>
+    <button type="button" class="hcb" id="hcBtn" aria-pressed="false">고대비</button>
+  </div>
+  <ol class="quick"><li><a href="#map">연계 지도</a></li><li><a href="#deck">학습 카드 덱</a></li></ol>
+  <details open><summary>1부 훈련·트레이닝 관리 <small id="c-p1">0/7</small></summary><ol><li><a href="#p1-intro" data-toc="p1-intro"><span class="tn">·</span><span class="tt">들어가기: 세 가지 카드와 예시 선수</span><span class="tick" aria-hidden="true"></span></a></li><li><a href="#p1-c1" data-toc="p1-c1"><span class="tn">1장</span><span class="tt">시각장애 이해와 등급</span><span class="tick" aria-hidden="true"></span></a></li><li><a href="#p1-c2" data-toc="p1-c2"><span class="tn">2장</span><span class="tt">첫 면담과 안전 선별</span><span class="tick" aria-hidden="true"></span></a></li><li><a href="#p1-c3" data-toc="p1-c3"><span class="tn">3장</span><span class="tt">체력·기능 평가</span><span class="tick" aria-hidden="true"></span></a></li><li><a href="#p1-c4" data-toc="p1-c4"><span class="tn">4장</span><span class="tt">훈련 처방과 주기화</span><span class="tick" aria-hidden="true"></span></a></li><li><a href="#p1-c5" data-toc="p1-c5"><span class="tn">5장</span><span class="tt">훈련 환경과 오리엔테이션</span><span class="tick" aria-hidden="true"></span></a></li><li><a href="#p1-c6" data-toc="p1-c6"><span class="tn">6장</span><span class="tt">지도 언어와 피드백</span><span class="tick" aria-hidden="true"></span></a></li><li><a href="#p1-c7" data-toc="p1-c7"><span class="tn">7장</span><span class="tt">기록 관리와 주간 재설계</span><span class="tick" aria-hidden="true"></span></a></li><li><a href="#p1-appx" data-toc="p1-appx"><span class="tn">부록</span><span class="tt">상황별 카드 찾기·프롬프트 점검</span><span class="tick" aria-hidden="true"></span></a></li></ol></details>
+  <details open><summary>2부 가이드편 <small id="c-p2">0/5</small></summary><ol><li><a href="#p2-intro" data-toc="p2-intro"><span class="tn">·</span><span class="tt">들어가기: 가이드의 다섯 원칙</span><span class="tick" aria-hidden="true"></span></a></li><li><a href="#p2-c1" data-toc="p2-c1"><span class="tn">1장</span><span class="tt">안내 보행 기본</span><span class="tick" aria-hidden="true"></span></a></li><li><a href="#p2-c2" data-toc="p2-c2"><span class="tn">2장</span><span class="tt">가이드 러닝</span><span class="tick" aria-hidden="true"></span></a></li><li><a href="#p2-c3" data-toc="p2-c3"><span class="tn">3장</span><span class="tt">종목별 가이드와 골볼</span><span class="tick" aria-hidden="true"></span></a></li><li><a href="#p2-c4" data-toc="p2-c4"><span class="tn">4장</span><span class="tt">수업 속 또래 가이드</span><span class="tick" aria-hidden="true"></span></a></li><li><a href="#p2-c5" data-toc="p2-c5"><span class="tn">5장</span><span class="tt">체험 수업 설계와 윤리</span><span class="tick" aria-hidden="true"></span></a></li><li><a href="#p2-appxA" data-toc="p2-appxA"><span class="tn">부록 A</span><span class="tt">가이드 신호 사전</span><span class="tick" aria-hidden="true"></span></a></li><li><a href="#p2-appxB" data-toc="p2-appxB"><span class="tn">부록 B</span><span class="tt">기준값 표와 참고자료</span><span class="tick" aria-hidden="true"></span></a></li></ol></details>
+  <details open><summary>수업 자료 <small id="c-p3">0/4</small></summary><ol><li><a href="#p3-a" data-toc="p3-a"><span class="tn">지도안 A</span><span class="tt">안내 보행</span><span class="tick" aria-hidden="true"></span></a></li><li><a href="#p3-b" data-toc="p3-b"><span class="tn">지도안 B</span><span class="tt">가이드 러닝 입문</span><span class="tick" aria-hidden="true"></span></a></li><li><a href="#p3-c" data-toc="p3-c"><span class="tn">지도안 C</span><span class="tt">골볼 입문</span><span class="tick" aria-hidden="true"></span></a></li><li><a href="#p3-r" data-toc="p3-r"><span class="tn">평가</span><span class="tt">루브릭과 출구 카드</span><span class="tick" aria-hidden="true"></span></a></li></ol></details>
+</nav>
+<main id="main">
+<header class="cover" id="top">
+  <span class="kicker">특수체육 · 시각장애 · 훈련 관리와 가이드편</span>
+  <h1>보여 주는 지도에서<br><em>들려주고 만지게 하는 지도</em>로</h1>
+  <p>시각장애 학생과 선수를 맡은 특수체육 지도자, 그리고 예비 체육교사를 위한 카드 학습 교재입니다. 1부 「훈련·트레이닝 관리」에서는 등급 이해부터 안전 선별, 체력 평가, 처방, 환경, 지도 언어, 기록까지를, 2부 「가이드편」에서는 안내 보행, 가이드 러닝, 종목별 가이드, 또래 가이드, 체험 수업 설계를 다룹니다. 모든 장은 세 가지 카드로 공부합니다. 학습 카드로 개념을 맞혀 보고, 과제 카드로 몸으로 연습하고, 프롬프트 카드로 AI에게 지도 자료를 만들게 합니다.</p>
+  <div class="pages">
+    <a class="page" href="#deck"><b>학습 카드 덱</b><span><span id="fcTotalCover">51</span>장. 앞면을 보고 답을 말한 뒤 뒤집어 확인하고, 「알아요·다시」로 표시합니다.</span><span class="go-arrow">카드 펼치기 →</span></a>
+    <a class="page" href="#part3"><b>수업 자료</b><span>직접교수 6단계 지도안 3개, 가이드 기술 평가 루브릭, 출구 카드.</span><span class="go-arrow">지도안 보기 →</span></a>
+    <a class="page" href="#map"><b>연계 지도</b><span>장마다 어떤 과제 카드·프롬프트 카드·수업 자료를 함께 쓰는지 한 표로.</span><span class="go-arrow">지도 보기 →</span></a>
+  </div>
+  <p class="note">체크한 항목, 끝낸 장, 학습 카드 기록은 이 기기의 브라우저에만 저장됩니다. 예시 선수 세 명(V-07 · V-12 · V-21)은 가상 인물입니다. 「확인 필요」 표시가 붙은 값은 수업 전에 법령·최신 규정 원문으로 확인해 주세요.</p>
+</header>
+<section class="map" id="map">
+  <span class="olbl">연계 지도</span>
+  <h2>장마다 세 장의 카드로 배운다</h2>
+  <p class="note" style="font-size:.95rem">1부는 지도자가 실제로 일하는 순서(이해 → 선별 → 평가 → 처방 → 환경 → 지도 → 기록)를, 2부는 가이드가 기술을 익히는 순서(걷기 → 달리기 → 종목 → 수업 → 체험 설계)를 따릅니다. 각 줄은 그 장의 과제 카드·프롬프트 카드와 함께 쓸 수업 자료를 이어 줍니다.</p>
+  <div class="tbl"><table><thead><tr><th>장</th><th>과제 카드 · 몸으로</th><th>프롬프트 카드 · AI로</th><th>수업 자료</th></tr></thead><tbody>
+  <tr><td><a href="#p1-c1">1부 1장</a> 시각장애 이해와 등급</td><td>1-1 선수 정보 카드</td><td>1-1 기능 시각으로 환경 정리</td><td>·</td></tr>
+  <tr><td><a href="#p1-c2">1부 2장</a> 첫 면담과 안전 선별</td><td>2-1 면담 역할극</td><td>2-1 면담 질문지 · 2-2 신호등 판정</td><td>·</td></tr>
+  <tr><td><a href="#p1-c3">1부 3장</a> 체력·기능 평가</td><td>3-1 6분 걷기 스테이션</td><td>3-1 수업 시간 평가 계획</td><td>·</td></tr>
+  <tr><td><a href="#p1-c4">1부 4장</a> 훈련 처방과 주기화</td><td>4-1 RPE 말로 묻기</td><td>4-1 8주 처방 · 4-2 12주 주기화</td><td>·</td></tr>
+  <tr><td><a href="#p1-c5">1부 5장</a> 훈련 환경과 오리엔테이션</td><td>5-1 촉각·소리 지도 만들기</td><td>5-1 체육관 점검표</td><td><a href="#p3-c">지도안 C</a></td></tr>
+  <tr><td><a href="#p1-c6">1부 6장</a> 지도 언어와 피드백</td><td>6-1 큐 바꿔 말하기</td><td>6-1 동작 지도 대본 · 6-2 피드백</td><td><a href="#p3-c">지도안 C</a></td></tr>
+  <tr><td><a href="#p1-c7">1부 7장</a> 기록 관리와 주간 재설계</td><td>7-1 화면 낭독기로 읽히는 기록지</td><td>7-1 다음 주 두 안</td><td>·</td></tr>
+  <tr><td><a href="#p2-c1">2부 1장</a> 안내 보행 기본</td><td>1-1 안내 보행 코스</td><td>1-1 첫 방문 이동 안내 대본</td><td><a href="#p3-a">지도안 A</a></td></tr>
+  <tr><td><a href="#p2-c2">2부 2장</a> 가이드 러닝</td><td>2-1 합 맞추기 3단계</td><td>2-1 신호 약속표</td><td><a href="#p3-b">지도안 B</a></td></tr>
+  <tr><td><a href="#p2-c3">2부 3장</a> 종목별 가이드와 골볼</td><td>3-1 종목 조사 직소</td><td>3-1 골볼 입문 수업</td><td><a href="#p3-c">지도안 C</a></td></tr>
+  <tr><td><a href="#p2-c4">2부 4장</a> 수업 속 또래 가이드</td><td>4-1 또래 가이드 자격 카드</td><td>4-1 통합 수업 계획</td><td><a href="#p3-r">루브릭</a></td></tr>
+  <tr><td><a href="#p2-c5">2부 5장</a> 체험 수업 설계와 윤리</td><td>5-1 체험 수업 다시 쓰기</td><td>5-1 내 지도안에 반대 의견 받기</td><td><a href="#p3-r">출구 카드</a></td></tr>
+  </tbody></table></div>
+  <div class="legend"><span><b class="lab">[역할]</b> 프롬프트의 칸 이름: 그대로 둡니다</span><span><mark class="ph">[V-21, 남 54세 …]</mark> 바꿀 자리: 내 학생 값으로 바꿉니다</span><span><span class="chk">확인 필요</span> 수업 전에 원문으로 확인할 값</span><span><span class="tl dot" aria-hidden="true"></span> 점형 블록 무늬: 멈춤·안전</span><span><span class="tl line" aria-hidden="true"></span> 선형 블록 무늬: 가이드·이동 방향</span></div>
+</section>
+
+<section class="deckwrap" id="deck" aria-labelledby="deckTitle">
+  <span class="olbl">학습 카드 덱</span>
+  <h2 id="deckTitle">앞면을 보고 말한 뒤, 뒤집어 확인한다</h2>
+  <p class="note" style="font-size:.95rem">각 장 끝의 학습 카드가 모두 여기 모입니다. 장을 읽기 전에는 맞혀 보기로 예습하고, 수업이 끝나면 「다시」로 표시한 카드만 골라 복습합니다. 수업에서는 화면에 띄워 짝끼리 한 사람은 묻고 한 사람은 답하는 방식으로 씁니다.</p>
+  <div class="deck" id="deckBox">
+    <div class="dk-tools">
+      <label for="dkFilter" class="dk-lab">카드 묶음</label>
+      <select id="dkFilter"><option value="all">전체 카드</option></select>
+      <label class="dk-chk" for="dkOnlyReview"><input type="checkbox" id="dkOnlyReview"><span>다시 볼 카드만</span></label>
+      <button type="button" class="btn" id="dkShuffle">섞기</button>
+      <button type="button" class="btn warn" id="dkReset">기록 지우기</button>
+    </div>
+    <div class="dk-stage" id="dkStage">
+      <button type="button" class="dk-card" id="dkCard" aria-pressed="false" aria-describedby="dkHelp">
+        <span class="dk-inner">
+          <span class="dk-face dk-front" id="dkFront"><span class="dk-ch" id="dkCh">1부 · 1장 시각장애 이해와 등급</span><span class="dk-q" id="dkQ">시력과 시야의 차이는?</span><span class="dk-cue">눌러서 뒤집기</span></span>
+          <span class="dk-face dk-back" id="dkBack" aria-hidden="true"><span class="dk-ch" id="dkBackQ">질문: 시력과 시야의 차이는?</span><span class="dk-a" id="dkA">시력은 작은 것을 또렷하게 구별하는 능력, 시야는 한 점을 볼 때 동시에 보이는 범위입니다.</span><span class="dk-src" id="dkSrc"></span></span>
+        </span>
+      </button>
+      <div class="dk-empty" id="dkEmpty" hidden><p class="note" style="font-size:1rem">다시 볼 카드가 없습니다. 「다시 볼 카드만」을 끄면 이 묶음의 전체 카드로 돌아갑니다.</p></div>
+    </div>
+    <p class="dk-help" id="dkHelp">카드를 누르거나 Space 키로 뒤집고, 왼쪽·오른쪽 화살표 키로 넘깁니다.</p>
+    <div class="dk-nav">
+      <button type="button" class="btn" id="dkPrev">← 이전</button>
+      <span class="dk-pos" id="dkPos">1 / 51</span>
+      <button type="button" class="btn" id="dkNext">다음 →</button>
+    </div>
+    <div class="dk-mark">
+      <button type="button" class="btn" id="dkAgain">다시 볼래요</button>
+      <button type="button" class="btn yes" id="dkKnow">알아요</button>
+    </div>
+    <div class="dk-stats"><div class="bar" aria-hidden="true"><i id="dkBar"></i></div><p id="dkStats">알아요 0 · 다시 0 · 아직 표시 안 한 카드 51</p></div>
+    <p class="sr" aria-live="polite" id="dkLive"></p>
+  </div>
+</section>
+
+<header class="parthead" id="part1"><span class="pn">1부</span><h2>훈련·트레이닝 관리</h2><p>시각장애 선수를 처음 맡는 날부터 주간 기록을 보고 다음 주를 정하는 날까지, 지도자가 하는 일을 일곱 장으로 나눴습니다. 예시 선수 세 명(V-07 · V-12 · V-21)이 모든 장에 다시 나옵니다.</p></header>
+<section class="ch" id="p1-intro" data-part="1"><header class="chh"><span class="olbl">1부</span><h2>들어가기: 세 가지 카드와 예시 선수</h2></header><div class="prose">
+<p>이 교재의 모든 장은 세 종류의 카드로 공부합니다. 한 장을 마치는 데 수업 한 차시(50분) 안팎이 걸립니다.</p>
+<ol>
+<li><strong>학습 카드</strong>: 앞면 질문에 먼저 소리 내어 답해 보고, 눌러서 뒷면을 확인합니다. 장 끝에 있고, 「학습 카드 덱」에 모두 모입니다.</li>
+<li><strong>과제 카드</strong>: 수업 시간에 몸으로 하는 과제입니다. 성공 기준을 모두 채우면 카드 머리에 「통과」가 표시되고 다음 과제로 넘어갑니다. 기준을 채울 때까지 같은 과제를 되풀이하는 방식은 개별화 지도모형의 숙달 기준과 같습니다.</li>
+<li><strong>프롬프트 카드</strong>: 회색 상자를 복사해 AI에 붙여 넣습니다. <code>[대괄호]</code>만 내 학생 값으로 바꾸고, 「좋은 답의 조건」을 모두 통과한 답만 수업과 지도에 씁니다.</li>
+</ol>
+<p><strong>예시 선수</strong> (모든 장에서 같은 세 명을 따라갑니다. 가상 인물입니다.)</p>
+<div class="tbl"><table>
+<thead><tr><th>코드</th><th>성별·나이</th><th>장면</th><th>시각 상태</th><th>목표</th><th>특이사항</th></tr></thead>
+<tbody>
+<tr><td>V-07</td><td>남 15세</td><td>특수학교 체육 수업, 골볼부</td><td>선천성 전맹, 빛을 거의 느끼지 못함</td><td>골볼 수비 반응, 기초 체력</td><td>새 공간에서 몸이 굳고 몸을 앞뒤로 흔드는 습관이 있음, 근지구력 낮음, 흰 지팡이 사용</td></tr>
+<tr><td>V-12</td><td>여 23세</td><td>육상 동호회, 첫 5km 대회 준비</td><td>시야가 좁아 가운데만 보이고 어두운 곳에서 잘 안 보임, 등급 분류 전</td><td>가이드 러너와 5km 완주</td><td>실내 체육관 구석에서 걸려 넘어진 적 있음, 눈부심에 민감</td></tr>
+<tr><td>V-21</td><td>남 54세</td><td>복지관 건강 운동 교실</td><td>당뇨망막병증으로 중도 시각장애(저시력), 레이저 치료 이력</td><td>혈당 관리, 낙상 예방, 혼자 걷기 자신감</td><td>인슐린 사용, 안과 소견 「고강도 운동 자제」, 계단에서 머뭇거림</td></tr>
+</tbody></table></div>
+<div class="safe stop"><p class="sh"><span class="tl dot" aria-hidden="true"></span>모든 카드에 적용되는 안전 원칙</p>
+<ul>
+<li>새로 생긴 번쩍임, 갑자기 늘어난 떠다니는 점, 시야 일부를 가리는 그림자나 커튼은 운동을 멈추고 당일 안과 진료를 권할 신호입니다. 망막박리는 대개 아프지 않아서 묻지 않으면 놓칩니다.</li>
+<li>안과의·주치의가 정한 운동 제한이 있으면 어떤 처방보다 먼저 따릅니다.</li>
+<li>몸에 손대기 전에 말로 먼저 묻고, 선수가 원하지 않으면 말로만 지도합니다.</li>
+<li>AI는 진단·약·치료를 말하지 않고, 등급도 추정하지 않습니다. 최종 판단은 선수를 직접 본 지도자가 합니다.</li>
+<li>학생 실명·연락처·얼굴 사진·진단서 원본은 AI에 넣지 않습니다. 코드와 필요한 숫자만 씁니다.</li>
+</ul></div>
+</div></section>
+<section class="ch" id="p1-c1" data-part="1"><header class="chh"><span class="olbl">1부 · 1장</span><h2>시각장애 이해와 등급</h2></header><div class="gobar"><span class="olbl">이 장의 카드</span><div class="gos"><a class="go" href="#deck" data-deck="p1-c1"><small>학습 카드 5장</small><span>덱에서 이 장만 보기</span></a><a class="go" href="#p1-c1-tc1"><small>과제 카드</small><span>1-1 선수 정보 카드</span></a><a class="go" href="#p1-c1-pc1"><small>프롬프트 카드</small><span>1-1 기능 시각으로 환경 정리</span></a></div></div><div class="prose">
+<p>시각장애는 「안 보인다」 한 가지가 아닙니다. 지도 방법을 정하려면 장애 이름보다 네 가지를 알아야 합니다. 얼마나 또렷하게 보이는지(시력), 얼마나 넓게 보이는지(시야), 언제부터 보이지 않았는지(선천성·후천성), 빛과 대비에 따라 실제로 얼마나 쓸 수 있는지(기능 시각)입니다.</p>
+<h3>시력과 시야</h3>
+<p>시력은 작은 것을 구별하는 능력이고, 시야는 한 점을 바라볼 때 동시에 보이는 범위입니다. 시력이 괜찮아도 시야가 좁으면 옆에서 오는 공이나 사람을 놓치고, 시야가 넓어도 시력이 낮으면 멀리 있는 표적이 흐릿합니다. 국제 경기 등급은 시력을 LogMAR라는 값으로 적습니다. LogMAR는 클수록 시력이 낮습니다.</p>
+<div class="formula" role="math" aria-label="소수 시력은 10의 마이너스 LogMAR 제곱">소수 시력 = 10<sup>−LogMAR</sup></div>
+<p>LogMAR 1.0은 소수 시력 0.1, 1.4는 약 0.04, 1.5는 약 0.03, 2.6은 약 0.0025입니다.</p>
+<h3>경기 등급 B1 · B2 · B3</h3>
+<p>국제시각장애인스포츠연맹(IBSA)은 좋은 쪽 눈을 최대로 교정한 상태에서 잰 시력과 시야로 세 등급을 나눕니다. 시력과 시야 가운데 하나만 기준에 들어도 그 등급에 해당합니다. 종목마다 앞 글자만 바뀝니다(육상 트랙 T11–T13, 필드 F11–F13, 수영 S11–S13).</p>
+<div class="tbl"><table>
+<thead><tr><th>등급</th><th>시력(LogMAR)</th><th>시야</th><th>육상 트랙</th><th>지도 장면에서</th></tr></thead>
+<tbody>
+<tr><td>B1</td><td>2.6보다 나쁨</td><td>·</td><td>T11: 가이드 러너와 반드시 함께 달리고, 빛을 막는 불투명 안경을 씀</td><td>시각 정보에 기대지 않는 지도. 말·촉각·소리가 기본</td></tr>
+<tr><td>B2</td><td>1.5–2.6</td><td>지름 10° 미만이면 B2</td><td>T12: 가이드와 달릴지 선수가 선택</td><td>남은 시각이 조명·대비에 따라 크게 달라짐</td></tr>
+<tr><td>B3</td><td>1.4–1.0</td><td>지름 40° 미만이면 B3</td><td>T13: 가이드 없이 달림</td><td>큰 글씨·대비·위치 조정으로 남은 시각을 활용</td></tr>
+</tbody></table></div>
+<p>등급은 공인 등급 분류사가 측정해 정합니다. 지도자가 시력 숫자로 등급을 짐작해 선수에게 말하지 않습니다. V-12처럼 아직 분류 전인 선수는 「분류 전」으로 적습니다.</p>
+<h3>국내 기준은 두 가지</h3>
+<p>우리나라에서는 두 법이 따로 정의합니다. 장애인복지법은 장애의 정도를 판정하는데, 2019년 7월부터 1~6급 대신 「장애의 정도가 심한 장애인」과 「심하지 않은 장애인」 두 단계로 나눕니다. 2차 자료에 따르면 「심한 장애」의 시각 기준은 좋은 눈의 교정시력 0.06 이하, 또는 두 눈의 시야가 각각 모든 방향에서 5도 이하로 남은 경우입니다 <span class="chk">확인 필요</span>. 장애인 등에 대한 특수교육법은 특수교육대상자를 선정하는데, 시력 숫자보다 시각으로 학습하기 어려워 확대 기구·학습 매체를 쓰거나 촉각·청각을 주된 학습 수단으로 쓰는지를 봅니다 <span class="chk">확인 필요</span>. 두 기준의 원문 문장과 시행일은 과제 카드 1-1에서 직접 찾아 채웁니다.</p>
+<h3>선천성과 후천성</h3>
+<p>태어날 때부터 보지 못한 선수는 공을 던지는 모습을 본 적이 없으므로 동작의 그림부터 만들어 줘야 합니다(6장의 촉각 모델링). 자라서 시력을 잃은 선수는 동작 기억이 남아 있어 말 설명이 빨리 통하지만, 이동에 대한 두려움이나 상실감이 클 수 있습니다. 같은 B1이라도 지도 순서가 달라집니다.</p>
+<h3>기능 시각</h3>
+<p>같은 시력이어도 조명, 대비, 눈부심, 피로에 따라 실제로 쓸 수 있는 시각이 달라집니다. V-12처럼 어두운 곳에서 잘 안 보이는 선수는 해 질 녘 트랙이나 조명이 약한 체육관 구석에서 위험이 커집니다. 기능 시각은 검사지보다 선수에게 묻는 것이 정확합니다. 「어떤 조명에서 가장 잘 보이세요?」, 「공이 어떤 색일 때 잘 보이세요?」</p>
+<div class="tcard" id="p1-c1-tc1"><div class="tcard-h"><span>과제 카드 1-1 · 개인 · 15분</span><span><span class="tc-count">기준 0/4</span><span class="tc-pass">통과</span></span></div><div class="tcard-b">
+<h4>선수 정보 카드 만들기</h4>
+<p><strong>과제</strong>: 예시 선수 한 명(또는 내 담당 학생의 코드)으로 지도에 필요한 정보를 한 장에 정리하고, 국내 기준 두 가지를 법령 원문으로 확인합니다.</p>
+<ol>
+<li>시력, 시야, 발생 시기, 기능 시각(조명·대비·눈부심), 보조기기(흰 지팡이·안내견·확대기), 선호하는 정보 형식(말·점자·큰 글씨·음성 파일)을 적습니다.</li>
+<li>국가법령정보센터에서 장애인복지법 시행규칙의 시각장애 판정 기준과 장애인 등에 대한 특수교육법 시행령의 선정 기준을 찾아, 원문 문장과 시행일을 적습니다.</li>
+<li>「지도할 때 바꿀 것」을 세 가지 씁니다.</li>
+</ol>
+<p><strong>성공 기준</strong>: 모두 채우면 통과입니다.</p>
+<ul class="tasks">
+<li class="task"><label for="p1-c1-tc1-1"><input type="checkbox" id="p1-c1-tc1-1" data-k="p1-c1-tc1-1"><span>시력과 시야를 따로 적었다</span></label></li>
+<li class="task"><label for="p1-c1-tc1-2"><input type="checkbox" id="p1-c1-tc1-2" data-k="p1-c1-tc1-2"><span>등급을 짐작해 적지 않았다(측정된 등급이 없으면 「분류 전」)</span></label></li>
+<li class="task"><label for="p1-c1-tc1-3"><input type="checkbox" id="p1-c1-tc1-3" data-k="p1-c1-tc1-3"><span>두 법령의 원문 문장과 시행일을 적었다</span></label></li>
+<li class="task"><label for="p1-c1-tc1-4"><input type="checkbox" id="p1-c1-tc1-4" data-k="p1-c1-tc1-4"><span>「지도할 때 바꿀 것」이 조명·대비·전달 방법처럼 구체적이다</span></label></li>
+</ul>
+<p class="tsafe"><span class="tl dot" aria-hidden="true"></span><span><strong>개인정보</strong>: 실명 대신 코드를 쓰고, 진단서 원본은 수업 자료에 붙이지 않습니다.</span></p>
+</div></div>
+<h3 id="p1-c1-pc1">프롬프트 카드 1-1 기능 시각으로 지도 환경 정리</h3>
+<p><strong>상황</strong>: V-12가 다음 주부터 실내 체육관과 야외 트랙에서 훈련을 시작한다. 등급 분류는 아직 받지 않았다.</p>
+<figure class="prompt"><figcaption><span>프롬프트 · 복사해서 붙여 넣기</span><button type="button" class="copy">복사</button></figcaption><pre><code><b class="lab">[역할]</b> 너는 특수체육 지도자를 돕는 어시스턴트다.
+<b class="lab">[선수]</b> <mark class="ph">[V-12, 여 23세, 시야가 좁아 가운데만 보임, 어두운 곳에서 잘 안 보임, 눈부심에 민감, 등급 분류 전, 목표: 가이드 러너와 5km 완주]</mark>
+<b class="lab">[만들 것]</b> 이 선수를 지도할 때의 환경·전달 방법 정리.
+1. 조명·눈부심·대비에서 바꿀 것 5가지(장소: 실내 체육관, 야외 트랙).
+2. 지도자가 서는 위치와 동작을 보여 주는 방법.
+3. 선수에게 먼저 물어볼 질문 4가지.
+4. 우리가 추측하면 안 되는 것 3가지와 그 이유.
+<b class="lab">[규칙]</b> 등급을 추정하지 마. 진단명이나 진행 속도를 추측하지 마. 모르는 것은 「선수에게 확인」이라고 써.
+<b class="lab">[출력]</b> 표: 항목 | 바꿀 것 | 이유.</code></pre></figure>
+<p><strong>좋은 답의 조건</strong></p>
+<ul class="tasks">
+<li class="task"><label for="p1-c1-t1"><input type="checkbox" id="p1-c1-t1" data-k="p1-c1-t1"><span>B2·B3 같은 등급을 단정하는 문장이 없다</span></label></li>
+<li class="task"><label for="p1-c1-t2"><input type="checkbox" id="p1-c1-t2" data-k="p1-c1-t2"><span>「지도자가 창이나 조명을 등지고 서지 않는다」처럼 서는 위치를 바꾸는 내용이 있다</span></label></li>
+<li class="task"><label for="p1-c1-t3"><input type="checkbox" id="p1-c1-t3" data-k="p1-c1-t3"><span>해 질 녘 트랙, 어두운 체육관 구석처럼 V-12의 야간 시력 문제가 반영돼 있다</span></label></li>
+</ul>
+<p><strong>더 좋게 묻기</strong>: <code>이 정리를 선수에게 말로 물어볼 확인 질문 5개로 바꿔 줘. 예·아니오로 답할 수 있게.</code></p>
+<p><strong>연습</strong>: 내 담당 학생 한 명으로 1-1을 해 보고, 답 가운데 선수에게 직접 확인한 내용과 내가 추측한 내용을 나눠 표시합니다. 추측이 많으면 다음 수업 전에 선수에게 묻습니다.</p>
+<h3>이 장의 학습 카드</h3>
+<div class="fcs">
+<details class="fc" data-fc="p1-c1-f1"><summary><span class="fc-n"><span>학습 카드 1</span><span class="fc-st" hidden></span></span><span class="fc-q">시력과 시야의 차이는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">시력은 작은 것을 또렷하게 구별하는 능력, 시야는 한 점을 바라볼 때 동시에 보이는 범위입니다. 시야가 좁으면 시력이 좋아도 옆에서 오는 공을 놓칩니다.</div></details>
+<details class="fc" data-fc="p1-c1-f2"><summary><span class="fc-n"><span>학습 카드 2</span><span class="fc-st" hidden></span></span><span class="fc-q">LogMAR 1.0을 소수 시력으로 바꾸면?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">0.1입니다. 소수 시력은 10의 (−LogMAR) 제곱이고, LogMAR 값이 클수록 시력이 낮습니다.</div></details>
+<details class="fc" data-fc="p1-c1-f3"><summary><span class="fc-n"><span>학습 카드 3</span><span class="fc-st" hidden></span></span><span class="fc-q">IBSA 등급 B1·B2·B3를 나누는 기준은?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">좋은 쪽 눈을 최대로 교정한 시력(LogMAR)과 시야입니다. B1은 LogMAR 2.6보다 나쁨, B2는 1.5–2.6 또는 시야 지름 10° 미만, B3는 1.4–1.0 또는 시야 지름 40° 미만입니다.<small>근거: IBSA 등급 분류 기준</small></div></details>
+<details class="fc" data-fc="p1-c1-f4"><summary><span class="fc-n"><span>학습 카드 4</span><span class="fc-st" hidden></span></span><span class="fc-q">육상 T11과 T12 선수의 가이드 규정 차이는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">T11은 가이드 러너와 반드시 함께 달리고 불투명 안경을 씁니다. T12는 가이드와 달릴지 선수가 고릅니다.<small>근거: World Para Athletics 규정</small></div></details>
+<details class="fc" data-fc="p1-c1-f5"><summary><span class="fc-n"><span>학습 카드 5</span><span class="fc-st" hidden></span></span><span class="fc-q">선천성 전맹 학생에게 말 설명만으로 동작을 가르치기 어려운 이유는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">동작을 본 적이 없어 머릿속에 그림이 없기 때문입니다. 촉각 모델링으로 동작의 모양부터 만들어 줍니다.</div></details>
+</div>
+</div><label class="done" for="p1-c1-done"><input type="checkbox" id="p1-c1-done" data-k="p1-c1-done" data-ch="p1-c1"><span>이 장을 끝냈어요</span></label></section>
+<section class="ch" id="p1-c2" data-part="1"><header class="chh"><span class="olbl">1부 · 2장</span><h2>첫 면담과 안전 선별</h2></header><div class="gobar"><span class="olbl">이 장의 카드</span><div class="gos"><a class="go" href="#deck" data-deck="p1-c2"><small>학습 카드 4장</small><span>덱에서 이 장만 보기</span></a><a class="go" href="#p1-c2-tc1"><small>과제 카드</small><span>2-1 면담 역할극</span></a><a class="go" href="#p1-c2-pc1"><small>프롬프트 카드</small><span>2-1 면담 질문지</span></a><a class="go" href="#p1-c2-pc2"><small>프롬프트 카드</small><span>2-2 신호등 판정</span></a></div></div><div class="prose">
+<p>첫 면담의 목적은 두 가지입니다. 이 선수가 지금 운동해도 되는지 가르는 일, 그리고 어떤 방법으로 정보를 주고받을지 정하는 일입니다. 시각장애 선수의 면담에는 일반 문진(운동 전 건강 설문 등)에 세 가지가 더 붙습니다. 안과의 운동 제한, 이동 방법, 신체 접촉 선호입니다.</p>
+<h3>면담 순서</h3>
+<ol>
+<li>목표와 좋아하는 활동</li>
+<li>시각 상태: 언제부터, 최근 변화, 빛·눈부심·어두운 곳</li>
+<li>안과·주치의의 운동 제한(말이 아니라 문서로 받기)</li>
+<li>함께 있는 질환과 약(당뇨, 고혈압 등), 운동 중 저혈당 경험</li>
+<li>이동 방법: 흰 지팡이, 안내견, 안내인, 대중교통</li>
+<li>운동 경험과 넘어짐·부딪힘 경험</li>
+<li>정보 형식: 말, 점자, 큰 글씨, 음성 파일, 문자</li>
+<li>신체 접촉: 「동작을 가르칠 때 팔이나 어깨를 잡아도 괜찮으세요? 싫으시면 말로만 할게요.」</li>
+</ol>
+<div class="safe stop"><p class="sh"><span class="tl dot" aria-hidden="true"></span>운동을 멈추고 당일 안과로</p>
+<ul>
+<li>새로 생긴 번쩍임</li>
+<li>갑자기 늘어난 떠다니는 점</li>
+<li>시야 일부를 가리는 그림자나 커튼</li>
+</ul>
+<p>망막박리의 대표 신호입니다. 대개 아프지 않으므로 면담과 매 세션 시작 때 말로 묻습니다. 당뇨가 있는 선수에게 식은땀·떨림·어지럼 같은 저혈당 증상이 나타나면 운동을 멈추고 당을 보충합니다.</p></div>
+<h3>눈 상태별 운동 주의</h3>
+<div class="tbl"><table>
+<thead><tr><th>상태</th><th>피하거나 조정할 것</th><th>이유와 근거</th></tr></thead>
+<tbody>
+<tr><td>녹내장</td><td>머리를 심장보다 낮추는 자세를 오래 하지 않기(물구나무, 머리를 아래로 두는 요가 자세). 힘줄 때 숨 참지 않고 내쉬기</td><td>거꾸로 선 자세와 숨 참고 힘주기에서 안압이 오릅니다(미국안과학회 EyeNet)</td></tr>
+<tr><td>증식성 당뇨망막병증</td><td>고강도 유산소·저항 운동은 금기일 수 있으므로 안과에서 허용 강도를 받은 뒤 시작. 숨 참고 힘주기와 머리를 아래로 두는 자세는 안과의와 상의하기 전까지 빼 둠</td><td>고강도 운동이 유리체 출혈·망막박리를 일으킬 위험(미국당뇨병학회 입장문, Colberg 외 2016)</td></tr>
+<tr><td>망막 질환·눈 수술 이력</td><td>안과의가 허용한 활동 범위를 문서로 받기. 충돌·머리 충격이 있는 활동은 특히 확인</td><td>사람마다 제한이 다릅니다</td></tr>
+<tr><td>눈부심에 민감</td><td>실외에서는 챙 모자·선글라스 허용, 실내에서는 창을 등지는 배치</td><td>기능 시각(1장)</td></tr>
+</tbody></table></div>
+<div class="tcard" id="p1-c2-tc1"><div class="tcard-h"><span>과제 카드 2-1 · 짝 · 20분</span><span><span class="tc-count">기준 0/4</span><span class="tc-pass">통과</span></span></div><div class="tcard-b">
+<h4>면담 역할극</h4>
+<p><strong>과제</strong>: 한 사람은 V-21, 한 사람은 지도자 역할로 10분 면담을 하고 역할을 바꿉니다. 지켜보는 사람이 있으면 아래 기준을 체크합니다.</p>
+<ol>
+<li>지도자는 면담 순서 여덟 가지를 메모 없이 진행해 봅니다.</li>
+<li>V-21 역할은 예시 선수표에 있는 정보만 답하고, 표에 없는 것은 「잘 모르겠어요」라고 답합니다.</li>
+<li>끝나면 지도자가 「오늘 정한 것」을 세 문장으로 말해 요약합니다.</li>
+</ol>
+<p><strong>성공 기준</strong>: 모두 채우면 통과입니다.</p>
+<ul class="tasks">
+<li class="task"><label for="p1-c2-tc1-1"><input type="checkbox" id="p1-c2-tc1-1" data-k="p1-c2-tc1-1"><span>안과의 운동 제한을 문서로 받기로 했다</span></label></li>
+<li class="task"><label for="p1-c2-tc1-2"><input type="checkbox" id="p1-c2-tc1-2" data-k="p1-c2-tc1-2"><span>신체 접촉을 해도 되는지 물었다</span></label></li>
+<li class="task"><label for="p1-c2-tc1-3"><input type="checkbox" id="p1-c2-tc1-3" data-k="p1-c2-tc1-3"><span>정보 형식(말·큰 글씨·음성 파일 등)을 물었다</span></label></li>
+<li class="task"><label for="p1-c2-tc1-4"><input type="checkbox" id="p1-c2-tc1-4" data-k="p1-c2-tc1-4"><span>당일 안과로 보낼 세 가지 눈 신호를 선수에게 설명했다</span></label></li>
+</ul>
+<p class="tsafe"><span class="tl dot" aria-hidden="true"></span><span><strong>개인정보</strong>: 역할극에서도 실제 학생·가족의 정보를 쓰지 않습니다.</span></p>
+</div></div>
+<h3 id="p1-c2-pc1">프롬프트 카드 2-1 면담 질문지 만들기</h3>
+<p><strong>상황</strong>: V-21이 다음 주 복지관 건강 운동 교실에 처음 온다. 알고 있는 것은 신청서의 몇 줄뿐이다.</p>
+<figure class="prompt"><figcaption><span>프롬프트 · 복사해서 붙여 넣기</span><button type="button" class="copy">복사</button></figcaption><pre><code><b class="lab">[역할]</b> 너는 복지관 건강 운동 교실의 특수체육 지도자를 돕는 어시스턴트다.
+<b class="lab">[선수]</b> <mark class="ph">[V-21, 남 54세, 당뇨망막병증으로 중도 시각장애(저시력), 레이저 치료 이력, 인슐린 사용, 목표: 혈당 관리·낙상 예방·혼자 걷기 자신감]</mark>
+<b class="lab">[만들 것]</b> 25분 첫 면담 질문지.
+- 순서: 목표 → 시각 상태(최근 변화, 빛·어두운 곳) → 안과 운동 제한 → 혈당 관리(저혈당 경험, 운동 전 혈당 확인) → 이동 방법 → 넘어짐 경험 → 정보 형식 → 신체 접촉 선호.
+- 영역마다 질문 2~3개, 듣고 바로 답할 수 있는 짧은 문장으로.
+- 질문마다 「이 답이 나오면 주의」를 지도자용 메모로 달아 줘.
+<b class="lab">[규칙]</b> 질문지는 말로 읽어 주는 상황이다. 「아래 그림을 보세요」 같은 시각 자료를 쓰지 않는다.
+<b class="lab">[출력]</b> 표: 영역 | 질문 | 주의할 답.</code></pre></figure>
+<p><strong>좋은 답의 조건</strong></p>
+<ul class="tasks">
+<li class="task"><label for="p1-c2-t1"><input type="checkbox" id="p1-c2-t1" data-k="p1-c2-t1"><span>새로 생긴 번쩍임·떠다니는 점·그림자를 묻는 질문과 「당일 안과」 메모가 있다</span></label></li>
+<li class="task"><label for="p1-c2-t2"><input type="checkbox" id="p1-c2-t2" data-k="p1-c2-t2"><span>안과의 운동 제한을 문서로 받는 질문이 있다</span></label></li>
+<li class="task"><label for="p1-c2-t3"><input type="checkbox" id="p1-c2-t3" data-k="p1-c2-t3"><span>그림이나 표를 보라는 질문이 없다(말로 진행)</span></label></li>
+</ul>
+<p><strong>더 좋게 묻기</strong>: <code>이 질문지를 큰 글씨 한 장 버전과, 음성으로 읽어 줄 대본 버전으로 나눠 줘.</code></p>
+<h3 id="p1-c2-pc2">프롬프트 카드 2-2 면담 결과로 신호등 판정</h3>
+<p><strong>상황</strong>: 면담이 끝났다. V-21은 안과 소견서를 가져왔고, 지난달 운동 중에 저혈당을 한 번 겪었다고 했다.</p>
+<figure class="prompt"><figcaption><span>프롬프트 · 복사해서 붙여 넣기</span><button type="button" class="copy">복사</button></figcaption><pre><code><b class="lab">[면담 결과]</b> <mark class="ph">[V-21: 안과 소견 「고강도 운동 자제, 3개월마다 정기 검진」 / 최근 눈 증상 변화 없음 / 인슐린 사용, 지난달 운동 중 저혈당 1회(식은땀·떨림) / 계단에서 머뭇거림, 6개월 안에 넘어짐 1회 / 흰 지팡이 사용]</mark>
+이 결과로 아래를 판단해 줘.
+1. 신호등: 바로 운동 가능 / 조건부 가능 / 의료 확인 먼저, 근거 한 줄.
+2. 조건부라면 그 조건(강도 상한, 운동 전 혈당 확인, 피할 자세).
+3. 첫 4주 동안 넣을 것과 뺄 것.
+4. 선수에게 할 말 두 문장(겁주지 않게).
+진단명이나 약 조절은 말하지 마.</code></pre></figure>
+<p><strong>좋은 답의 조건</strong></p>
+<ul class="tasks">
+<li class="task"><label for="p1-c2-t4"><input type="checkbox" id="p1-c2-t4" data-k="p1-c2-t4"><span>신호등이 「조건부 가능」이고, 조건에 강도 상한(중강도)과 운동 전 혈당 확인이 있다</span></label></li>
+<li class="task"><label for="p1-c2-t5"><input type="checkbox" id="p1-c2-t5" data-k="p1-c2-t5"><span>숨 참고 힘주기와 머리를 아래로 두는 자세를 뺐다</span></label></li>
+<li class="task"><label for="p1-c2-t6"><input type="checkbox" id="p1-c2-t6" data-k="p1-c2-t6"><span>약 용량 조절 같은 의료 판단이 없다</span></label></li>
+</ul>
+<p><strong>연습</strong>: 내 담당 선수의 면담 기록(코드만)으로 2-2를 하고, AI의 신호등과 내 판단이 다르면 어느 쪽이 왜 맞는지 한 줄로 적습니다.</p>
+<h3>이 장의 학습 카드</h3>
+<div class="fcs">
+<details class="fc" data-fc="p1-c2-f1"><summary><span class="fc-n"><span>학습 카드 1</span><span class="fc-st" hidden></span></span><span class="fc-q">운동을 멈추고 당일 안과 진료를 권할 세 가지 눈 신호는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">새로 생긴 번쩍임, 갑자기 늘어난 떠다니는 점, 시야 일부를 가리는 그림자나 커튼입니다. 망막박리는 대개 아프지 않아 말로 묻지 않으면 놓칩니다.</div></details>
+<details class="fc" data-fc="p1-c2-f2"><summary><span class="fc-n"><span>학습 카드 2</span><span class="fc-st" hidden></span></span><span class="fc-q">녹내장이 있는 선수의 근력 운동에서 바꿀 두 가지는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">힘줄 때 숨을 참지 않고 내쉬게 하고, 머리를 심장보다 낮추는 자세를 오래 하지 않게 합니다. 두 경우 모두 안압이 오릅니다.<small>근거: 미국안과학회 EyeNet</small></div></details>
+<details class="fc" data-fc="p1-c2-f3"><summary><span class="fc-n"><span>학습 카드 3</span><span class="fc-st" hidden></span></span><span class="fc-q">증식성 당뇨망막병증이 있는 선수의 고강도 운동은?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">유리체 출혈·망막박리 위험 때문에 금기일 수 있습니다. 안과에서 허용 강도를 받은 뒤 시작합니다.<small>근거: Colberg 외(2016), 미국당뇨병학회 입장문</small></div></details>
+<details class="fc" data-fc="p1-c2-f4"><summary><span class="fc-n"><span>학습 카드 4</span><span class="fc-st" hidden></span></span><span class="fc-q">시각장애 선수 면담에서 일반 문진보다 더 묻는 세 가지는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">안과의 운동 제한(문서로 받기), 이동 방법(지팡이·안내견·안내인), 신체 접촉 선호입니다.</div></details>
+</div>
+</div><label class="done" for="p1-c2-done"><input type="checkbox" id="p1-c2-done" data-k="p1-c2-done" data-ch="p1-c2"><span>이 장을 끝냈어요</span></label></section>
+<section class="ch" id="p1-c3" data-part="1"><header class="chh"><span class="olbl">1부 · 3장</span><h2>체력·기능 평가</h2></header><div class="gobar"><span class="olbl">이 장의 카드</span><div class="gos"><a class="go" href="#deck" data-deck="p1-c3"><small>학습 카드 3장</small><span>덱에서 이 장만 보기</span></a><a class="go" href="#p1-c3-tc1"><small>과제 카드</small><span>3-1 6분 걷기 스테이션</span></a><a class="go" href="#p1-c3-pc1"><small>프롬프트 카드</small><span>3-1 수업 시간 평가 계획</span></a></div></div><div class="prose">
+<p>평가는 표준 검사를 그대로 쓰되 「전달 방법」만 바꿉니다. 검사 방법까지 바꾸면 다음 측정이나 다른 사람의 기록과 비교할 수 없기 때문입니다. 바꾸는 것은 세 가지입니다. 설명(말 + 촉각 시연 + 연습 시행), 출발·반환·도착 표시(촉각·소리), 안전 요원 배치입니다.</p>
+<h3>평가 항목과 바꿀 점</h3>
+<div class="tbl"><table>
+<thead><tr><th>영역</th><th>검사 예</th><th>시각장애 선수에게 바꿀 점</th></tr></thead>
+<tbody>
+<tr><td>균형</td><td>외발서기(눈 뜨고·눈 감고)</td><td>전맹 선수에게는 두 조건이 같습니다. 두 조건의 차이(시각에 기대는 정도)는 저시력 선수에게만 의미가 있습니다</td></tr>
+<tr><td>이동</td><td>일어나 걸어가기(TUG)</td><td>반환점에 소리 나는 표지, 첫 시행 전에 코스를 함께 걸어 보기</td></tr>
+<tr><td>하지 근력</td><td>30초 의자 앉았다 일어서기</td><td>의자를 벽에 붙여 고정하고, 시작과 끝을 말로 알림</td></tr>
+<tr><td>심폐 지구력</td><td>6분 걷기</td><td>벽이나 줄을 따라 걷는 직선 코스, 또는 안내인과 함께 걷기. 다음 측정도 같은 방법으로</td></tr>
+<tr><td>유연성</td><td>앉아 윗몸 앞으로 굽히기</td><td>측정 자의 끝을 손으로 먼저 확인하게 하고, 자세는 촉각 모델링으로 보여 줌</td></tr>
+</tbody></table></div>
+<p>해석할 때는 비장애인 규준표보다 같은 선수의 이전 기록과 비교합니다. 시각장애는 균형과 이동 능력, 이동에 대한 자신감을 함께 낮추는 경우가 많습니다(Carretti 외, 2023). 낯선 장소나 처음 듣는 설명도 기록을 낮출 수 있으므로 본 측정 전에 연습 시행을 둡니다.</p>
+<div class="tcard" id="p1-c3-tc1"><div class="tcard-h"><span>과제 카드 3-1 · 4명 한 모둠 · 25분</span><span><span class="tc-count">기준 0/4</span><span class="tc-pass">통과</span></span></div><div class="tcard-b">
+<h4>6분 걷기 스테이션 운영</h4>
+<p><strong>과제</strong>: 측정자·안전 요원·기록자·선수 역할을 나눠 6분 걷기를 운영합니다. 선수 역할은 안대를 쓸지 스스로 고릅니다.</p>
+<ol>
+<li>복도나 체육관 벽을 따라 직선 코스를 만들고, 반환 지점을 소리(손뼉 두 번)나 촉각(바닥의 고무 띠)으로 표시합니다. 표준 코스 길이를 지키지 못하면 실제 길이를 기록지에 적습니다.</li>
+<li>시작 전에 선수와 코스를 한 번 함께 걷습니다.</li>
+<li>측정 중에는 1분마다 남은 시간을 말로 알립니다.</li>
+<li>역할을 바꿔 한 번 더 합니다.</li>
+</ol>
+<p><strong>성공 기준</strong>: 모두 채우면 통과입니다.</p>
+<ul class="tasks">
+<li class="task"><label for="p1-c3-tc1-1"><input type="checkbox" id="p1-c3-tc1-1" data-k="p1-c3-tc1-1"><span>검사 전에 코스를 함께 한 번 걸었다</span></label></li>
+<li class="task"><label for="p1-c3-tc1-2"><input type="checkbox" id="p1-c3-tc1-2" data-k="p1-c3-tc1-2"><span>반환 지점을 소리나 촉각으로 알렸다(눈에 보이는 표지에만 기대지 않았다)</span></label></li>
+<li class="task"><label for="p1-c3-tc1-3"><input type="checkbox" id="p1-c3-tc1-3" data-k="p1-c3-tc1-3"><span>1분마다 남은 시간을 말로 알렸다</span></label></li>
+<li class="task"><label for="p1-c3-tc1-4"><input type="checkbox" id="p1-c3-tc1-4" data-k="p1-c3-tc1-4"><span>코스 길이와 안내 방법을 기록지에 적어, 다음 측정 때 똑같이 할 수 있다</span></label></li>
+</ul>
+<p class="tsafe"><span class="tl dot" aria-hidden="true"></span><span><strong>안전</strong>: 안대를 쓴 사람 옆에는 안전 요원이 늘 함께 걷고, 코스의 장애물을 먼저 치웁니다. 안대는 언제든 벗을 수 있습니다.</span></p>
+</div></div>
+<h3 id="p1-c3-pc1">프롬프트 카드 3-1 수업 시간 평가 계획</h3>
+<p><strong>상황</strong>: 새 학기 첫 주, V-07이 속한 반의 체력·기능을 체육 시간 한 번에 평가해야 한다.</p>
+<figure class="prompt"><figcaption><span>프롬프트 · 복사해서 붙여 넣기</span><button type="button" class="copy">복사</button></figcaption><pre><code><b class="lab">[역할]</b> 너는 특수학교 체육 교사를 돕는 어시스턴트다.
+<b class="lab">[상황]</b> <mark class="ph">[중학교 3학년 8명(전맹 2명 포함, V-07), 체육관 1곳, 보조 인력 1명, 수업 40분]</mark>
+<b class="lab">[만들 것]</b> 학기 초 체력·기능 평가 계획.
+- 균형·이동·하지 근력·심폐 지구력 영역에서 하나씩, 표준 검사로 고른다.
+- 검사마다: 원래 측정 방법 / 시각장애 학생에게 바꾸는 전달 방법(말·촉각·소리) / 안전 배치.
+- 40분 안에 끝나도록 스테이션 순환표를 짠다(이동·설명 시간 포함).
+<b class="lab">[규칙]</b> 검사 방법 자체는 바꾸지 말고 전달 방법만 바꾼다. 어쩔 수 없이 바꾸는 것은 「변경」이라고 표시한다.
+<b class="lab">[출력]</b> 표 2개: 검사표, 순환표.</code></pre></figure>
+<p><strong>좋은 답의 조건</strong></p>
+<ul class="tasks">
+<li class="task"><label for="p1-c3-t1"><input type="checkbox" id="p1-c3-t1" data-k="p1-c3-t1"><span>전맹 학생에게 「눈 감고 외발서기」가 따로 의미 있는 조건이 아니라는 점을 짚는다</span></label></li>
+<li class="task"><label for="p1-c3-t2"><input type="checkbox" id="p1-c3-t2" data-k="p1-c3-t2"><span>검사마다 촉각이나 소리 표지가 있다</span></label></li>
+<li class="task"><label for="p1-c3-t3"><input type="checkbox" id="p1-c3-t3" data-k="p1-c3-t3"><span>순환표의 시간 합이 40분 이하이다(직접 더해 봅니다)</span></label></li>
+</ul>
+<p><strong>더 좋게 묻기</strong>: <code>이 평가 결과를 학생 본인이 읽을 수 있게, 화면 낭독기로 읽히는 결과지 양식도 만들어 줘.</code></p>
+<p><strong>연습</strong>: 실제 한 반으로 3-1을 하고, AI가 짠 순환표대로 운영한 뒤 실제로 걸린 시간을 적어 비교합니다.</p>
+<h3>이 장의 학습 카드</h3>
+<div class="fcs">
+<details class="fc" data-fc="p1-c3-f1"><summary><span class="fc-n"><span>학습 카드 1</span><span class="fc-st" hidden></span></span><span class="fc-q">평가할 때 바꾸는 것과 바꾸지 않는 것은?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">검사 방법은 그대로 두고 설명·표지·안전 배치 같은 전달 방법만 바꿉니다. 방법을 바꾸면 다음 측정과 비교할 수 없습니다.</div></details>
+<details class="fc" data-fc="p1-c3-f2"><summary><span class="fc-n"><span>학습 카드 2</span><span class="fc-st" hidden></span></span><span class="fc-q">전맹 선수에게 「눈 감고 외발서기」를 따로 재는 의미는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">거의 없습니다. 눈을 뜨든 감든 시각 정보가 없으므로 두 조건이 같습니다. 두 조건의 차이는 저시력 선수가 시각에 얼마나 기대는지 볼 때 씁니다.</div></details>
+<details class="fc" data-fc="p1-c3-f3"><summary><span class="fc-n"><span>학습 카드 3</span><span class="fc-st" hidden></span></span><span class="fc-q">시각장애 선수의 체력 기록은 무엇과 비교하나요?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">비장애인 규준표보다 같은 선수의 이전 기록과 비교합니다. 낯선 장소나 설명 방식이 기록을 낮출 수 있어 연습 시행을 둡니다.</div></details>
+</div>
+</div><label class="done" for="p1-c3-done"><input type="checkbox" id="p1-c3-done" data-k="p1-c3-done" data-ch="p1-c3"><span>이 장을 끝냈어요</span></label></section>
+<section class="ch" id="p1-c4" data-part="1"><header class="chh"><span class="olbl">1부 · 4장</span><h2>훈련 처방과 주기화</h2></header><div class="gobar"><span class="olbl">이 장의 카드</span><div class="gos"><a class="go" href="#deck" data-deck="p1-c4"><small>학습 카드 4장</small><span>덱에서 이 장만 보기</span></a><a class="go" href="#p1-c4-tc1"><small>과제 카드</small><span>4-1 RPE 말로 묻기</span></a><a class="go" href="#p1-c4-pc1"><small>프롬프트 카드</small><span>4-1 8주 처방</span></a><a class="go" href="#p1-c4-pc2"><small>프롬프트 카드</small><span>4-2 12주 주기화</span></a></div></div><div class="prose">
+<p>처방의 뼈대인 빈도·강도·시간·종류는 비장애 선수와 같습니다. 달라지는 것은 세 가지입니다. 강도를 눈으로 보지 않고 재는 방법, 균형·이동 훈련의 비중, 그리고 안과 제한을 반영한 동작 선택입니다.</p>
+<h3>강도를 재는 방법</h3>
+<ul>
+<li><strong>말로 묻는 RPE(0–10)</strong>: 숫자와 말을 함께 들려줍니다. 「0은 앉아서 쉬는 정도, 5는 힘들다, 7은 매우 힘들다, 10은 더는 못 한다.」 척도표를 가리키게 하지 않고 말로 답하게 합니다. 저시력 선수에게는 큰 글씨 척도 카드를 줍니다.</li>
+<li><strong>말하기 검사</strong>: 운동하면서 문장을 끊지 않고 말할 수 있으면 대체로 중강도 이하입니다.</li>
+<li><strong>음성 안내 심박계</strong>: 목표 심박 구간에 들어가고 벗어날 때 소리로 알려 주는 기기를 씁니다.</li>
+</ul>
+<div class="formula" role="math" aria-label="최대 심박수는 208 빼기 0.7 곱하기 나이">HR<sub>max</sub> = 208 − 0.7 × 나이</div>
+<p>중강도는 최대 심박수의 64–76%입니다(미국스포츠의학회 강도 구분). 54세인 V-21은 최대 심박수가 약 170회(208 − 37.8)이므로 중강도 구간은 약 109–129회/분입니다. 심박 반응을 둔하게 하는 약을 먹거나 자율신경 문제가 있으면 심박만 믿지 말고 RPE를 함께 씁니다.</p>
+<h3>균형과 이동을 처방에 넣는 이유</h3>
+<p>시각장애는 균형, 일상 이동 능력, 이동에 대한 자신감을 함께 낮춥니다(Carretti 외, 2023). 성인 대상 연구에서는 태극권·요가·춤처럼 균형을 쓰는 활동이 이동·균형 지표를 좋게 했다는 보고가 많지만, 연구 규모가 작고 메타분석에서는 효과가 뚜렷하지 않았습니다(Sweeting 외, 2020). 그래서 균형 훈련은 「효과가 확실한 처방」이 아니라 「넣되 기록으로 확인하는 처방」으로 다룹니다.</p>
+<h3>눈 상태에 따른 대체 동작</h3>
+<div class="tbl"><table>
+<thead><tr><th>원래 동작</th><th>피하는 이유</th><th>대체 동작</th></tr></thead>
+<tbody>
+<tr><td>무거운 데드리프트, 최대 무게 시도</td><td>숨 참고 힘주기(녹내장·망막병증)</td><td>가벼운 무게로 반복 늘리기, 힘줄 때 내쉬기</td></tr>
+<tr><td>머리가 심장보다 낮아지는 자세(물구나무, 머리를 아래로 두는 요가 자세)</td><td>안압 상승(녹내장)</td><td>선 자세·앉은 자세 스트레칭</td></tr>
+<tr><td>점프, 박스 점프 같은 충격 동작</td><td>망막 질환이 있으면 안과의 확인 전까지 보류</td><td>스텝업, 빠르게 걷기</td></tr>
+</tbody></table></div>
+<h3>진행 규칙</h3>
+<p>목표 반복이나 시간을 2세션 연속 채우고 RPE가 목표 이하이면 한 단계 올립니다. 넘어짐이나 부딪힘이 있었던 주에는 올리지 않고 환경과 신호부터 점검합니다(5장, 2부 2장).</p>
+<h3>12주 주기화 예: V-12의 5km 대회</h3>
+<div class="tbl"><table>
+<thead><tr><th>구간</th><th>주</th><th>초점</th><th>가이드 러너와 함께</th></tr></thead>
+<tbody>
+<tr><td>기초기</td><td>1–4</td><td>걷기·달리기 섞기, 하지 근력·균형</td><td>주 1회, 걷기·조깅으로 끈 합 맞추기</td></tr>
+<tr><td>강화기</td><td>5–8</td><td>연속으로 달리는 시간 늘리기, 언덕</td><td>주 2회, 코너·추월 신호 연습</td></tr>
+<tr><td>대회 준비기</td><td>9–11</td><td>대회 속도 구간, 출발·결승 연습</td><td>주 2회, 대회 코스와 비슷한 노면</td></tr>
+<tr><td>조정기</td><td>12</td><td>운동량 줄이기</td><td>대회 전 리허설 1회</td></tr>
+</tbody></table></div>
+<div class="tcard" id="p1-c4-tc1"><div class="tcard-h"><span>과제 카드 4-1 · 짝 · 15분</span><span><span class="tc-count">기준 0/3</span><span class="tc-pass">통과</span></span></div><div class="tcard-b">
+<h4>RPE 말로 묻기</h4>
+<p><strong>과제</strong>: 짝이 세 가지 강도로 움직이는 동안, 보지 않고도 강도를 확인하는 말을 연습합니다.</p>
+<ol>
+<li>짝이 2분 제자리 걷기 → 2분 빠르게 걷기 → 2분 천천히 걷기를 합니다.</li>
+<li>단계가 끝날 때마다 RPE를 말로 묻고, 숫자만 받지 말고 「숨은 어때요?」 같은 확인 질문을 하나 덧붙입니다.</li>
+<li>세 단계의 RPE와 확인 답을 기록지에 적고 역할을 바꿉니다.</li>
+</ol>
+<p><strong>성공 기준</strong>: 모두 채우면 통과입니다.</p>
+<ul class="tasks">
+<li class="task"><label for="p1-c4-tc1-1"><input type="checkbox" id="p1-c4-tc1-1" data-k="p1-c4-tc1-1"><span>척도를 숫자와 말(0 쉼 · 5 힘듦 · 7 매우 힘듦 · 10 최대)로 함께 설명했다</span></label></li>
+<li class="task"><label for="p1-c4-tc1-2"><input type="checkbox" id="p1-c4-tc1-2" data-k="p1-c4-tc1-2"><span>척도표를 가리키게 하지 않고 말로 답하게 했다</span></label></li>
+<li class="task"><label for="p1-c4-tc1-3"><input type="checkbox" id="p1-c4-tc1-3" data-k="p1-c4-tc1-3"><span>세 단계의 RPE를 기록지에 적었다</span></label></li>
+</ul>
+<p class="tsafe"><span class="tl dot" aria-hidden="true"></span><span><strong>안전</strong>: 짝이 안대를 쓴다면 움직이는 자리 1m 안에 물건이 없게 하고, 다른 사람이 옆에서 지킵니다.</span></p>
+</div></div>
+<h3 id="p1-c4-pc1">프롬프트 카드 4-1 당뇨망막병증 선수의 8주 처방</h3>
+<p><strong>상황</strong>: V-21은 신호등 판정에서 「조건부 가능」을 받았다(2장 프롬프트 2-2). 주 3회, 50분 가능하다.</p>
+<figure class="prompt"><figcaption><span>프롬프트 · 복사해서 붙여 넣기</span><button type="button" class="copy">복사</button></figcaption><pre><code><b class="lab">[역할]</b> 너는 특수체육 지도자를 돕는 운동 처방 어시스턴트다.
+<b class="lab">[선수]</b> <mark class="ph">[V-21, 남 54세, 당뇨망막병증(저시력), 안과 소견 「고강도 운동 자제」, 인슐린 사용, 지난달 운동 중 저혈당 1회, 계단에서 머뭇거림, 주 3회 50분 가능]</mark>
+<b class="lab">[만들 것]</b> 8주 프로그램.
+- 표: 주차 | 세션 | 운동 | 세트×반복 또는 시간 | 강도 | 메모.
+- 유산소는 중강도로: 최대 심박수(208 − 0.7×나이)의 64–76%를 숫자로 계산하고, RPE도 함께 적는다.
+- 근력은 큰 근육 위주로, 힘줄 때 내쉬기. 숨 참고 힘주기, 머리가 심장보다 낮아지는 자세, 점프는 넣지 않는다.
+- 세션마다 균형·계단 연습 10분.
+- 세션 시작 전 혈당 확인과 저혈당 대처(간식 준비, 증상이 있으면 중단)를 「세션 규칙」으로 맨 위에 둔다.
+<b class="lab">[끝에]</b> 지도자가 매 세션 확인할 것 3가지.
+<b class="lab">[규칙]</b> 약 조절이나 식사 처방은 하지 않는다. 의료진 확인이 필요한 것은 「의료진 확인」으로 표시한다.</code></pre></figure>
+<p><strong>좋은 답의 조건</strong></p>
+<ul class="tasks">
+<li class="task"><label for="p1-c4-t1"><input type="checkbox" id="p1-c4-t1" data-k="p1-c4-t1"><span>목표 심박이 계산돼 있다(54세 → 최대 약 170회, 64–76%는 약 109–129회)</span></label></li>
+<li class="task"><label for="p1-c4-t2"><input type="checkbox" id="p1-c4-t2" data-k="p1-c4-t2"><span>숨 참고 힘주기·머리 낮춤·점프가 프로그램에 없다</span></label></li>
+<li class="task"><label for="p1-c4-t3"><input type="checkbox" id="p1-c4-t3" data-k="p1-c4-t3"><span>혈당 확인과 저혈당 대처가 세션 규칙에 있다</span></label></li>
+</ul>
+<p><strong>더 좋게 묻기</strong>: <code>이 프로그램을 선수가 혼자 들을 수 있게 세션별 3분 음성 안내 대본으로 바꿔 줘.</code></p>
+<h3 id="p1-c4-pc2">프롬프트 카드 4-2 가이드 러너와 준비하는 12주 주기화</h3>
+<p><strong>상황</strong>: V-12의 첫 5km 대회가 12주 남았다. 가이드 러너는 정해졌고, 지금은 30분 동안 걷기와 달리기를 섞어 할 수 있다.</p>
+<figure class="prompt"><figcaption><span>프롬프트 · 복사해서 붙여 넣기</span><button type="button" class="copy">복사</button></figcaption><pre><code><b class="lab">[선수]</b> <mark class="ph">[V-12, 여 23세, 시야가 좁고 어두운 곳에서 잘 안 보임, 첫 5km 로드 대회 12주 전, 현재 30분 걷기·달리기 섞어 가능, 주 4회]</mark>
+<b class="lab">[만들 것]</b> 12주 주기화 계획.
+- 구간(기초·강화·대회 준비·조정)마다 주차, 초점, 주간 세션 구성.
+- 가이드 러너와 함께하는 세션을 주 1~2회 넣고, 그 세션의 목표(끈 합 맞추기, 코너 신호, 출발·결승 연습)를 적는다.
+- 해 질 녘·야간 훈련은 빼거나 조명이 밝은 트랙으로 정한다.
+- 진행 규칙: 목표를 2세션 연속 채우고 RPE가 목표 이하이면 늘린다. 넘어짐·부딪힘이 있던 주에는 늘리지 않는다.
+<b class="lab">[출력]</b> 구간 표 1개 + 5주차 한 주 상세표.</code></pre></figure>
+<p><strong>좋은 답의 조건</strong></p>
+<ul class="tasks">
+<li class="task"><label for="p1-c4-t4"><input type="checkbox" id="p1-c4-t4" data-k="p1-c4-t4"><span>가이드 세션의 목표가 구간마다 다르다(합 맞추기 → 신호 → 대회 연습)</span></label></li>
+<li class="task"><label for="p1-c4-t5"><input type="checkbox" id="p1-c4-t5" data-k="p1-c4-t5"><span>야간 시력 문제를 일정에 반영했다</span></label></li>
+<li class="task"><label for="p1-c4-t6"><input type="checkbox" id="p1-c4-t6" data-k="p1-c4-t6"><span>넘어짐·부딪힘이 있던 주의 규칙이 있다</span></label></li>
+</ul>
+<p><strong>연습</strong>: 4-1 답의 목표 심박을 계산기로 다시 계산해 보고, AI 숫자와 다르면 어느 숫자가 틀렸는지 찾아 다시 요청합니다.</p>
+<h3>이 장의 학습 카드</h3>
+<div class="fcs">
+<details class="fc" data-fc="p1-c4-f1"><summary><span class="fc-n"><span>학습 카드 1</span><span class="fc-st" hidden></span></span><span class="fc-q">보지 않고 운동 강도를 확인하는 방법 세 가지는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">말로 묻는 RPE(0–10, 숫자와 말을 함께), 말하기 검사(문장을 끊지 않고 말할 수 있는가), 음성 안내 심박계입니다.</div></details>
+<details class="fc" data-fc="p1-c4-f2"><summary><span class="fc-n"><span>학습 카드 2</span><span class="fc-st" hidden></span></span><span class="fc-q">54세 선수의 중강도 목표 심박(최대 심박수의 64–76%)은?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">최대 심박수가 208 − 0.7×54 ≈ 170회이므로, 64–76%는 약 109–129회/분입니다.<small>근거: Tanaka 외(2001) 추정식, 미국스포츠의학회 강도 구분</small></div></details>
+<details class="fc" data-fc="p1-c4-f3"><summary><span class="fc-n"><span>학습 카드 3</span><span class="fc-st" hidden></span></span><span class="fc-q">녹내장 선수에게 최대 무게 시도 대신 줄 처방은?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">가벼운 무게로 반복을 늘리고 힘줄 때 내쉬게 합니다. 숨 참고 힘주면 안압이 오릅니다.</div></details>
+<details class="fc" data-fc="p1-c4-f4"><summary><span class="fc-n"><span>학습 카드 4</span><span class="fc-st" hidden></span></span><span class="fc-q">넘어짐이나 부딪힘이 있었던 주의 진행 규칙은?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">부하를 올리지 않고 환경과 신호부터 점검합니다.</div></details>
+</div>
+</div><label class="done" for="p1-c4-done"><input type="checkbox" id="p1-c4-done" data-k="p1-c4-done" data-ch="p1-c4"><span>이 장을 끝냈어요</span></label></section>
+<section class="ch" id="p1-c5" data-part="1"><header class="chh"><span class="olbl">1부 · 5장</span><h2>훈련 환경과 오리엔테이션</h2></header><div class="gobar"><span class="olbl">이 장의 카드</span><div class="gos"><a class="go" href="#deck" data-deck="p1-c5"><small>학습 카드 4장</small><span>덱에서 이 장만 보기</span></a><a class="go" href="#p1-c5-tc1"><small>과제 카드</small><span>5-1 체육관 말 지도</span></a><a class="go" href="#p1-c5-pc1"><small>프롬프트 카드</small><span>5-1 체육관 점검표</span></a><a class="go" href="#p3-c"><small>수업 자료</small><span>지도안 C 골볼 입문</span></a></div></div><div class="prose">
+<p>시각장애 선수에게 훈련장은 머릿속에 외워 둔 지도입니다. 장비가 늘 같은 자리에 있으면 선수는 혼자 움직이고, 말없이 바뀌면 부딪힙니다. 환경을 꾸미는 원칙은 세 가지입니다. 늘 같게 두기, 바꾸면 먼저 알리기, 여러 감각으로 표시하기입니다.</p>
+<h3>첫 방문 오리엔테이션</h3>
+<ol>
+<li>입구에서 시작해 벽을 따라 한 바퀴 돕니다. 지도자는 「지금 오른손에 닿는 것이 매트 보관함이에요」처럼 손에 닿는 것마다 이름을 붙입니다.</li>
+<li>기준점 네 곳을 정합니다. 입구, 물·화장실, 지도자가 주로 서는 곳, 비상구입니다.</li>
+<li>기준점 사이를 선수 혼자 다시 걸어 보게 하고, 지도자는 뒤에서 말로만 돕습니다.</li>
+<li>장비의 크기·무게·소리를 손으로 먼저 확인하게 합니다(공, 콘, 매트).</li>
+</ol>
+<h3>감각별 표시</h3>
+<div class="tbl"><table>
+<thead><tr><th>감각</th><th>예</th><th>쓰는 곳</th></tr></thead>
+<tbody>
+<tr><td>촉각</td><td>테이프 아래에 줄을 넣은 선, 매트 경계, 출발선의 고무 띠</td><td>골볼 코트 선, 출발·도착선</td></tr>
+<tr><td>소리</td><td>방울 든 공, 손뼉, 소리 나는 표지(비콘), 메트로놈</td><td>목표 방향, 반환점</td></tr>
+<tr><td>시각(저시력)</td><td>바닥과 대비가 큰 색의 콘·테이프, 밝고 고른 조명</td><td>경계와 장애물 표시</td></tr>
+</tbody></table></div>
+<h3>지도자가 지킬 다섯 가지</h3>
+<ul>
+<li>장비를 옮기면 먼저 말합니다. 「오늘은 콘이 왼쪽 벽 쪽으로 2m 옮겨졌어요.」</li>
+<li>창이나 밝은 조명을 등지고 서지 않습니다. 저시력 선수에게 지도자가 검은 그림자로만 보입니다.</li>
+<li>문은 활짝 열거나 완전히 닫아 둡니다. 반쯤 열린 문은 모서리에 부딪히기 쉽습니다.</li>
+<li>소리 신호가 묻히지 않게 음악과 잡담을 줄입니다. 골볼처럼 소리로 하는 종목은 경기 중 정숙이 규칙입니다.</li>
+<li>가방·물병 두는 자리를 정해 바닥에 물건이 흩어지지 않게 합니다.</li>
+</ul>
+<div class="tcard" id="p1-c5-tc1"><div class="tcard-h"><span>과제 카드 5-1 · 4명 한 모둠 · 30분</span><span><span class="tc-count">기준 0/3</span><span class="tc-pass">통과</span></span></div><div class="tcard-b">
+<h4>체육관 「말 지도」 만들기</h4>
+<p><strong>과제</strong>: 체육관을 시각장애 선수가 혼자 다닐 수 있게 점검하고, 그림 없이 말로만 된 지도를 만듭니다.</p>
+<ol>
+<li>체육관을 걸으며 기준점 네 곳과 위험 지점(기둥, 반쯤 열린 문, 단차, 바닥의 물건)을 찾습니다.</li>
+<li>위험 지점마다 고치는 방법(치우기, 촉각 표시, 말로 알리기)을 정합니다.</li>
+<li>기준점 사이 이동 경로를 걸음 수와 방향만으로 설명하는 「말 지도」를 씁니다.</li>
+<li>다른 모둠이 말 지도만 듣고 경로를 걸어 봅니다.</li>
+</ol>
+<p><strong>성공 기준</strong>: 모두 채우면 통과입니다.</p>
+<ul class="tasks">
+<li class="task"><label for="p1-c5-tc1-1"><input type="checkbox" id="p1-c5-tc1-1" data-k="p1-c5-tc1-1"><span>「이쪽·저쪽」 없이 걸음 수와 방향(몸 기준 좌우, 시계 방향)으로 설명했다</span></label></li>
+<li class="task"><label for="p1-c5-tc1-2"><input type="checkbox" id="p1-c5-tc1-2" data-k="p1-c5-tc1-2"><span>위험 지점마다 고치는 방법이 하나 이상 있다</span></label></li>
+<li class="task"><label for="p1-c5-tc1-3"><input type="checkbox" id="p1-c5-tc1-3" data-k="p1-c5-tc1-3"><span>다른 모둠이 말 지도만으로 목적지에 도착했다</span></label></li>
+</ul>
+<p class="tsafe"><span class="tl dot" aria-hidden="true"></span><span><strong>안전</strong>: 말 지도를 시험하는 사람이 안대를 쓰면 가이드가 반드시 함께 걷고, 안대는 언제든 벗을 수 있습니다.</span></p>
+</div></div>
+<h3 id="p1-c5-pc1">프롬프트 카드 5-1 통합 체육관 점검표</h3>
+<p><strong>상황</strong>: V-07이 협력 학교 교류 수업으로 일반 중학교 체육 시간에 처음 참여한다. 단원은 육상이다.</p>
+<figure class="prompt"><figcaption><span>프롬프트 · 복사해서 붙여 넣기</span><button type="button" class="copy">복사</button></figcaption><pre><code><b class="lab">[역할]</b> 너는 통합 체육 수업을 준비하는 체육 교사를 돕는 어시스턴트다.
+<b class="lab">[상황]</b> <mark class="ph">[중학교 체육관(농구 코트 1면, 코트 가장자리에 농구 골대 지지대, 무대 단차 40cm, 벽 쪽에 접이식 의자), 3학년 28명 중 V-07(선천성 전맹, 흰 지팡이 사용) 1명 참여, 단원: 육상(실내 달리기·제자리멀리뛰기)]</mark>
+<b class="lab">[만들 것]</b> 수업 전 점검표와 배치 계획.
+1. 점검표: 항목 | 확인 방법 | 고칠 것 (10개 이상).
+2. V-07을 위한 촉각·소리 표시: 어디에 무엇으로.
+3. 소리 나는 표지를 쓸 때 다른 학생에게 알릴 규칙 3가지.
+4. 첫 수업 10분 오리엔테이션 순서.
+<b class="lab">[규칙]</b> V-07을 구경하는 자리에 두는 배치는 쓰지 않는다. 장비를 옮기면 먼저 말로 알린다는 규칙을 넣는다.</code></pre></figure>
+<p><strong>좋은 답의 조건</strong></p>
+<ul class="tasks">
+<li class="task"><label for="p1-c5-t1"><input type="checkbox" id="p1-c5-t1" data-k="p1-c5-t1"><span>무대 단차와 골대 지지대에 대한 조치(치우기·표시·말로 알리기)가 있다</span></label></li>
+<li class="task"><label for="p1-c5-t2"><input type="checkbox" id="p1-c5-t2" data-k="p1-c5-t2"><span>「장비를 옮기면 먼저 말하기」가 규칙에 들어 있다</span></label></li>
+<li class="task"><label for="p1-c5-t3"><input type="checkbox" id="p1-c5-t3" data-k="p1-c5-t3"><span>V-07이 실제로 달리고 뛰는 활동에 참여한다(관람석 배치 없음)</span></label></li>
+</ul>
+<p><strong>더 좋게 묻기</strong>: <code>이 점검 결과를 V-07이 직접 들을 수 있는 1분 음성 안내 대본으로도 만들어 줘.</code></p>
+<p><strong>연습</strong>: 내가 수업하는 체육관으로 5-1을 해 보고, 점검표를 들고 실제로 한 바퀴 돌며 AI가 놓친 위험 지점을 하나 이상 찾아 더합니다.</p>
+<h3>이 장의 학습 카드</h3>
+<div class="fcs">
+<details class="fc" data-fc="p1-c5-f1"><summary><span class="fc-n"><span>학습 카드 1</span><span class="fc-st" hidden></span></span><span class="fc-q">지도자가 창을 등지고 서면 저시력 선수에게 생기는 문제는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">눈부심 때문에 지도자가 검은 그림자로만 보여 몸짓과 입 모양 정보를 잃습니다. 빛이 선수의 등 뒤나 옆에서 오도록 자리를 바꿉니다.</div></details>
+<details class="fc" data-fc="p1-c5-f2"><summary><span class="fc-n"><span>학습 카드 2</span><span class="fc-st" hidden></span></span><span class="fc-q">장비 위치를 바꿨을 때 지도자가 먼저 할 일은?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">무엇이 어디로 얼마나 옮겨졌는지 말로 알립니다. 선수가 외워 둔 지도가 바뀌었기 때문입니다.</div></details>
+<details class="fc" data-fc="p1-c5-f3"><summary><span class="fc-n"><span>학습 카드 3</span><span class="fc-st" hidden></span></span><span class="fc-q">첫 방문 오리엔테이션에서 정하는 기준점 네 곳은?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">입구, 물·화장실, 지도자가 주로 서는 곳, 비상구입니다.</div></details>
+<details class="fc" data-fc="p1-c5-f4"><summary><span class="fc-n"><span>학습 카드 4</span><span class="fc-st" hidden></span></span><span class="fc-q">골볼 코트의 선을 손발로 알 수 있는 이유는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">테이프 아래에 줄을 넣어 선이 도드라지게 만들기 때문입니다. 선수는 선을 만져 자기 위치를 확인합니다.</div></details>
+</div>
+</div><label class="done" for="p1-c5-done"><input type="checkbox" id="p1-c5-done" data-k="p1-c5-done" data-ch="p1-c5"><span>이 장을 끝냈어요</span></label></section>
+<section class="ch" id="p1-c6" data-part="1"><header class="chh"><span class="olbl">1부 · 6장</span><h2>지도 언어와 피드백</h2></header><div class="gobar"><span class="olbl">이 장의 카드</span><div class="gos"><a class="go" href="#deck" data-deck="p1-c6"><small>학습 카드 5장</small><span>덱에서 이 장만 보기</span></a><a class="go" href="#p1-c6-tc1"><small>과제 카드</small><span>6-1 큐 바꿔 말하기</span></a><a class="go" href="#p1-c6-pc1"><small>프롬프트 카드</small><span>6-1 동작 지도 대본</span></a><a class="go" href="#p1-c6-pc2"><small>프롬프트 카드</small><span>6-2 피드백 문장</span></a><a class="go" href="#p3-c"><small>수업 자료</small><span>지도안 C 골볼 입문</span></a></div></div><div class="prose">
+<p>시범을 보여 줄 수 없을 때 지도자에게 남는 도구는 말, 손, 소리입니다. 말은 구체적이어야 하고, 손은 허락을 받아야 하며, 소리는 미리 약속돼 있어야 합니다. 리버먼(Lieberman) 등은 시각장애 학생의 체육 지도 전략으로 사전 교수, 전체–부분–전체, 신체 안내, 촉각 모델링, 함께 움직이기를 듭니다.</p>
+<h3>다섯 가지 전달 전략</h3>
+<div class="tbl"><table>
+<thead><tr><th>전략</th><th>방법</th><th>예: 골볼 수비 자세</th></tr></thead>
+<tbody>
+<tr><td>사전 교수</td><td>수업 전에 새 동작·규칙·장비를 미리 익히게 한다</td><td>수업 전날 공의 무게와 방울 소리를 손으로 익힘</td></tr>
+<tr><td>전체–부분–전체</td><td>전체 동작을 먼저 경험하고, 나눠 연습한 뒤, 다시 전체로</td><td>막기 전체 → 팔·다리 위치 → 다시 전체</td></tr>
+<tr><td>촉각 모델링</td><td>학생이 시범자의 몸을 만져 동작을 파악한다</td><td>지도자가 수비 자세를 만들고 학생이 어깨·팔·다리를 차례로 만짐</td></tr>
+<tr><td>신체 안내</td><td>지도자가 학생의 몸을 직접 움직여 준다. 먼저 말로 설명하고 허락을 받는다</td><td>「팔을 머리 위로 펴 드릴게요, 괜찮아요?」 하고 팔을 펴 줌</td></tr>
+<tr><td>함께 움직이기</td><td>지도자와 학생이 몸을 맞대고 같은 동작을 동시에 한다</td><td>학생 옆에 나란히 누워 같은 방향으로 함께 몸을 펴 막기</td></tr>
+</tbody></table></div>
+<h3>구체적인 말</h3>
+<ul>
+<li>「이쪽·저쪽·여기」 대신 몸 기준 방향과 거리로 말합니다. 「오른쪽으로 세 걸음」, 「정면으로 5m」.</li>
+<li>시계 방향법: 선수의 정면을 12시로 두고 「공은 3시 방향 2m」처럼 말합니다. 시계 읽는 법을 배운 선수에게 씁니다.</li>
+<li>이름을 먼저 부릅니다. 누구에게 하는 말인지 볼 수 없기 때문입니다.</li>
+<li>「잘했어」 대신 무엇이 좋았는지 말합니다. 「무릎을 굽힌 채로 끝까지 버텼어요.」</li>
+<li>자리를 뜰 때와 돌아올 때 말합니다. 「잠깐 물 가지러 가요.」, 「다시 왔어요.」</li>
+</ul>
+<h3>피드백의 형식</h3>
+<p>피드백은 관찰(무엇을) → 효과(왜 좋았는지, 왜 문제인지) → 다음 시도 한 가지 순서로 말합니다. 「아까 그 동작」처럼 본 사람만 아는 말 대신 몸 부위·횟수·소리처럼 선수도 확인할 수 있는 정보로 말합니다.</p>
+<div class="tcard" id="p1-c6-tc1"><div class="tcard-h"><span>과제 카드 6-1 · 개인 → 짝 · 15분</span><span><span class="tc-count">기준 0/3</span><span class="tc-pass">통과</span></span></div><div class="tcard-b">
+<h4>큐 바꿔 말하기</h4>
+<p><strong>과제</strong>: 아래 막연한 큐 10개를 구체적인 말로 바꾸고, 짝이 듣고 따라 해 봅니다.</p>
+<p>「저기로 던져」 · 「이렇게 해 봐」 · 「조금 더 왼쪽」 · 「거의 다 왔어」 · 「공 온다!」 · 「여기 서」 · 「잘했어」 · 「저 사람 따라가」 · 「빨리!」 · 「그거 집어」</p>
+<ol>
+<li>혼자서 10개를 모두 바꿔 씁니다. 방향·거리·몸 부위 가운데 하나 이상을 넣습니다.</li>
+<li>짝이 눈을 감고 내 큐만 듣고 움직입니다. 던지는 큐는 공 대신 손뼉 방향으로 연습합니다.</li>
+<li>짝이 따라 하지 못한 큐를 다시 고칩니다.</li>
+</ol>
+<p><strong>성공 기준</strong>: 모두 채우면 통과입니다.</p>
+<ul class="tasks">
+<li class="task"><label for="p1-c6-tc1-1"><input type="checkbox" id="p1-c6-tc1-1" data-k="p1-c6-tc1-1"><span>10개 모두 방향·거리·몸 부위 가운데 하나 이상이 들어 있다</span></label></li>
+<li class="task"><label for="p1-c6-tc1-2"><input type="checkbox" id="p1-c6-tc1-2" data-k="p1-c6-tc1-2"><span>「이렇게 해 봐」를 촉각 모델링이나 신체 안내 제안(허락 묻기 포함)으로 바꿨다</span></label></li>
+<li class="task"><label for="p1-c6-tc1-3"><input type="checkbox" id="p1-c6-tc1-3" data-k="p1-c6-tc1-3"><span>짝이 큐만 듣고 10개 중 8개 이상을 따라 했다(80%)</span></label></li>
+</ul>
+<p class="tsafe"><span class="tl dot" aria-hidden="true"></span><span><strong>안전</strong>: 눈을 감은 짝 옆에는 다른 사람이 서서 지키고, 움직이는 범위 안의 물건을 치웁니다.</span></p>
+</div></div>
+<h3 id="p1-c6-pc1">프롬프트 카드 6-1 골볼 수비 자세 지도 대본</h3>
+<p><strong>상황</strong>: V-07은 골볼 입문 2주차다. 새 동작을 배울 때 몸이 굳고, 신체 접촉은 허락했다.</p>
+<figure class="prompt"><figcaption><span>프롬프트 · 복사해서 붙여 넣기</span><button type="button" class="copy">복사</button></figcaption><pre><code><b class="lab">[역할]</b> 너는 골볼부 지도 교사를 돕는 어시스턴트다.
+<b class="lab">[학생]</b> <mark class="ph">[V-07, 남 15세, 선천성 전맹, 골볼 입문 2주차, 새 동작을 배울 때 몸이 굳음, 신체 접촉 허락함]</mark>
+<b class="lab">[동작]</b> <mark class="ph">[골볼 수비: 옆으로 누워 몸을 길게 펴서 막기]</mark>
+<b class="lab">[만들 것]</b> 10분 지도 대본.
+1. 전체–부분–전체 순서로 단계 나누기.
+2. 단계마다 지도자가 할 말(그대로 읽을 문장), 촉각 모델링 또는 신체 안내 방법, 학생이 확인할 감각(바닥에 닿는 부위, 공 소리).
+3. 신체 안내 전에 허락을 묻는 문장.
+4. 흔한 오류 3개: 오류 → 말로 고치는 큐.
+5. 멈추게 할 신호(통증, 머리·얼굴 충돌 위험).
+<b class="lab">[규칙]</b> 「보세요」 「이렇게」 같은 시각에 기대는 말을 쓰지 않는다. 몸 기준 방향(오른쪽·왼쪽, 머리 쪽·발 쪽)만 쓴다.</code></pre></figure>
+<p><strong>좋은 답의 조건</strong></p>
+<ul class="tasks">
+<li class="task"><label for="p1-c6-t1"><input type="checkbox" id="p1-c6-t1" data-k="p1-c6-t1"><span>「보세요」 「이렇게」가 한 번도 나오지 않는다</span></label></li>
+<li class="task"><label for="p1-c6-t2"><input type="checkbox" id="p1-c6-t2" data-k="p1-c6-t2"><span>촉각 모델링과 신체 안내가 구분돼 있다</span></label></li>
+<li class="task"><label for="p1-c6-t3"><input type="checkbox" id="p1-c6-t3" data-k="p1-c6-t3"><span>얼굴·머리 보호(팔 위치)가 안전 신호에 들어 있다</span></label></li>
+</ul>
+<p><strong>더 좋게 묻기</strong>: <code>이 대본을 학생이 집에서 혼자 들으며 복습할 3분 음성 대본으로 줄여 줘.</code></p>
+<h3 id="p1-c6-pc2">프롬프트 카드 6-2 화면 낭독기로 들어도 자연스러운 피드백</h3>
+<p><strong>상황</strong>: V-12가 가이드 러너와 트랙 훈련을 마치고 메모를 남겼다.</p>
+<figure class="prompt"><figcaption><span>프롬프트 · 복사해서 붙여 넣기</span><button type="button" class="copy">복사</button></figcaption><pre><code><b class="lab">[오늘 기록]</b> <mark class="ph">[V-12, 가이드와 400m 트랙 6바퀴 조깅, 코너 신호 뒤 속도 유지가 좋아짐(지난주 멈칫 2회, 오늘 0회), RPE 6, 메모 「끈이 덜 당겨지는 느낌」]</mark>
+이 기록에 달 피드백을 써 줘.
+- 형식: 관찰(숫자 포함) → 효과(왜 좋은지) → 다음 시도 한 가지.
+- 3문장, 120자 안팎, 존댓말.
+- 화면 낭독기로 들어도 자연스럽게: 기호·이모지·「위 그림」 같은 말 없이.
+- 선수 메모에 대한 반응을 꼭 넣는다.</code></pre></figure>
+<p><strong>좋은 답의 조건</strong></p>
+<ul class="tasks">
+<li class="task"><label for="p1-c6-t4"><input type="checkbox" id="p1-c6-t4" data-k="p1-c6-t4"><span>「지난주 2회에서 오늘 0회로」처럼 숫자가 들어간 칭찬이 있다</span></label></li>
+<li class="task"><label for="p1-c6-t5"><input type="checkbox" id="p1-c6-t5" data-k="p1-c6-t5"><span>「끈이 덜 당겨진다」는 메모에 반응한다</span></label></li>
+<li class="task"><label for="p1-c6-t6"><input type="checkbox" id="p1-c6-t6" data-k="p1-c6-t6"><span>이모지·기호·시각에 기대는 표현이 없다</span></label></li>
+</ul>
+<p><strong>연습</strong>: 다음 수업에서 내 말을 녹음해 「이쪽·저쪽·이렇게」가 몇 번 나왔는지 셉니다. 그다음 수업에서 그 수를 절반으로 줄이는 것이 목표입니다. 녹음은 학생들에게 미리 알리고 내 목소리만 남깁니다.</p>
+<h3>이 장의 학습 카드</h3>
+<div class="fcs">
+<details class="fc" data-fc="p1-c6-f1"><summary><span class="fc-n"><span>학습 카드 1</span><span class="fc-st" hidden></span></span><span class="fc-q">촉각 모델링과 신체 안내의 차이는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">촉각 모델링은 학생이 시범자의 몸을 만져 동작을 파악하는 것, 신체 안내는 지도자가 학생의 몸을 직접 움직여 주는 것입니다. 신체 안내는 먼저 말로 설명하고 허락을 받습니다.<small>근거: Lieberman 외(2015)</small></div></details>
+<details class="fc" data-fc="p1-c6-f2"><summary><span class="fc-n"><span>학습 카드 2</span><span class="fc-st" hidden></span></span><span class="fc-q">「공은 저기 있어」를 구체적인 말로 바꾸면?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">「정면 12시 방향, 세 걸음 앞에 있어요」처럼 몸 기준 방향과 거리로 말합니다. 시계 방향은 시계 읽는 법을 배운 선수에게 씁니다.</div></details>
+<details class="fc" data-fc="p1-c6-f3"><summary><span class="fc-n"><span>학습 카드 3</span><span class="fc-st" hidden></span></span><span class="fc-q">여러 학생 앞에서 시각장애 학생에게 말할 때 먼저 할 일은?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">이름을 먼저 부릅니다. 누구에게 하는 말인지 볼 수 없기 때문입니다.</div></details>
+<details class="fc" data-fc="p1-c6-f4"><summary><span class="fc-n"><span>학습 카드 4</span><span class="fc-st" hidden></span></span><span class="fc-q">전체–부분–전체 지도의 순서는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">전체 동작을 먼저 경험하게 하고, 부분으로 나눠 연습한 뒤, 다시 전체로 합칩니다. 전체 그림이 있어야 부분 연습의 목적을 압니다.</div></details>
+<details class="fc" data-fc="p1-c6-f5"><summary><span class="fc-n"><span>학습 카드 5</span><span class="fc-st" hidden></span></span><span class="fc-q">사전 교수란?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">수업 전에 새 동작·규칙·장비를 미리 익히게 하는 것입니다. 그래서 수업 중에는 친구들과 같은 속도로 참여할 수 있습니다.</div></details>
+</div>
+</div><label class="done" for="p1-c6-done"><input type="checkbox" id="p1-c6-done" data-k="p1-c6-done" data-ch="p1-c6"><span>이 장을 끝냈어요</span></label></section>
+<section class="ch" id="p1-c7" data-part="1"><header class="chh"><span class="olbl">1부 · 7장</span><h2>기록 관리와 주간 재설계</h2></header><div class="gobar"><span class="olbl">이 장의 카드</span><div class="gos"><a class="go" href="#deck" data-deck="p1-c7"><small>학습 카드 3장</small><span>덱에서 이 장만 보기</span></a><a class="go" href="#p1-c7-tc1"><small>과제 카드</small><span>7-1 읽히는 기록지</span></a><a class="go" href="#p1-c7-pc1"><small>프롬프트 카드</small><span>7-1 다음 주 두 안</span></a></div></div><div class="prose">
+<p>기록은 지도자만 보는 장부가 아니라 선수도 읽을 수 있어야 하는 자료입니다. 시각장애 선수의 기록에는 운동량 외에 세 가지를 더 남깁니다. 넘어짐·부딪힘과 그럴 뻔한 일, 가이드·신호 문제, 눈 증상의 변화입니다.</p>
+<h3>기록 항목</h3>
+<div class="tbl"><table>
+<thead><tr><th>항목</th><th>적는 법</th><th>다음 주 판단에 쓰는 곳</th></tr></thead>
+<tbody>
+<tr><td>세션 RPE</td><td>0–10, 말로 물어 기록</td><td>평균이 목표보다 높게 이어지면 양 줄이기</td></tr>
+<tr><td>넘어짐·부딪힘</td><td>장소·원인·다쳤는지, 그럴 뻔한 일도 포함</td><td>환경 점검(5장), 그 주는 부하 올리지 않기</td></tr>
+<tr><td>가이드·신호 문제</td><td>어느 신호가 늦었거나 헷갈렸는지</td><td>신호 약속표 고치기(2부 2장)</td></tr>
+<tr><td>눈 증상 변화</td><td>번쩍임·떠다니는 점·그림자 있음/없음</td><td>있음이면 운동 중단, 당일 안과 권고</td></tr>
+<tr><td>혈당(해당 선수)</td><td>운동 전·후</td><td>저혈당이 있었으면 간식·운동 시간 조정</td></tr>
+</tbody></table></div>
+<h3>선수가 읽을 수 있는 기록지</h3>
+<ul>
+<li>표에는 머리글 칸을 둡니다. 화면 낭독기가 「주차, 1주, 거리, 2km」처럼 칸 이름과 값을 함께 읽습니다.</li>
+<li>글자를 그림(사진·스캔)으로 넣지 않습니다. 화면 낭독기가 읽지 못합니다.</li>
+<li>색으로만 구분하지 않습니다. 「빨간 칸은 위험」 대신 칸에 「위험」이라고 씁니다.</li>
+<li>큰 글씨가 필요한 선수에게는 선수가 고른 글자 크기로 맞춥니다.</li>
+<li>음성 메모로 기록해도 됩니다. 지도자가 숫자만 옮겨 적습니다.</li>
+</ul>
+<h3>주간 재설계는 두 안으로</h3>
+<p>기록을 보고 다음 주를 정할 때는 「보수적인 안」과 「진행하는 안」을 함께 만들고, 선수에게 말로 설명한 뒤 같이 고릅니다. 시각장애 선수에게는 어떤 환경에서 할지(실내·실외, 시간대, 가이드 동행)도 안에 들어갑니다.</p>
+<div class="tcard" id="p1-c7-tc1"><div class="tcard-h"><span>과제 카드 7-1 · 개인 · 20분</span><span><span class="tc-count">기준 0/4</span><span class="tc-pass">통과</span></span></div><div class="tcard-b">
+<h4>화면 낭독기로 읽히는 기록지</h4>
+<p><strong>과제</strong>: 4주 기록지를 만들고, 휴대폰 화면 낭독 기능으로 직접 들어 보며 고칩니다.</p>
+<ol>
+<li>문서 프로그램으로 4주 기록지를 만듭니다. 칸: 주차, 날짜, 운동, RPE, 넘어짐·부딪힘, 신호 문제, 눈 증상.</li>
+<li>휴대폰의 화면 낭독 기능(아이폰 VoiceOver, 안드로이드 TalkBack)을 켜고 기록지를 끝까지 들어 봅니다.</li>
+<li>읽히지 않거나 헷갈리게 읽히는 곳을 고칩니다.</li>
+</ol>
+<p><strong>성공 기준</strong>: 모두 채우면 통과입니다.</p>
+<ul class="tasks">
+<li class="task"><label for="p1-c7-tc1-1"><input type="checkbox" id="p1-c7-tc1-1" data-k="p1-c7-tc1-1"><span>표 머리글이 화면 낭독기로 칸 이름과 함께 읽힌다</span></label></li>
+<li class="task"><label for="p1-c7-tc1-2"><input type="checkbox" id="p1-c7-tc1-2" data-k="p1-c7-tc1-2"><span>색으로만 나타낸 정보가 없다</span></label></li>
+<li class="task"><label for="p1-c7-tc1-3"><input type="checkbox" id="p1-c7-tc1-3" data-k="p1-c7-tc1-3"><span>그림으로 넣은 글자가 없다</span></label></li>
+<li class="task"><label for="p1-c7-tc1-4"><input type="checkbox" id="p1-c7-tc1-4" data-k="p1-c7-tc1-4"><span>선수가 음성으로 기록하는 방법도 함께 안내했다</span></label></li>
+</ul>
+<p class="tsafe"><span class="tl dot" aria-hidden="true"></span><span><strong>개인정보</strong>: 연습용 기록지에는 예시 선수 코드만 씁니다.</span></p>
+</div></div>
+<h3 id="p1-c7-pc1">프롬프트 카드 7-1 기록으로 다음 주 두 안 만들기</h3>
+<p><strong>상황</strong>: V-12의 최근 3주 기록이 쌓였다. 부딪힐 뻔한 일이 한 번 있었고, 코너 신호가 늦다는 메모가 두 번 있다.</p>
+<figure class="prompt"><figcaption><span>프롬프트 · 복사해서 붙여 넣기</span><button type="button" class="copy">복사</button></figcaption><pre><code><b class="lab">[최근 3주 기록]</b> <mark class="ph">[V-12: 가이드 세션 주 2회, 5km 가운데 3km까지 연속 달리기 / 지난주 RPE 7·8·8 / 실내 체육관 어두운 구석에서 부딪힐 뻔함 1회 / 「코너 신호가 늦다」 메모 2회 / 눈 증상 변화 없음]</mark>
+<b class="lab">[현재 계획]</b> <mark class="ph">[주 4회: 가이드 달리기 2회(각 35분), 혼자 트레드밀 1회, 근력·균형 1회]</mark>
+다음 주 조정안을 두 개 내 줘.
+- 안 1 보수적, 안 2 진행.
+- 각 안: 근거(기록 숫자 인용) / 주간표 / 환경(실내·실외, 시간대, 가이드 동행) / 선수에게 할 말 두 문장.
+<b class="lab">[원칙]</b> 부딪힘이나 그럴 뻔한 일이 있으면 그 환경부터 고친다. 신호 문제는 운동량을 줄여서 풀지 말고 신호 약속을 고친다.</code></pre></figure>
+<p><strong>좋은 답의 조건</strong></p>
+<ul class="tasks">
+<li class="task"><label for="p1-c7-t1"><input type="checkbox" id="p1-c7-t1" data-k="p1-c7-t1"><span>두 안 모두 어두운 구석(환경)을 고치는 조치가 있다</span></label></li>
+<li class="task"><label for="p1-c7-t2"><input type="checkbox" id="p1-c7-t2" data-k="p1-c7-t2"><span>코너 신호 문제를 신호 약속 수정(예: 예고를 5m 전에서 10m 전으로)으로 다룬다</span></label></li>
+<li class="task"><label for="p1-c7-t3"><input type="checkbox" id="p1-c7-t3" data-k="p1-c7-t3"><span>안 1이 운동량을 숫자로 줄인다(예: RPE 8이 이어져 35분에서 30분으로)</span></label></li>
+</ul>
+<p><strong>연습</strong>: 담당 선수의 지난 3주 기록으로 7-1을 하고, 두 안을 선수에게 말로 설명해 고르게 한 뒤 고른 이유를 기록에 남깁니다.</p>
+<h3>이 장의 학습 카드</h3>
+<div class="fcs">
+<details class="fc" data-fc="p1-c7-f1"><summary><span class="fc-n"><span>학습 카드 1</span><span class="fc-st" hidden></span></span><span class="fc-q">시각장애 선수 기록에 운동량 외에 더 남기는 세 가지는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">넘어짐·부딪힘(그럴 뻔한 일 포함), 가이드·신호 문제, 눈 증상의 변화입니다.</div></details>
+<details class="fc" data-fc="p1-c7-f2"><summary><span class="fc-n"><span>학습 카드 2</span><span class="fc-st" hidden></span></span><span class="fc-q">화면 낭독기로 읽히는 기록지를 만드는 세 가지 규칙은?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">표에 머리글 칸 두기, 글자를 그림으로 넣지 않기, 색으로만 구분하지 않기입니다.</div></details>
+<details class="fc" data-fc="p1-c7-f3"><summary><span class="fc-n"><span>학습 카드 3</span><span class="fc-st" hidden></span></span><span class="fc-q">「코너 신호가 늦다」는 기록이 나오면 무엇을 바꾸나요?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">운동량이 아니라 신호 약속을 바꿉니다. 예를 들어 예고 신호를 5m 전에서 10m 전으로 앞당깁니다.</div></details>
+</div>
+</div><label class="done" for="p1-c7-done"><input type="checkbox" id="p1-c7-done" data-k="p1-c7-done" data-ch="p1-c7"><span>이 장을 끝냈어요</span></label></section>
+<section class="ch" id="p1-appx" data-part="1"><header class="chh"><span class="olbl">1부 · 부록</span><h2>상황별 카드 찾기·프롬프트 점검</h2></header><div class="prose">
+<h3>상황별 카드 찾기</h3>
+<div class="tbl"><table>
+<thead><tr><th>이럴 때</th><th>카드</th></tr></thead>
+<tbody>
+<tr><td>새 선수의 시각 상태와 등급을 정리할 때</td><td>과제 1-1, 프롬프트 1-1</td></tr>
+<tr><td>첫 면담 전</td><td>프롬프트 2-1</td></tr>
+<tr><td>운동해도 되는지 걱정될 때</td><td>프롬프트 2-2, 2장 학습 카드 1</td></tr>
+<tr><td>학기 초 평가를 계획할 때</td><td>과제 3-1, 프롬프트 3-1</td></tr>
+<tr><td>프로그램을 새로 짤 때</td><td>프롬프트 4-1, 4-2</td></tr>
+<tr><td>새 장소에서 수업할 때</td><td>과제 5-1, 프롬프트 5-1</td></tr>
+<tr><td>처음 가르치는 동작이 있을 때</td><td>과제 6-1, 프롬프트 6-1</td></tr>
+<tr><td>선수에게 피드백을 보낼 때</td><td>프롬프트 6-2</td></tr>
+<tr><td>주간 기록으로 다음 주를 정할 때</td><td>과제 7-1, 프롬프트 7-1</td></tr>
+</tbody></table></div>
+<h3>나쁜 프롬프트와 좋은 프롬프트</h3>
+<div class="tbl"><table>
+<thead><tr><th>나쁜 프롬프트</th><th>무엇이 빠졌나</th><th>좋은 프롬프트</th></tr></thead>
+<tbody>
+<tr><td>시각장애인 운동 프로그램 짜 줘</td><td>시각 상태, 안과 제한, 목표, 형식</td><td>54세, 당뇨망막병증, 안과 소견 고강도 자제, 주 3회 50분. 8주 표로, 숨 참기·머리 낮춤 없이</td></tr>
+<tr><td>이 학생 등급이 뭐야?</td><td>등급은 측정으로 정해짐</td><td>측정된 시력·시야로 지도 환경에서 바꿀 것을 정리해 줘. 등급은 추정하지 마</td></tr>
+<tr><td>골볼 가르치는 법 알려 줘</td><td>학생 정보, 단계, 쓸 말</td><td>선천성 전맹 15세에게 수비 자세 10분 대본을, 「보세요」 없이 몸 기준 방향으로</td></tr>
+<tr><td>피드백 써 줘</td><td>숫자, 형식, 읽는 방법</td><td>관찰 → 효과 → 다음 시도 3문장, 화면 낭독기로 들어도 자연스럽게</td></tr>
+</tbody></table></div>
+<h3>AI 답을 수업에 쓰기 전에 묻는 다섯 가지</h3>
+<ol>
+<li>숫자를 내가 직접 계산해 봤는가? (목표 심박, LogMAR 환산, 시간 합계)</li>
+<li>기록에 없는 사실이 들어가지 않았는가?</li>
+<li>진단명·약·치료, 등급 추정을 말하고 있지 않은가?</li>
+<li>눈 증상 변화가 있을 때 운동보다 안과 확인을 먼저 말하는가?</li>
+<li>「보세요」 「이렇게」처럼 시각에 기대는 말이 남아 있지 않은가?</li>
+</ol>
+<p>하나라도 「아니오」면, 그 항목을 프롬프트의 <code>[규칙]</code>에 한 줄 더해 다시 묻습니다.</p>
+</div></section>
+<header class="parthead" id="part2"><span class="pn">2부</span><h2>가이드편</h2><p>가이드는 선수의 눈이 되어 대신 결정하는 사람이 아니라, 선수가 결정하는 데 필요한 정보를 제때 건네는 파트너입니다. 걷기에서 시작해 달리기, 종목별 가이드, 수업 속 또래 가이드, 체험 수업 설계까지 다섯 장으로 익힙니다.</p></header>
+<section class="ch" id="p2-intro" data-part="2"><header class="chh"><span class="olbl">2부</span><h2>들어가기: 가이드의 다섯 원칙</h2></header><div class="prose">
+<p>모든 가이드 기술은 다섯 원칙 위에 서 있습니다. 기술이 기억나지 않는 순간에도 원칙을 지키면 큰 실수는 없습니다.</p>
+<div class="safe"><p class="sh"><span class="tl line" aria-hidden="true"></span>가이드의 다섯 원칙</p>
+<ol>
+<li><strong>먼저 묻는다</strong>: 「안내해 드릴까요?」 도움이 필요한지는 선수가 정합니다. 갑자기 팔을 잡아끌지 않습니다.</li>
+<li><strong>선수가 정한다</strong>: 속도, 방향, 쉬는 때는 선수가 고릅니다. 가이드는 정보를 주고, 결정은 선수가 합니다.</li>
+<li><strong>미리 말한다</strong>: 계단, 턱, 코너, 방향 바꾸기는 일어나기 전에 알립니다. 지나간 뒤의 설명은 쓸모가 없습니다.</li>
+<li><strong>구체적으로 말한다</strong>: 「조심!」 대신 「두 걸음 앞에 내려가는 턱」.</li>
+<li><strong>떠날 때 알린다</strong>: 선수를 빈 공간에 두고 가지 않습니다. 벽·의자·난간처럼 손에 닿는 기준점에 닿게 한 뒤 「저 갑니다」라고 말합니다.</li>
+</ol></div>
+<p>2부의 신호는 모두 「예고 → 실행」 두 번으로 나눠 줍니다. 자주 쓰는 신호 말은 부록 A 「가이드 신호 사전」에 모아 두었습니다. 선수마다 편한 말이 다르므로, 사전은 출발점으로 쓰고 선수와 함께 고칩니다.</p>
+<h3>이 장의 학습 카드</h3>
+<div class="fcs">
+<details class="fc" data-fc="p2-intro-f1"><summary><span class="fc-n"><span>학습 카드 1</span><span class="fc-st" hidden></span></span><span class="fc-q">가이드의 다섯 원칙은?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">먼저 묻는다, 선수가 정한다, 미리 말한다, 구체적으로 말한다, 떠날 때 알린다.</div></details>
+<details class="fc" data-fc="p2-intro-f2"><summary><span class="fc-n"><span>학습 카드 2</span><span class="fc-st" hidden></span></span><span class="fc-q">「조심!」이 좋은 가이드 신호가 아닌 이유는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">무엇을 어떻게 조심할지 정보가 없기 때문입니다. 「두 걸음 앞에 내려가는 턱」처럼 거리·방향·높이를 말합니다.</div></details>
+</div>
+</div></section>
+<section class="ch" id="p2-c1" data-part="2"><header class="chh"><span class="olbl">2부 · 1장</span><h2>안내 보행 기본</h2></header><div class="gobar"><span class="olbl">이 장의 카드</span><div class="gos"><a class="go" href="#deck" data-deck="p2-c1"><small>학습 카드 5장</small><span>덱에서 이 장만 보기</span></a><a class="go" href="#p2-c1-tc1"><small>과제 카드</small><span>1-1 안내 보행 코스</span></a><a class="go" href="#p2-c1-pc1"><small>프롬프트 카드</small><span>1-1 첫 방문 이동 안내 대본</span></a><a class="go" href="#p3-a"><small>수업 자료</small><span>지도안 A 안내 보행</span></a></div></div><div class="prose">
+<p>안내 보행은 모든 가이드 기술의 기초입니다. 선수는 가이드의 팔을 통해 방향·속도·높이의 변화를 느낍니다. 말보다 팔이 먼저 정보를 주므로, 가이드는 팔에 힘을 빼고 몸통 가까이 둡니다.</p>
+<h3>기본 자세</h3>
+<ul>
+<li><strong>잡기</strong>: 선수가 가이드 팔의 팔꿈치 바로 위를 잡습니다. 엄지는 바깥쪽, 나머지 손가락은 안쪽으로, 컵을 쥐듯 가볍게 잡습니다.</li>
+<li><strong>위치</strong>: 가이드가 반 걸음 앞에 섭니다. 선수는 가이드의 움직임을 팔로 먼저 느끼고 따라옵니다.</li>
+<li><strong>아동</strong>: 키 차이가 커서 팔꿈치 위를 잡기 어려우면 가이드의 손목을 잡게 합니다.</li>
+<li><strong>가이드의 팔</strong>: 힘을 빼고 몸통 옆에 둡니다. 팔을 휘두르거나 선수를 밀고 당기지 않습니다.</li>
+</ul>
+<h3>상황별 기술</h3>
+<div class="tbl"><table>
+<thead><tr><th>상황</th><th>가이드가 할 일</th><th>선수가 할 일</th></tr></thead>
+<tbody>
+<tr><td>좁은 길</td><td>「좁은 길이에요」라고 말하고, 잡힌 팔을 등 뒤 가운데로 옮김</td><td>팔을 펴서 가이드 바로 뒤에 한 줄로 따라감</td></tr>
+<tr><td>계단 시작</td><td>계단에 정면으로 다가가 첫 계단 앞에서 멈추고 「올라가는 계단, 난간은 오른쪽」</td><td>난간을 잡고, 가이드보다 한 계단 뒤에서 따라감</td></tr>
+<tr><td>계단 끝</td><td>마지막 계단을 지난 뒤 멈추고 「끝」</td><td>발로 평평한 바닥을 확인</td></tr>
+<tr><td>문</td><td>문 앞에서 멈추고 「당기는 문, 경첩은 왼쪽」처럼 알림</td><td>빈손으로 문을 받아 잡고 지나간 뒤 닫음</td></tr>
+<tr><td>의자</td><td>선수의 손을 의자 등받이에 닿게 하고 의자 방향을 알림</td><td>손으로 앉는 자리를 확인하고 앉음</td></tr>
+<tr><td>방향 바꾸기</td><td>멈춰서 서로 마주 본 뒤 반대쪽 팔을 잡게 함</td><td>반대 손으로 다시 잡음</td></tr>
+<tr><td>떠날 때</td><td>벽·의자 같은 기준점에 닿게 한 뒤 「저 갑니다」</td><td>기준점을 잡고 기다림</td></tr>
+</tbody></table></div>
+<h3>흔한 실수</h3>
+<ul>
+<li>가이드가 선수의 팔을 잡고 끄는 것. 선수가 가이드를 잡아야 합니다.</li>
+<li>뒤에서 미는 것.</li>
+<li>「여기·저기」만 말하는 것.</li>
+<li>계단을 다 내려온 뒤에 「계단이었어요」라고 말하는 것.</li>
+<li>말없이 떠나는 것.</li>
+</ul>
+<div class="tcard" id="p2-c1-tc1"><div class="tcard-h"><span>과제 카드 1-1 · 짝 · 25분</span><span><span class="tc-count">기준 0/5</span><span class="tc-pass">통과</span></span></div><div class="tcard-b">
+<h4>안내 보행 코스</h4>
+<p><strong>과제</strong>: 일곱 구간 코스를 안내하고 역할을 바꿉니다. 교실 문 → 복도 → 좁은 통로(책상 사이) → 계단 한 층 → 의자 앉기 → 방향 바꾸기 → 기준점에 두고 떠나기.</p>
+<ol>
+<li>가이드 역할이 코스를 먼저 혼자 걸어 위험한 곳을 확인합니다.</li>
+<li>선수 역할은 안대를 쓸지 스스로 고르고, 가이드는 코스를 안내합니다.</li>
+<li>관찰자가 성공 기준을 체크합니다.</li>
+<li>역할을 바꿔 다시 합니다.</li>
+</ol>
+<p><strong>성공 기준</strong>: 모두 채우면 통과입니다.</p>
+<ul class="tasks">
+<li class="task"><label for="p2-c1-tc1-1"><input type="checkbox" id="p2-c1-tc1-1" data-k="p2-c1-tc1-1"><span>처음에 「안내해 드릴까요?」로 묻고 잡는 법을 설명했다</span></label></li>
+<li class="task"><label for="p2-c1-tc1-2"><input type="checkbox" id="p2-c1-tc1-2" data-k="p2-c1-tc1-2"><span>좁은 길에서 잡힌 팔을 등 뒤로 옮겼다</span></label></li>
+<li class="task"><label for="p2-c1-tc1-3"><input type="checkbox" id="p2-c1-tc1-3" data-k="p2-c1-tc1-3"><span>계단 앞에서 멈추고 오르내림과 난간 위치를 말했다</span></label></li>
+<li class="task"><label for="p2-c1-tc1-4"><input type="checkbox" id="p2-c1-tc1-4" data-k="p2-c1-tc1-4"><span>떠날 때 기준점에 닿게 하고 말했다</span></label></li>
+<li class="task"><label for="p2-c1-tc1-5"><input type="checkbox" id="p2-c1-tc1-5" data-k="p2-c1-tc1-5"><span>일곱 구간 가운데 여섯 구간 이상을 멈칫하지 않고 지났다</span></label></li>
+</ul>
+<p class="tsafe"><span class="tl dot" aria-hidden="true"></span><span><strong>안전</strong>: 계단 구간에서는 관찰자가 선수 역할 바로 옆(난간 반대쪽)에서 함께 움직입니다. 불안하면 언제든 안대를 벗고 멈출 수 있다고 미리 약속합니다.</span></p>
+</div></div>
+<h3 id="p2-c1-pc1">프롬프트 카드 1-1 첫 방문 이동 안내 대본</h3>
+<p><strong>상황</strong>: V-07이 처음 가는 시내 체육관으로 골볼 연습 견학을 간다. 교사가 가이드를 맡는다.</p>
+<figure class="prompt"><figcaption><span>프롬프트 · 복사해서 붙여 넣기</span><button type="button" class="copy">복사</button></figcaption><pre><code><b class="lab">[역할]</b> 너는 특수학교 체육 교사를 돕는 어시스턴트다.
+<b class="lab">[학생]</b> <mark class="ph">[V-07, 선천성 전맹, 흰 지팡이 사용, 새 공간에서 몸이 굳음, 처음 가는 시내 체육관 견학]</mark>
+<b class="lab">[경로]</b> <mark class="ph">[버스 정류장 → 횡단보도 1개 → 체육관 정문(당기는 문) → 로비 → 계단 20칸(난간 오른쪽) → 2층 탈의실 → 경기장]</mark>
+<b class="lab">[만들 것]</b> 가이드가 그대로 말할 수 있는 안내 대본.
+- 구간마다: 멈출 곳, 그곳에서 할 말(방향·거리·높이), 학생이 손이나 발로 확인할 것.
+- 학생이 다음 방문 때 혼자 기억할 수 있는 기준점 3개(소리·촉각·냄새처럼 보지 않고 알 수 있는 것).
+<b class="lab">[규칙]</b> 「여기」 「저기」 「보이는」을 쓰지 않는다. 학생을 끌거나 미는 표현을 쓰지 않는다. 지팡이를 쓸지 가이드 팔을 잡을지는 구간마다 학생에게 묻는다.</code></pre></figure>
+<p><strong>좋은 답의 조건</strong></p>
+<ul class="tasks">
+<li class="task"><label for="p2-c1-t1"><input type="checkbox" id="p2-c1-t1" data-k="p2-c1-t1"><span>계단 앞에서 멈추고 칸 수와 난간 위치를 말한다</span></label></li>
+<li class="task"><label for="p2-c1-t2"><input type="checkbox" id="p2-c1-t2" data-k="p2-c1-t2"><span>「여기·저기·보이는」이 없다</span></label></li>
+<li class="task"><label for="p2-c1-t3"><input type="checkbox" id="p2-c1-t3" data-k="p2-c1-t3"><span>다음 방문용 기준점이 소리·촉각·냄새처럼 보지 않고 알 수 있는 정보다</span></label></li>
+</ul>
+<p><strong>더 좋게 묻기</strong>: <code>이 대본에서 학생이 두 번째 방문 때 혼자 갈 수 있는 구간과 아직 가이드가 필요한 구간을 나눠 줘.</code></p>
+<p><strong>연습</strong>: 학교 체육관까지의 실제 경로로 1-1을 하고, 대본을 들고 동료와 직접 걸어 본 뒤 늦게 나온 신호를 고칩니다.</p>
+<h3>이 장의 학습 카드</h3>
+<div class="fcs">
+<details class="fc" data-fc="p2-c1-f1"><summary><span class="fc-n"><span>학습 카드 1</span><span class="fc-st" hidden></span></span><span class="fc-q">안내 보행에서 선수가 잡는 위치와 잡는 법은?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">가이드 팔꿈치 바로 위를, 엄지는 바깥쪽·나머지 손가락은 안쪽으로 컵을 쥐듯 가볍게 잡습니다. 가이드는 반 걸음 앞에 섭니다.</div></details>
+<details class="fc" data-fc="p2-c1-f2"><summary><span class="fc-n"><span>학습 카드 2</span><span class="fc-st" hidden></span></span><span class="fc-q">좁은 길에서 가이드가 하는 동작은?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">「좁은 길이에요」라고 말하고 잡힌 팔을 등 뒤 가운데로 옮깁니다. 선수는 팔을 펴서 가이드 바로 뒤에 한 줄로 따라옵니다.</div></details>
+<details class="fc" data-fc="p2-c1-f3"><summary><span class="fc-n"><span>학습 카드 3</span><span class="fc-st" hidden></span></span><span class="fc-q">계단에서 가이드가 멈추는 두 곳은?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">첫 계단 앞과 마지막 계단 뒤입니다. 처음에는 오르내림과 난간 위치를, 끝에서는 「끝」을 말합니다.</div></details>
+<details class="fc" data-fc="p2-c1-f4"><summary><span class="fc-n"><span>학습 카드 4</span><span class="fc-st" hidden></span></span><span class="fc-q">가이드가 선수 곁을 떠날 때 지킬 것은?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">빈 공간에 두지 않고 벽·의자·난간 같은 기준점에 닿게 한 뒤, 떠난다고 말합니다.</div></details>
+<details class="fc" data-fc="p2-c1-f5"><summary><span class="fc-n"><span>학습 카드 5</span><span class="fc-st" hidden></span></span><span class="fc-q">아동을 안내할 때 잡는 위치가 달라지는 이유는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">키 차이 때문에 팔꿈치 위를 잡기 어려워서, 가이드의 손목을 잡게 합니다.</div></details>
+</div>
+</div><label class="done" for="p2-c1-done"><input type="checkbox" id="p2-c1-done" data-k="p2-c1-done" data-ch="p2-c1"><span>이 장을 끝냈어요</span></label></section>
+<section class="ch" id="p2-c2" data-part="2"><header class="chh"><span class="olbl">2부 · 2장</span><h2>가이드 러닝</h2></header><div class="gobar"><span class="olbl">이 장의 카드</span><div class="gos"><a class="go" href="#deck" data-deck="p2-c2"><small>학습 카드 5장</small><span>덱에서 이 장만 보기</span></a><a class="go" href="#p2-c2-tc1"><small>과제 카드</small><span>2-1 합 맞추기 3단계</span></a><a class="go" href="#p2-c2-pc1"><small>프롬프트 카드</small><span>2-1 대회 코스 신호 약속표</span></a><a class="go" href="#p3-b"><small>수업 자료</small><span>지도안 B 가이드 러닝 입문</span></a></div></div><div class="prose">
+<p>가이드 러닝은 안내 보행에 속도가 더해진 기술입니다. 선수와 가이드는 짧은 끈(테더)으로 연결되고, 팔과 발을 맞춰 달립니다. 끈은 방향을 전하는 도구이지 선수를 끄는 줄이 아닙니다.</p>
+<h3>기본 기술</h3>
+<ul>
+<li><strong>끈</strong>: 짧은 고리를 양쪽이 느슨하게 쥡니다. 끈이 팽팽해지면 가이드가 앞서 나가거나 선수를 당기고 있다는 뜻입니다.</li>
+<li><strong>위치</strong>: 가이드가 어느 쪽에서 달릴지 미리 정하고, 대회까지 바꾸지 않습니다.</li>
+<li><strong>팔과 발 맞추기</strong>: 끈을 쥔 안쪽 팔을 같은 박자로 흔들고, 같은 쪽 발이 함께 나가게 맞춥니다. 맞추는 쪽은 가이드입니다. 가이드가 선수의 보폭과 박자를 따라갑니다.</li>
+<li><strong>가이드의 팔</strong>: 평소처럼 흔듭니다. 가이드의 팔 움직임 자체가 선수에게 박자와 방향 정보가 됩니다.</li>
+<li><strong>속도</strong>: 선수가 정합니다. 출발 전에 오늘의 속도·거리·쉬자는 신호를 약속합니다.</li>
+</ul>
+<h3>신호 약속: 예고 → 실행</h3>
+<p>신호는 두 번에 나눠 줍니다. 「10m 앞 왼쪽 코너」(예고) 다음에 「코너 시작」(실행). 선수가 몸을 미리 준비할 시간을 주기 위해서입니다. 노면 변화, 턱, 다른 주자, 추월, 급수대, 남은 거리도 미리 약속한 말로 알립니다.</p>
+<div class="tbl"><table>
+<thead><tr><th>상황</th><th>예고</th><th>실행</th></tr></thead>
+<tbody>
+<tr><td>코너</td><td>「10m 앞 왼쪽 코너」</td><td>「코너 시작」 … 「코너 끝」</td></tr>
+<tr><td>턱·단차</td><td>「세 걸음 뒤 올라가는 턱」</td><td>「하나, 둘, 턱」</td></tr>
+<tr><td>추월</td><td>「오른쪽으로 추월합니다」</td><td>「바깥으로 한 걸음」</td></tr>
+<tr><td>노면</td><td>「20m 앞부터 자갈길」</td><td>「자갈 시작」</td></tr>
+<tr><td>결승</td><td>「결승 100m」</td><td>「결승선, 먼저 들어가세요」</td></tr>
+</tbody></table></div>
+<h3>대회 규정에서 꼭 알 것</h3>
+<div class="safe stop"><p class="sh"><span class="tl dot" aria-hidden="true"></span>이렇게 하면 실격입니다(World Para Athletics)</p>
+<ul>
+<li>가이드가 선수를 당기거나 밀거나 앞으로 끌어 주는 것</li>
+<li>출발부터 결승까지 사이에 끈을 놓는 것</li>
+<li>선수보다 가이드가 먼저 결승선을 지나는 것</li>
+</ul>
+<p>T11 선수는 가이드 러너와 반드시 함께 달리고 빛을 막는 불투명 안경을 씁니다. T12 선수는 가이드를 쓸지 고릅니다. 끈 길이 같은 세부 규격은 개정이 잦으므로 대회 전에 그해 규정 원문으로 확인합니다 <span class="chk">확인 필요</span>.</p></div>
+<p>2024 파리 패럴림픽 T12 마라톤에서는 결승선 몇 미터 앞에서 끈을 놓은 일로 동메달이 실격 처리됐습니다. 마지막 몇 걸음까지 끈을 쥐고 달리는 연습이 필요한 이유입니다.</p>
+<div class="tcard" id="p2-c2-tc1"><div class="tcard-h"><span>과제 카드 2-1 · 짝 · 30분</span><span><span class="tc-count">기준 0/4</span><span class="tc-pass">통과</span></span></div><div class="tcard-b">
+<h4>합 맞추기 3단계</h4>
+<p><strong>과제</strong>: 걷기 → 조깅 → 출발·결승 순서로 끈 합을 맞춥니다. 단계의 기준을 채워야 다음 단계로 갑니다.</p>
+<ol>
+<li>1단계 걷기 200m: 끈을 쥐고 같은 발로 맞춰 걷습니다.</li>
+<li>2단계 조깅 400m: 코너 신호를 예고 → 실행으로 네 번 줍니다.</li>
+<li>3단계 출발·결승: 출발 신호를 맞추고, 「결승 100m」 신호 뒤 선수가 먼저 결승선을 지나게 합니다.</li>
+</ol>
+<p><strong>성공 기준</strong>: 모두 채우면 통과입니다.</p>
+<ul class="tasks">
+<li class="task"><label for="p2-c2-tc1-1"><input type="checkbox" id="p2-c2-tc1-1" data-k="p2-c2-tc1-1"><span>1단계에서 30걸음 이상 같은 발로 맞춰 걸었다</span></label></li>
+<li class="task"><label for="p2-c2-tc1-2"><input type="checkbox" id="p2-c2-tc1-2" data-k="p2-c2-tc1-2"><span>2단계 동안 끈이 팽팽해진 순간이 없었다(관찰자 확인)</span></label></li>
+<li class="task"><label for="p2-c2-tc1-3"><input type="checkbox" id="p2-c2-tc1-3" data-k="p2-c2-tc1-3"><span>코너 신호 네 번 모두 예고 → 실행 순서로 줬다</span></label></li>
+<li class="task"><label for="p2-c2-tc1-4"><input type="checkbox" id="p2-c2-tc1-4" data-k="p2-c2-tc1-4"><span>결승선을 선수가 먼저 지났다</span></label></li>
+</ul>
+<p class="tsafe"><span class="tl dot" aria-hidden="true"></span><span><strong>안전</strong>: 선수 역할이 안대를 쓰면 트랙의 다른 사람들에게 미리 알리고, 첫 회는 걷기로만 합니다. 안대는 언제든 벗을 수 있습니다.</span></p>
+</div></div>
+<h3 id="p2-c2-pc1">프롬프트 카드 2-1 대회 코스 신호 약속표</h3>
+<p><strong>상황</strong>: V-12와 가이드 러너가 함께 달린 지 4주가 됐다. 첫 5km 로드 대회가 6주 남았다.</p>
+<figure class="prompt"><figcaption><span>프롬프트 · 복사해서 붙여 넣기</span><button type="button" class="copy">복사</button></figcaption><pre><code><b class="lab">[역할]</b> 너는 시각장애 육상 선수와 가이드 러너를 돕는 코치 어시스턴트다.
+<b class="lab">[선수]</b> <mark class="ph">[V-12, 여 23세, 시야가 좁고 어두운 곳에서 잘 안 보임, 첫 5km 로드 대회 6주 전, 가이드와 함께한 지 4주]</mark>
+<b class="lab">[대회 코스]</b> <mark class="ph">[도로 5km, 반환점 1개, 급수대 2곳, 과속방지턱 4개, 마지막 1km 내리막]</mark>
+<b class="lab">[만들 것]</b> 선수와 가이드가 함께 외울 신호 약속표.
+- 표: 상황 | 예고 말 | 실행 말 | 몇 m 전에.
+- 상황: 코너, 반환점, 턱, 노면 변화, 추월할 때·추월당할 때, 급수, 남은 거리, 결승.
+- 말은 2~4음절로 짧게, 비슷하게 들리는 말끼리 겹치지 않게.
+- 끝에 「대회 규정 때문에 하면 안 되는 것」 3가지(당기기·밀기, 끈 놓기, 가이드가 먼저 결승).
+<b class="lab">[규칙]</b> 끈 길이 같은 규정 수치는 쓰지 말고 「대회 규정 확인」으로 남긴다. 왼쪽·오른쪽은 선수 몸 기준으로 통일한다.</code></pre></figure>
+<p><strong>좋은 답의 조건</strong></p>
+<ul class="tasks">
+<li class="task"><label for="p2-c2-t1"><input type="checkbox" id="p2-c2-t1" data-k="p2-c2-t1"><span>모든 신호가 예고와 실행으로 나뉘어 있다</span></label></li>
+<li class="task"><label for="p2-c2-t2"><input type="checkbox" id="p2-c2-t2" data-k="p2-c2-t2"><span>왼쪽·오른쪽이 선수 몸 기준으로 통일돼 있다</span></label></li>
+<li class="task"><label for="p2-c2-t3"><input type="checkbox" id="p2-c2-t3" data-k="p2-c2-t3"><span>규정 수치를 지어내지 않았다</span></label></li>
+</ul>
+<p><strong>더 좋게 묻기</strong>: <code>이 약속표로 6주 동안 할 신호 연습 순서를 주차별로 짜 줘. 4주차에는 대회 코스와 비슷한 노면에서 하게.</code></p>
+<p><strong>연습</strong>: 가이드 러닝 경험이 있는 사람과 함께 약속표를 소리 내어 읽어 보고, 실제로 달리며 너무 길거나 늦게 나온 신호를 하나씩 줄여 봅니다.</p>
+<h3>이 장의 학습 카드</h3>
+<div class="fcs">
+<details class="fc" data-fc="p2-c2-f1"><summary><span class="fc-n"><span>학습 카드 1</span><span class="fc-st" hidden></span></span><span class="fc-q">끈이 팽팽해졌다는 것은 무슨 뜻인가요?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">가이드가 앞서 나가거나 선수를 당기고 있다는 뜻입니다. 끈은 방향을 전하는 도구이므로 양쪽이 느슨하게 쥡니다.</div></details>
+<details class="fc" data-fc="p2-c2-f2"><summary><span class="fc-n"><span>학습 카드 2</span><span class="fc-st" hidden></span></span><span class="fc-q">가이드 러닝에서 달리는 속도는 누가 정하나요?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">선수가 정합니다. 가이드는 출발 전에 속도·거리·쉬자는 신호를 약속하고, 선수의 보폭과 박자에 맞춥니다.</div></details>
+<details class="fc" data-fc="p2-c2-f3"><summary><span class="fc-n"><span>학습 카드 3</span><span class="fc-st" hidden></span></span><span class="fc-q">코너 신호를 두 번에 나눠 주는 방법은?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">예고(「10m 앞 왼쪽 코너」)와 실행(「코너 시작」)으로 나눕니다. 선수가 몸을 미리 준비할 시간을 줍니다.</div></details>
+<details class="fc" data-fc="p2-c2-f4"><summary><span class="fc-n"><span>학습 카드 4</span><span class="fc-st" hidden></span></span><span class="fc-q">대회에서 실격되는 가이드 행동 세 가지는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">선수를 당기거나 밀기, 출발부터 결승 사이에 끈을 놓기, 선수보다 먼저 결승선을 지나기입니다.<small>근거: World Para Athletics 규정</small></div></details>
+<details class="fc" data-fc="p2-c2-f5"><summary><span class="fc-n"><span>학습 카드 5</span><span class="fc-st" hidden></span></span><span class="fc-q">가이드 러너가 팔을 평소처럼 흔들어야 하는 이유는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">가이드의 팔 움직임 자체가 선수에게 박자와 방향 정보가 되기 때문입니다.<small>근거: 온타리오 시각장애인스포츠협회 가이드 러닝 지침(2018)</small></div></details>
+</div>
+</div><label class="done" for="p2-c2-done"><input type="checkbox" id="p2-c2-done" data-k="p2-c2-done" data-ch="p2-c2"><span>이 장을 끝냈어요</span></label></section>
+<section class="ch" id="p2-c3" data-part="2"><header class="chh"><span class="olbl">2부 · 3장</span><h2>종목별 가이드와 골볼</h2></header><div class="gobar"><span class="olbl">이 장의 카드</span><div class="gos"><a class="go" href="#deck" data-deck="p2-c3"><small>학습 카드 5장</small><span>덱에서 이 장만 보기</span></a><a class="go" href="#p2-c3-tc1"><small>과제 카드</small><span>3-1 종목 조사 직소</span></a><a class="go" href="#p2-c3-pc1"><small>프롬프트 카드</small><span>3-1 골볼 입문 수업</span></a><a class="go" href="#p3-c"><small>수업 자료</small><span>지도안 C 골볼 입문</span></a></div></div><div class="prose">
+<p>종목마다 가이드의 이름과 위치가 다릅니다. 공통점은 하나입니다. 가이드는 정해진 위치에서, 약속한 신호로, 규정이 허락한 만큼만 돕습니다.</p>
+<h3>종목별 가이드</h3>
+<div class="tbl"><table>
+<thead><tr><th>종목</th><th>가이드</th><th>하는 일</th><th>지도할 때</th></tr></thead>
+<tbody>
+<tr><td>육상</td><td>가이드 러너</td><td>끈으로 연결해 함께 달리며 말로 신호</td><td>2부 2장</td></tr>
+<tr><td>수영</td><td>태퍼</td><td>벽에 가까워지면 막대로 선수의 머리나 몸을 두드려 턴과 결승을 알림. S11 선수는 검은 고글을 씀</td><td>두드리는 시점을 선수의 영법과 속도에 맞춰 약속</td></tr>
+<tr><td>사이클</td><td>파일럿</td><td>2인용 자전거(탠덤) 앞자리에서 방향과 제동을 맡음</td><td>페달 박자와 기어 바꾸는 신호</td></tr>
+<tr><td>알파인 스키</td><td>가이드 스키어</td><td>선수 가까이에서 함께 내려오며 무선 헤드셋 등으로 방향과 지형을 알림</td><td>거리 유지와 신호 시점</td></tr>
+<tr><td>트라이애슬론</td><td>가이드</td><td>수영(끈), 사이클(탠덤), 달리기(끈)를 함께함</td><td>종목을 바꾸는 구간의 동선 연습</td></tr>
+<tr><td>시각장애인 축구</td><td>가이드(콜러)</td><td>상대 골대 뒤에서 공격 방향과 골대 위치를 소리로 알림. 골키퍼는 앞을 볼 수 있음</td><td>공을 향해 갈 때 「보이(voy)」 외치기</td></tr>
+<tr><td>골볼</td><td>없음</td><td>세 명이 모두 안대를 쓰고 방울 든 공의 소리로 막고 던짐</td><td>정숙 규칙, 소리 듣기 훈련</td></tr>
+<tr><td>유도</td><td>없음</td><td>두 선수가 서로 맞잡은 상태에서 경기를 시작함</td><td>잡기 자세부터 지도</td></tr>
+</tbody></table></div>
+<h3>골볼 기본 규칙</h3>
+<p>골볼은 시각장애인을 위해 만들어진 팀 경기로, 특수학교 체육 수업에서 많이 씁니다. 수업에 필요한 규칙만 추렸습니다.</p>
+<ul>
+<li>팀마다 세 명이 코트에 서고, 모두 안대를 씁니다. 그래서 남은 시각의 차이와 관계없이 같은 조건에서 겨룹니다.</li>
+<li>코트는 18m × 9m이고, 골대는 코트 폭과 같은 9m에 높이 1.3m입니다.</li>
+<li>공은 약 1.25kg이고 안에 방울이 있어, 굴러오는 소리로 위치를 압니다.</li>
+<li>던진 공은 자기 팀 쪽 정해진 구역 안에서 먼저 바닥에 닿아야 합니다(하이볼 반칙).</li>
+<li>공을 막은 팀은 10초 안에 다시 던져야 합니다(10초 반칙).</li>
+<li>경기 중에는 관중도 조용히 합니다. 소리가 곧 정보이기 때문입니다.</li>
+<li>경기 시간, 선수 교체, 반칙의 세부 처리는 IBSA 골볼 규정 최신판 원문으로 확인합니다 <span class="chk">확인 필요</span>.</li>
+</ul>
+<div class="tcard" id="p2-c3-tc1"><div class="tcard-h"><span>과제 카드 3-1 · 모둠 · 40분</span><span><span class="tc-count">기준 0/3</span><span class="tc-pass">통과</span></span></div><div class="tcard-b">
+<h4>종목 조사 직소</h4>
+<p><strong>과제</strong>: 협동학습의 직소 방식으로 종목별 가이드 규정을 조사해 서로 가르칩니다. 이 과제는 교재의 「확인 필요」 값을 최신 규정으로 바로잡는 수업이기도 합니다.</p>
+<ol>
+<li>전문가 모둠: 종목 하나(육상·수영·사이클·골볼·축구)를 맡아, 국제 연맹 규정 최신판 원문에서 가이드·신호·장비 규정을 찾습니다. 규정 이름과 발행 연도를 적습니다.</li>
+<li>원래 모둠으로 돌아가 한 사람이 3분씩 가르칩니다.</li>
+<li>모둠마다 「우리 학교에서 할 수 있는 종목 하나」를 골라 이유를 말합니다.</li>
+</ol>
+<p><strong>성공 기준</strong>: 모두 채우면 통과입니다.</p>
+<ul class="tasks">
+<li class="task"><label for="p2-c3-tc1-1"><input type="checkbox" id="p2-c3-tc1-1" data-k="p2-c3-tc1-1"><span>규정 원문의 이름과 발행 연도를 적었다</span></label></li>
+<li class="task"><label for="p2-c3-tc1-2"><input type="checkbox" id="p2-c3-tc1-2" data-k="p2-c3-tc1-2"><span>이 교재의 표와 다른 점이 있으면 표시했다</span></label></li>
+<li class="task"><label for="p2-c3-tc1-3"><input type="checkbox" id="p2-c3-tc1-3" data-k="p2-c3-tc1-3"><span>3분 설명에 가이드의 위치·신호·금지 행동이 모두 들어 있다</span></label></li>
+</ul>
+<p class="tsafe"><span class="tl dot" aria-hidden="true"></span><span><strong>출처</strong>: 인터넷 요약 글보다 국제 연맹이 낸 규정 원문을 먼저 봅니다.</span></p>
+</div></div>
+<h3 id="p2-c3-pc1">프롬프트 카드 3-1 골볼 입문 수업</h3>
+<p><strong>상황</strong>: 골볼부를 처음 꾸린다. V-07을 포함한 전맹 학생 셋과 저시력 학생 셋이 모두 골볼이 처음이다.</p>
+<figure class="prompt"><figcaption><span>프롬프트 · 복사해서 붙여 넣기</span><button type="button" class="copy">복사</button></figcaption><pre><code><b class="lab">[역할]</b> 너는 특수학교 체육 교사를 돕는 어시스턴트다.
+<b class="lab">[학생]</b> <mark class="ph">[중학생 6명: 전맹 3명(V-07 포함), 저시력 3명 / 골볼 처음 / 체육관 1면, 골볼 공 2개, 안대 6개, 무릎·팔꿈치 보호대, 테이프와 줄]</mark>
+<b class="lab">[만들 것]</b> 50분 골볼 입문 수업.
+- 직접교수 6단계(전시 과제 복습 → 새로운 과제 제시 → 초기 과제 연습 → 피드백 및 교정 → 독자적인 연습 → 본시 복습)로.
+- 단계마다: 시간, 교사가 할 말(그대로 읽을 문장), 학생 활동, 촉각·소리 자료, 안전.
+- 초기 과제 연습의 성공 기준은 80%, 독자적인 연습은 95%로 숫자를 정한다.
+<b class="lab">[규칙]</b> 저시력 학생도 안대를 쓴다. 공을 던지는 연습 전에 막는 자세와 얼굴 보호부터 가르친다. 소리 신호를 쓸 때 다른 모둠과 겹치지 않게 시간을 나눈다.</code></pre></figure>
+<p><strong>좋은 답의 조건</strong></p>
+<ul class="tasks">
+<li class="task"><label for="p2-c3-t1"><input type="checkbox" id="p2-c3-t1" data-k="p2-c3-t1"><span>6단계의 이름과 순서가 맞다</span></label></li>
+<li class="task"><label for="p2-c3-t2"><input type="checkbox" id="p2-c3-t2" data-k="p2-c3-t2"><span>성공 기준이 「열 번 중 여덟 번 막기」처럼 숫자다</span></label></li>
+<li class="task"><label for="p2-c3-t3"><input type="checkbox" id="p2-c3-t3" data-k="p2-c3-t3"><span>던지기보다 막는 자세와 얼굴 보호가 먼저 나온다</span></label></li>
+</ul>
+<p><strong>더 좋게 묻기</strong>: <code>이 수업을 4차시 단원으로 늘려 줘. 차시마다 새로운 과제 하나, 평가는 마지막 차시에.</code></p>
+<p><strong>연습</strong>: 수업 자료의 지도안 C와 AI가 짠 수업을 나란히 놓고, 시간 배분과 안전 항목이 다른 곳을 찾습니다.</p>
+<h3>이 장의 학습 카드</h3>
+<div class="fcs">
+<details class="fc" data-fc="p2-c3-f1"><summary><span class="fc-n"><span>학습 카드 1</span><span class="fc-st" hidden></span></span><span class="fc-q">수영에서 태퍼가 하는 일은?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">벽에 가까워지면 막대로 선수의 머리나 몸을 두드려 턴과 결승을 알립니다. S11 선수는 검은 고글을 써야 합니다.<small>근거: World Para Swimming 예외 규정(2023)</small></div></details>
+<details class="fc" data-fc="p2-c3-f2"><summary><span class="fc-n"><span>학습 카드 2</span><span class="fc-st" hidden></span></span><span class="fc-q">탠덤 사이클 앞자리에 앉는 가이드를 무엇이라 부르나요?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">파일럿입니다. 방향과 제동을 맡고, 뒷자리 선수와 페달 박자를 맞춥니다.</div></details>
+<details class="fc" data-fc="p2-c3-f3"><summary><span class="fc-n"><span>학습 카드 3</span><span class="fc-st" hidden></span></span><span class="fc-q">시각장애인 축구에서 공을 향해 갈 때 외치는 말은?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">「보이(voy)」입니다. 스페인어로 「간다」는 뜻이고, 서로 부딪히지 않게 하는 규칙입니다.</div></details>
+<details class="fc" data-fc="p2-c3-f4"><summary><span class="fc-n"><span>학습 카드 4</span><span class="fc-st" hidden></span></span><span class="fc-q">골볼 코트와 골대의 크기는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">코트는 18m × 9m, 골대는 폭 9m·높이 1.3m입니다. 팀마다 세 명이 모두 안대를 씁니다.<small>근거: IBSA 골볼 규정</small></div></details>
+<details class="fc" data-fc="p2-c3-f5"><summary><span class="fc-n"><span>학습 카드 5</span><span class="fc-st" hidden></span></span><span class="fc-q">골볼에서 저시력 선수도 안대를 쓰는 이유는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">남은 시각의 차이와 관계없이 모두 같은 조건에서 겨루게 하기 위해서입니다.</div></details>
+</div>
+</div><label class="done" for="p2-c3-done"><input type="checkbox" id="p2-c3-done" data-k="p2-c3-done" data-ch="p2-c3"><span>이 장을 끝냈어요</span></label></section>
+<section class="ch" id="p2-c4" data-part="2"><header class="chh"><span class="olbl">2부 · 4장</span><h2>수업 속 또래 가이드</h2></header><div class="gobar"><span class="olbl">이 장의 카드</span><div class="gos"><a class="go" href="#deck" data-deck="p2-c4"><small>학습 카드 3장</small><span>덱에서 이 장만 보기</span></a><a class="go" href="#p2-c4-tc1"><small>과제 카드</small><span>4-1 또래 가이드 자격 카드</span></a><a class="go" href="#p2-c4-pc1"><small>프롬프트 카드</small><span>4-1 또래 가이드와 통합 수업</span></a><a class="go" href="#p3-r"><small>수업 자료</small><span>가이드 기술 루브릭</span></a></div></div><div class="prose">
+<p>통합 체육 수업에서 교사 혼자 모든 순간에 가이드가 될 수는 없습니다. 훈련받은 또래가 가이드를 맡으면 시각장애 학생은 더 많이 움직이고, 또래는 가이드 기술을 배웁니다. 시각장애 아동 연구에서 훈련받은 또래 교수자와 함께한 학생은 실제 학습 참여 시간(ALT-PE)이 늘었고, 훈련받은 또래가 훈련받지 않은 또래보다 효과가 컸습니다(Wiskochil 외, 2007). 시각장애인의 신체활동·스포츠 프로그램이 사회적 기술과 주변의 인식을 좋게 했다는 체계적 문헌고찰도 있습니다(Alcaraz-Rodríguez 외, 2021). 핵심은 「훈련」입니다. 또래 가이드는 돌봐 주는 친구가 아니라 약속한 정보를 주는 짝이어야 합니다.</p>
+<h3>또래 가이드를 세우는 네 단계</h3>
+<ol>
+<li><strong>지원과 짝 정하기</strong>: 지원자를 받고, 시각장애 학생에게 함께하고 싶은 친구를 묻습니다.</li>
+<li><strong>수업 전 훈련</strong>: 안내 보행, 신호 약속, 안전, 「도움은 필요한 만큼만」을 가르칩니다.</li>
+<li><strong>자격 확인</strong>: 과제 카드 4-1의 다섯 과제를 통과하면 가이드를 맡습니다.</li>
+<li><strong>교대와 돌아보기</strong>: 가이드는 두세 명이 돌아가며 맡고, 시각장애 학생도 기록원·심판 보조 같은 다른 역할을 맡습니다.</li>
+</ol>
+<h3>도움은 필요한 만큼만</h3>
+<p>또래가 모든 것을 대신하면 시각장애 학생의 참여가 오히려 줄어듭니다. 또래 가이드는 「먼저 묻기」 원칙을 지키고, 학생이 혼자 할 수 있는 구간(외운 경로, 소리 표지가 있는 구간)에서는 한 걸음 물러납니다. 한 친구에게만 가이드를 맡기면 부담이 몰리고 관계가 「돕는 사람과 도움받는 사람」으로 굳으므로 돌아가며 맡깁니다.</p>
+<div class="tcard" id="p2-c4-tc1"><div class="tcard-h"><span>과제 카드 4-1 · 개별 진도 · 2차시</span><span><span class="tc-count">기준 0/5</span><span class="tc-pass">통과</span></span></div><div class="tcard-b">
+<h4>또래 가이드 자격 카드</h4>
+<p><strong>과제</strong>: 다섯 과제를 순서대로 통과합니다. 한 과제의 기준을 채우면 교사나 먼저 자격을 얻은 친구에게 확인받고 다음 과제로 넘어갑니다. 학생마다 속도가 달라도 괜찮습니다.</p>
+<p><strong>성공 기준</strong>: 다섯 과제를 모두 통과하면 자격을 얻습니다.</p>
+<ul class="tasks">
+<li class="task"><label for="p2-c4-tc1-1"><input type="checkbox" id="p2-c4-tc1-1" data-k="p2-c4-tc1-1"><span>과제 1 잡기와 위치: 「안내해 드릴까요?」부터 반 걸음 앞 자세까지 세 번 연속 정확히</span></label></li>
+<li class="task"><label for="p2-c4-tc1-2"><input type="checkbox" id="p2-c4-tc1-2" data-k="p2-c4-tc1-2"><span>과제 2 좁은 길과 문: 다섯 번 중 네 번 이상 멈칫하지 않고 통과</span></label></li>
+<li class="task"><label for="p2-c4-tc1-3"><input type="checkbox" id="p2-c4-tc1-3" data-k="p2-c4-tc1-3"><span>과제 3 계단: 오르기와 내리기 각 한 번, 멈춤과 말이 모두 정확</span></label></li>
+<li class="task"><label for="p2-c4-tc1-4"><input type="checkbox" id="p2-c4-tc1-4" data-k="p2-c4-tc1-4"><span>과제 4 끈 걷기·조깅 200m: 끈이 팽팽해지지 않고, 코너 신호를 예고 → 실행으로</span></label></li>
+<li class="task"><label for="p2-c4-tc1-5"><input type="checkbox" id="p2-c4-tc1-5" data-k="p2-c4-tc1-5"><span>과제 5 신호 외우기: 교사가 상황을 말하면 약속한 신호로 답하기, 열 개 중 아홉 개 이상</span></label></li>
+</ul>
+<p class="tsafe"><span class="tl dot" aria-hidden="true"></span><span><strong>안전</strong>: 자격을 얻기 전에는 계단이나 트랙에서 혼자 가이드를 맡지 않습니다.</span></p>
+</div></div>
+<h3 id="p2-c4-pc1">프롬프트 카드 4-1 또래 가이드와 함께하는 통합 수업</h3>
+<p><strong>상황</strong>: V-07이 교류 수업으로 일반 중학교 육상 단원 3차시에 참여한다. 또래 가이드 자격을 얻은 학생이 네 명 있다.</p>
+<figure class="prompt"><figcaption><span>프롬프트 · 복사해서 붙여 넣기</span><button type="button" class="copy">복사</button></figcaption><pre><code><b class="lab">[역할]</b> 너는 통합 체육 수업을 계획하는 체육 교사를 돕는 어시스턴트다.
+<b class="lab">[상황]</b> <mark class="ph">[일반 중학교 3학년 28명 + 교류 수업으로 V-07(선천성 전맹) 참여, 육상 단원 3차시(달리기·이어달리기), 운동장 트랙, 또래 가이드 자격 학생 4명]</mark>
+<b class="lab">[만들 것]</b> 3차시 수업 계획.
+- 차시마다: 목표, 활동, 또래 가이드 배치와 교대 순서, V-07의 역할(달리기 외의 역할 포함), 소리·촉각 자료.
+- 이어달리기에서 V-07 팀이 불리하지 않게 하는 규칙 조정 2가지와 그 이유.
+- 또래 가이드가 지킬 「도움은 필요한 만큼만」 행동 3가지.
+<b class="lab">[규칙]</b> V-07을 기록원으로만 두는 계획은 쓰지 않는다. 비장애 학생 모두가 한 번 이상 가이드 연습을 하게 한다.</code></pre></figure>
+<p><strong>좋은 답의 조건</strong></p>
+<ul class="tasks">
+<li class="task"><label for="p2-c4-t1"><input type="checkbox" id="p2-c4-t1" data-k="p2-c4-t1"><span>가이드가 차시마다 교대한다</span></label></li>
+<li class="task"><label for="p2-c4-t2"><input type="checkbox" id="p2-c4-t2" data-k="p2-c4-t2"><span>V-07이 달리기와 다른 역할을 모두 맡는다</span></label></li>
+<li class="task"><label for="p2-c4-t3"><input type="checkbox" id="p2-c4-t3" data-k="p2-c4-t3"><span>이어달리기 규칙 조정에 공정성 설명이 있다(예: 바통 대신 어깨 터치로 넘기기, 구간 길이 조정)</span></label></li>
+</ul>
+<p><strong>더 좋게 묻기</strong>: <code>3차시가 끝난 뒤 V-07과 또래 가이드에게 각각 물을 돌아보기 질문 3개를 만들어 줘.</code></p>
+<p><strong>연습</strong>: 내 수업에서 또래 가이드를 한 번 운영해 보고, 시각장애 학생에게 「혼자 할 수 있었는데 도움을 받은 순간」이 있었는지 직접 묻습니다.</p>
+<h3>이 장의 학습 카드</h3>
+<div class="fcs">
+<details class="fc" data-fc="p2-c4-f1"><summary><span class="fc-n"><span>학습 카드 1</span><span class="fc-st" hidden></span></span><span class="fc-q">또래 가이드가 「돌봐 주는 친구」가 되면 생기는 문제는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">시각장애 학생이 혼자 할 수 있는 일까지 대신해 참여가 줄어듭니다. 가이드는 먼저 묻고 필요한 만큼만 돕습니다.</div></details>
+<details class="fc" data-fc="p2-c4-f2"><summary><span class="fc-n"><span>학습 카드 2</span><span class="fc-st" hidden></span></span><span class="fc-q">또래 가이드 자격 카드가 개별화 지도모형과 닮은 점은?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">과제를 순서대로 하나씩 하고, 정해진 기준을 채워야 다음으로 넘어가며, 학생마다 속도가 다릅니다.</div></details>
+<details class="fc" data-fc="p2-c4-f3"><summary><span class="fc-n"><span>학습 카드 3</span><span class="fc-st" hidden></span></span><span class="fc-q">또래 가이드 훈련의 효과를 보여 준 연구 결과는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">훈련받은 또래와 함께한 시각장애 아동의 실제 학습 참여 시간이 늘었고, 훈련받은 또래가 훈련받지 않은 또래보다 효과가 컸습니다.<small>근거: Wiskochil 외(2007)</small></div></details>
+</div>
+</div><label class="done" for="p2-c4-done"><input type="checkbox" id="p2-c4-done" data-k="p2-c4-done" data-ch="p2-c4"><span>이 장을 끝냈어요</span></label></section>
+<section class="ch" id="p2-c5" data-part="2"><header class="chh"><span class="olbl">2부 · 5장</span><h2>체험 수업 설계와 윤리</h2></header><div class="gobar"><span class="olbl">이 장의 카드</span><div class="gos"><a class="go" href="#deck" data-deck="p2-c5"><small>학습 카드 3장</small><span>덱에서 이 장만 보기</span></a><a class="go" href="#p2-c5-tc1"><small>과제 카드</small><span>5-1 체험 수업 다시 쓰기</span></a><a class="go" href="#p2-c5-pc1"><small>프롬프트 카드</small><span>5-1 반대 의견 받기</span></a><a class="go" href="#p3-r"><small>수업 자료</small><span>출구 카드 모음</span></a></div></div><div class="prose">
+<p>예비 교사 수업에서는 안대를 쓰고 걸어 보는 체험 활동을 흔히 씁니다. 그런데 실험 연구에서 안대 체험을 한 대학생들이 시각장애인의 일과 독립 생활 능력을 더 낮게 평가하는 결과가 나왔습니다(Silverman 외, 2015). 처음 몇 분의 두려움과 서투름을, 오래 익숙해진 시각장애인의 일상으로 착각하기 때문입니다. 그래서 체험은 「불편을 느껴 보는 시간」이 아니라 「가이드 기술을 연습하는 시간」으로 설계합니다.</p>
+<h3>체험 수업을 바꾸는 다섯 가지</h3>
+<div class="tbl"><table>
+<thead><tr><th>피할 설계</th><th>바꿀 설계</th></tr></thead>
+<tbody>
+<tr><td>「시각장애인이 되어 보기」</td><td>「가이드 기술 연습하기」처럼 목표를 기술로</td></tr>
+<tr><td>안대를 쓰고 혼자 길 찾기</td><td>안대를 쓴 사람에게 늘 훈련된 가이드가 함께함</td></tr>
+<tr><td>「무섭고 불편했다」로 끝나는 소감</td><td>사후 토의: 어떤 정보가 도움이 됐나, 어떤 신호가 늦었나</td></tr>
+<tr><td>시각장애를 잃은 것으로만 설명</td><td>시각장애 선수의 실제 기량(경기 영상, 초청 강연)과 함께</td></tr>
+<tr><td>모두 안대를 쓰게 함</td><td>착용은 선택, 언제든 벗을 수 있음. 쓰지 않는 사람은 가이드·관찰자</td></tr>
+</tbody></table></div>
+<h3>사후 토의 질문</h3>
+<ol>
+<li>가장 도움이 된 가이드의 말은 무엇이었나요? 왜 도움이 됐나요?</li>
+<li>늦게 나온 신호, 헷갈린 신호는 무엇이었나요?</li>
+<li>처음 5분과 마지막 5분 사이에 무엇이 달라졌나요? 몇 년 동안 연습한 사람이라면 어떨까요?</li>
+<li>오늘 연습한 기술 가운데 다음 수업에서 바로 쓸 것은 무엇인가요?</li>
+<li>시각장애 선수에게 직접 묻고 싶은 것은 무엇인가요?</li>
+</ol>
+<div class="tcard" id="p2-c5-tc1"><div class="tcard-h"><span>과제 카드 5-1 · 모둠 · 25분</span><span><span class="tc-count">기준 0/4</span><span class="tc-pass">통과</span></span></div><div class="tcard-b">
+<h4>체험 수업 다시 쓰기</h4>
+<p><strong>과제</strong>: 「안대 쓰고 체육관 한 바퀴 걷기」 활동을 받아, 위 표를 따라 목표·안전·사후 토의를 고친 15분 활동으로 다시 씁니다.</p>
+<ol>
+<li>원래 활동에서 고정관념을 키울 수 있는 부분을 찾아 표시합니다.</li>
+<li>목표, 진행, 안전, 사후 토의를 다시 씁니다.</li>
+<li>다른 모둠과 바꿔 읽고 성공 기준으로 서로 점검합니다.</li>
+</ol>
+<p><strong>성공 기준</strong>: 모두 채우면 통과입니다.</p>
+<ul class="tasks">
+<li class="task"><label for="p2-c5-tc1-1"><input type="checkbox" id="p2-c5-tc1-1" data-k="p2-c5-tc1-1"><span>목표가 「느껴 보기」가 아니라 기술(안내 보행, 신호)이다</span></label></li>
+<li class="task"><label for="p2-c5-tc1-2"><input type="checkbox" id="p2-c5-tc1-2" data-k="p2-c5-tc1-2"><span>안대를 쓴 사람에게 가이드가 늘 함께한다</span></label></li>
+<li class="task"><label for="p2-c5-tc1-3"><input type="checkbox" id="p2-c5-tc1-3" data-k="p2-c5-tc1-3"><span>사후 토의 질문이 세 개 이상이고, 그 가운데 하나는 익숙해짐과 숙련을 다룬다</span></label></li>
+<li class="task"><label for="p2-c5-tc1-4"><input type="checkbox" id="p2-c5-tc1-4" data-k="p2-c5-tc1-4"><span>시각장애 선수의 실제 기량을 보여 주는 자료가 들어 있다</span></label></li>
+</ul>
+<p class="tsafe"><span class="tl dot" aria-hidden="true"></span><span><strong>안전</strong>: 안대 착용은 선택입니다. 쓰지 않는 사람은 가이드나 관찰자를 맡습니다.</span></p>
+</div></div>
+<h3 id="p2-c5-pc1">프롬프트 카드 5-1 내 체험 수업 계획에 반대 의견 받기</h3>
+<p><strong>상황</strong>: 다음 주 예비 교사 수업에서 15분 체험 활동을 하려 한다. 계획이 괜찮은지 자신이 없다.</p>
+<figure class="prompt"><figcaption><span>프롬프트 · 복사해서 붙여 넣기</span><button type="button" class="copy">복사</button></figcaption><pre><code><b class="lab">[내 체험 수업 계획]</b> <mark class="ph">[예비 교사 20명, 15분: 둘씩 짝, 한 명이 안대를 쓰고 혼자 체육관 문까지 걸어가기, 짝은 뒤에서 지켜보기, 끝나고 「얼마나 힘들었는지」 한 줄 소감]</mark>
+너는 특수체육을 가르치는 동료 교수다. 이 계획에서 학생들이 시각장애인에 대한 고정관념을 키울 수 있는 부분 두 가지를 찾아, 근거와 함께 반대 의견을 내 줘. 안전 문제도 하나 짚어 줘. 그리고 같은 15분으로 바꾼 계획을 표로 내 줘. 나를 위로하지 말고, 마지막에 나에게 질문 하나를 던져 줘.</code></pre></figure>
+<p><strong>좋은 답의 조건</strong></p>
+<ul class="tasks">
+<li class="task"><label for="p2-c5-t1"><input type="checkbox" id="p2-c5-t1" data-k="p2-c5-t1"><span>「혼자 걷기」와 「힘들었다 소감」을 문제로 짚는다</span></label></li>
+<li class="task"><label for="p2-c5-t2"><input type="checkbox" id="p2-c5-t2" data-k="p2-c5-t2"><span>안대를 쓴 사람에게 가이드가 없다는 안전 문제를 짚는다</span></label></li>
+<li class="task"><label for="p2-c5-t3"><input type="checkbox" id="p2-c5-t3" data-k="p2-c5-t3"><span>바꾼 계획의 목표가 가이드 기술이다</span></label></li>
+</ul>
+<p><strong>연습</strong>: 내가 예전에 했거나 본 체험 활동 하나로 5-1을 하고, AI의 반대 의견 가운데 받아들일 것과 받아들이지 않을 것을 이유와 함께 적습니다.</p>
+<h3>이 장의 학습 카드</h3>
+<div class="fcs">
+<details class="fc" data-fc="p2-c5-f1"><summary><span class="fc-n"><span>학습 카드 1</span><span class="fc-st" hidden></span></span><span class="fc-q">안대 체험이 역효과를 낼 수 있다는 연구 결과는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">안대 체험 뒤 대학생들이 시각장애인의 일과 독립 생활 능력을 더 낮게 평가했습니다. 처음 몇 분의 서투름을 일상으로 착각하기 때문입니다.<small>근거: Silverman 외(2015)</small></div></details>
+<details class="fc" data-fc="p2-c5-f2"><summary><span class="fc-n"><span>학습 카드 2</span><span class="fc-st" hidden></span></span><span class="fc-q">체험 수업의 목표를 어떻게 바꾸나요?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">「시각장애인이 되어 보기」에서 「가이드 기술 연습하기」로 바꿉니다.</div></details>
+<details class="fc" data-fc="p2-c5-f3"><summary><span class="fc-n"><span>학습 카드 3</span><span class="fc-st" hidden></span></span><span class="fc-q">체험 수업의 안전 원칙 두 가지는?</span><span class="fc-hint">눌러서 답 보기</span></summary><div class="fc-a">안대를 쓴 사람에게 늘 훈련된 가이드가 함께하고, 착용은 선택이며 언제든 벗을 수 있게 합니다.</div></details>
+</div>
+</div><label class="done" for="p2-c5-done"><input type="checkbox" id="p2-c5-done" data-k="p2-c5-done" data-ch="p2-c5"><span>이 장을 끝냈어요</span></label></section>
+<section class="ch" id="p2-appxA" data-part="2"><header class="chh"><span class="olbl">2부 · 부록 A</span><h2>가이드 신호 사전</h2></header><div class="prose">
+<p>자주 쓰는 신호를 상황별로 모았습니다. 선수마다 편한 말이 다르므로 첫 훈련 때 이 표를 함께 읽고, 바꾼 말은 표에 적어 둡니다. 신호는 한 사람이 같은 말로 줍니다.</p>
+<div class="tbl"><table>
+<thead><tr><th>상황</th><th>예고</th><th>실행</th><th>주의</th></tr></thead>
+<tbody>
+<tr><td>시작</td><td>「안내해 드릴까요?」</td><td>「제 팔꿈치 위를 잡으세요」</td><td>대답을 기다린 뒤 잡게 함</td></tr>
+<tr><td>멈춤</td><td>·</td><td>「멈춤」</td><td>한 단어로, 크고 짧게</td></tr>
+<tr><td>계단</td><td>「다섯 걸음 앞 올라가는 계단, 난간 오른쪽」</td><td>「첫 계단」 … 「끝」</td><td>첫 계단 앞과 마지막에서 멈춤</td></tr>
+<tr><td>턱·단차</td><td>「세 걸음 뒤 내려가는 턱」</td><td>「하나, 둘, 턱」</td><td>거리를 먼저 말함</td></tr>
+<tr><td>좁은 길</td><td>「앞에 좁은 길」</td><td>「좁은 길」</td><td>잡힌 팔을 등 뒤로</td></tr>
+<tr><td>문</td><td>「앞에 당기는 문, 경첩 왼쪽」</td><td>「문 잡으세요」</td><td>멈춘 뒤 말함</td></tr>
+<tr><td>방향</td><td>「다음 모퉁이에서 오른쪽」</td><td>「오른쪽으로 돕니다」</td><td>선수 몸 기준 좌우</td></tr>
+<tr><td>코너(달리기)</td><td>「10m 앞 왼쪽 코너」</td><td>「코너 시작」 … 「코너 끝」</td><td>예고와 실행 사이를 일정하게</td></tr>
+<tr><td>추월</td><td>「오른쪽으로 추월합니다」</td><td>「바깥으로 한 걸음」</td><td>뒤에서 오는 주자도 알림</td></tr>
+<tr><td>급수</td><td>「30m 앞 급수대, 오른쪽」</td><td>「컵 받습니다」</td><td>속도를 먼저 맞춤</td></tr>
+<tr><td>남은 거리</td><td>「결승 1km」</td><td>「결승 100m」</td><td>약속한 지점에서만</td></tr>
+<tr><td>결승</td><td>「결승 100m」</td><td>「결승선, 먼저 들어가세요」</td><td>선수가 먼저 통과</td></tr>
+<tr><td>떠남</td><td>「잠시 뒤 떠납니다」</td><td>「오른손에 의자 등받이, 저 갑니다」</td><td>기준점에 닿게 한 뒤</td></tr>
+</tbody></table></div>
+</div></section>
+<section class="ch" id="p2-appxB" data-part="2"><header class="chh"><span class="olbl">2부 · 부록 B</span><h2>기준값 표와 참고자료</h2></header><div class="prose">
+<p>이 교재의 카드에 들어간 숫자와 규정을 한곳에 모았습니다. 기준을 바꿀 때는 이 표를 먼저 고치고, 같은 숫자가 들어간 카드를 함께 고칩니다. 「확인 필요」는 교재를 만들 때 원문을 직접 확인하지 못한 값입니다.</p>
+<div class="tbl"><table>
+<thead><tr><th>기준</th><th>값</th><th>쓰는 장</th></tr></thead>
+<tbody>
+<tr><td>IBSA 등급</td><td>좋은 쪽 눈, 최대 교정 · B1 LogMAR 2.6보다 나쁨 · B2 1.5–2.6 또는 시야 지름 10° 미만 · B3 1.4–1.0 또는 시야 지름 40° 미만</td><td>1부 1장</td></tr>
+<tr><td>LogMAR 환산</td><td>소수 시력 = 10의 (−LogMAR) 제곱 · LogMAR 1.0 = 소수 시력 0.1</td><td>1부 1장</td></tr>
+<tr><td>국내 장애 정도(장애인복지법)</td><td>2019년 7월부터 「심한·심하지 않은」 두 단계 · 심한 장애: 좋은 눈 교정시력 0.06 이하 또는 두 눈 시야가 각각 모든 방향 5도 이하 <span class="chk">확인 필요</span></td><td>1부 1장</td></tr>
+<tr><td>눈 위험 신호</td><td>새로 생긴 번쩍임 · 갑자기 늘어난 떠다니는 점 · 그림자나 커튼 → 운동 중단, 당일 안과</td><td>1부 2·7장</td></tr>
+<tr><td>최대 심박수 추정(Tanaka)</td><td>208 − 0.7 × 나이</td><td>1부 4장</td></tr>
+<tr><td>중강도(미국스포츠의학회)</td><td>최대 심박수의 64–76%</td><td>1부 4장</td></tr>
+<tr><td>RPE(0–10)</td><td>0 쉼 · 5 힘듦 · 7 매우 힘듦 · 10 최대</td><td>1부 4·7장</td></tr>
+<tr><td>육상 가이드(World Para Athletics)</td><td>T11 가이드 필수·불투명 안경 · T12 가이드 선택 · 당기기·밀기, 끈 놓기, 가이드가 먼저 결승은 실격 · 끈 길이 <span class="chk">확인 필요</span></td><td>2부 2장</td></tr>
+<tr><td>수영(World Para Swimming)</td><td>S11 검은 고글 착용 · 태퍼가 턴과 결승 신호</td><td>2부 3장</td></tr>
+<tr><td>골볼(IBSA)</td><td>팀당 3명, 모두 안대 · 코트 18m × 9m · 골대 9m × 1.3m · 공 약 1.25kg, 방울 · 10초 반칙 · 경기 시간 <span class="chk">확인 필요</span></td><td>2부 3장</td></tr>
+<tr><td>직접교수 6단계</td><td>전시 과제 복습 → 새로운 과제 제시 → 초기 과제 연습(80%) → 피드백 및 교정 → 독자적인 연습(95%) → 본시 복습</td><td>수업 자료</td></tr>
+</tbody></table></div>
+<p><strong>참고자료</strong></p>
+<ul>
+<li>IBSA(국제시각장애인스포츠연맹). 등급 분류 규정(B1–B3 기준).</li>
+<li>World Para Athletics. Rules and Regulations(가이드 러너 규정). 대회 전 최신판 원문으로 확인.</li>
+<li>World Para Swimming (2023). Code of Exceptions(S11 검은 고글, 태퍼).</li>
+<li>IBSA. Goalball Rules and Regulations(2025년판).</li>
+<li>미국안과학회(AAO) EyeNet. Glaucoma and exercise(거꾸로 선 자세·발살바 호흡과 안압).</li>
+<li>Colberg SR 외 (2016). Physical activity/exercise and diabetes: a position statement of the American Diabetes Association. <em>Diabetes Care</em>, 39(11), 2065–2079. doi:10.2337/dc16-1728</li>
+<li>Tanaka H, Monahan KD, Seals DR (2001). Age-predicted maximal heart rate revisited. <em>Journal of the American College of Cardiology</em>, 37(1), 153–156.</li>
+<li>American College of Sports Medicine (2021). <em>ACSM's Guidelines for Exercise Testing and Prescription</em> (11th ed.).</li>
+<li>Carretti G, Manetti M, Marini M (2023). Physical activity and sport practice to improve balance control of visually impaired individuals: a narrative review with future perspectives. <em>Frontiers in Sports and Active Living</em>, 5, 1260942. doi:10.3389/fspor.2023.1260942</li>
+<li>Sweeting J 외 (2020). Physical activity interventions for adults who are visually impaired: a systematic review and meta-analysis. <em>BMJ Open</em>, 10(2), e034036. doi:10.1136/bmjopen-2019-034036</li>
+<li>Alcaraz-Rodríguez V 외 (2021). Influence of physical activity and sport on the inclusion of people with visual impairment: a systematic review. <em>International Journal of Environmental Research and Public Health</em>, 19(1), 443. doi:10.3390/ijerph19010443</li>
+<li>Lieberman LJ 외 (2015). Strategies and resources for including children with visual impairments into physical education and sports. SHAPE America 학술대회 발표 자료.</li>
+<li>Wiskochil B, Lieberman LJ, Houston-Wilson C, Petersen S (2007). The effects of trained peer tutors on the physical education of children who are visually impaired. <em>Journal of Visual Impairment &amp; Blindness</em>, 101(6), 339–350.</li>
+<li>Silverman AM, Gwinn JD, Van Boven L (2015). Stumbling in their shoes: disability simulations reduce judged capabilities of disabled people. <em>Social Psychological and Personality Science</em>, 6(4), 464–471.</li>
+<li>Ontario Blind Sports Association (2018). Guide Running Pathway(가이드 러닝 지침).</li>
+<li>이 저장소의 「9장 직접교수 · 개별화 지도모형」 강의 자료(6단계 수업, 초기 과제 연습 80%·독자적인 연습 95% 성공률).</li>
+</ul>
+<p>논문 항목은 이 교재를 만들 때 PubMed와 학술 검색으로 서지를 확인한 원출처입니다. 수업 자료로 쓸 때는 권·호·쪽수를 원문에서 한 번 더 확인해 주세요.</p>
+</div></section>
+<header class="parthead" id="part3"><span class="pn">수업 자료</span><h2>바로 쓰는 50분 지도안</h2><p>2부의 기술을 50분 수업으로 바로 쓸 수 있게 묶었습니다. 지도안은 직접교수 모형의 6단계를 따르고, 초기 과제 연습은 80%, 독자적인 연습은 95% 성공률을 목표로 합니다. 이 저장소의 「9장 직접교수 · 개별화 지도모형」 자료와 같은 기준입니다.</p></header>
+<section class="ch" id="p3-a" data-part="3"><header class="chh"><span class="olbl">수업 자료 · 지도안 A</span><h2>안내 보행</h2></header><div class="gobar"><span class="olbl">함께 쓰는 카드</span><div class="gos"><a class="go" href="#p2-c1-tc1"><small>과제 카드</small><span>2부 1-1 안내 보행 코스</span></a><a class="go" href="#deck" data-deck="p2-c1"><small>학습 카드 5장</small><span>2부 1장 카드 복습</span></a><a class="go" href="#p3-r"><small>평가</small><span>루브릭과 출구 카드</span></a></div></div><div class="prose">
+<dl class="meta">
+<dt>대상</dt><dd>예비 체육교사 또는 고등학생 20명(짝 10쌍)</dd>
+<dt>장소</dt><dd>강의실, 복도, 계단 한 층</dd>
+<dt>준비물</dt><dd>안대 10개, 과제 카드 2부 1-1, 관찰 체크리스트(루브릭)</dd>
+<dt>학습 목표</dt><dd>① 안내 보행의 잡기·위치·좁은 길·계단·떠나기를 정확히 해낸다. ② 「먼저 묻기·미리 말하기·구체적으로 말하기」를 말로 실천한다.</dd>
+</dl>
+<div class="tbl"><table>
+<thead><tr><th>단계</th><th>시간</th><th>교사 활동</th><th>학생 활동</th><th>자료·안전</th></tr></thead>
+<tbody>
+<tr><td>1 전시 과제 복습</td><td>5분</td><td>「가이드의 다섯 원칙」을 학습 카드로 묻는다</td><td>짝끼리 카드 두 장을 묻고 답한다</td><td>학습 카드 덱(2부 들어가기)</td></tr>
+<tr><td>2 새로운 과제 제시</td><td>10분</td><td>잡기·위치·좁은 길·계단·떠나기를 말로 설명하며 시범, 흔한 실수 두 가지도 시범</td><td>시범을 들으며 다섯 원칙이 쓰인 곳을 찾는다</td><td>계단 시범은 난간 쪽에서</td></tr>
+<tr><td>3 초기 과제 연습</td><td>12분</td><td>짝마다 돌며 구간별로 바로 확인한다</td><td>복도·좁은 통로에서 안내 보행, 역할 교대</td><td>성공 기준: 구간 다섯 번 중 네 번(80%)</td></tr>
+<tr><td>4 피드백 및 교정</td><td>8분</td><td>공통 오류(끌기, 늦은 계단 신호)를 정리하고 개별 교정한다</td><td>오류 장면을 다시 해 본다</td><td>관찰 체크리스트</td></tr>
+<tr><td>5 독자적인 연습</td><td>10분</td><td>멀리서 지켜보고, 계단 구간에서만 안전을 돕는다</td><td>과제 카드 2부 1-1 코스 전체를 역할을 바꿔 한 바퀴씩</td><td>관찰자가 구간마다 ○·× 기록, ○ 비율 95% 목표</td></tr>
+<tr><td>6 본시 복습</td><td>5분</td><td>출구 카드 질문 두 개를 묻는다</td><td>말로 답하고 서로 보탠다</td><td>출구 카드 A</td></tr>
+</tbody></table></div>
+<p><strong>출구 카드 A</strong>: ① 좁은 길에서 가이드가 하는 동작은? ② 오늘 내가 늦게 준 신호 하나와, 고친 말은?</p>
+</div><label class="done" for="p3-a-done"><input type="checkbox" id="p3-a-done" data-k="p3-a-done" data-ch="p3-a"><span>이 자료로 수업했어요</span></label></section>
+<section class="ch" id="p3-b" data-part="3"><header class="chh"><span class="olbl">수업 자료 · 지도안 B</span><h2>가이드 러닝 입문</h2></header><div class="gobar"><span class="olbl">함께 쓰는 카드</span><div class="gos"><a class="go" href="#p2-c2-tc1"><small>과제 카드</small><span>2부 2-1 합 맞추기 3단계</span></a><a class="go" href="#deck" data-deck="p2-c2"><small>학습 카드 5장</small><span>2부 2장 카드 복습</span></a><a class="go" href="#p2-appxA"><small>부록 A</small><span>가이드 신호 사전</span></a></div></div><div class="prose">
+<dl class="meta">
+<dt>대상</dt><dd>가이드 러너 지원자 12명(짝 6쌍)</dd>
+<dt>장소</dt><dd>운동장 트랙</dd>
+<dt>준비물</dt><dd>짧은 고리 끈 6개, 안대 6개, 신호 약속표(부록 A), 관찰 체크리스트</dd>
+<dt>학습 목표</dt><dd>① 끈을 느슨하게 쥐고 같은 발로 맞춰 걷고 달린다. ② 코너 신호를 예고 → 실행으로 준다. ③ 결승선에서 선수를 먼저 통과시킨다.</dd>
+</dl>
+<div class="tbl"><table>
+<thead><tr><th>단계</th><th>시간</th><th>교사 활동</th><th>학생 활동</th><th>자료·안전</th></tr></thead>
+<tbody>
+<tr><td>1 전시 과제 복습</td><td>5분</td><td>안내 보행의 잡기와 좁은 길을 묻는다</td><td>짝과 안내 보행으로 트랙 입구까지 이동한다</td><td>학습 카드 덱(2부 1장)</td></tr>
+<tr><td>2 새로운 과제 제시</td><td>8분</td><td>끈 쥐는 법, 같은 발 맞추기, 예고 → 실행 신호를 시범하고 실격 행동 세 가지를 설명한다</td><td>들으며 짝과 신호 말을 정한다</td><td>신호 약속표</td></tr>
+<tr><td>3 초기 과제 연습</td><td>12분</td><td>걷기 200m에서 직선 조깅까지, 짝마다 확인한다</td><td>걷기와 조깅, 역할 교대</td><td>성공 기준: 코너 신호 다섯 번 중 네 번 예고 → 실행(80%)</td></tr>
+<tr><td>4 피드백 및 교정</td><td>8분</td><td>끈이 팽팽해지는 원인(가이드가 앞섬)과 늦은 신호를 교정한다</td><td>문제 구간을 반복한다</td><td>트랙의 다른 사람들에게 미리 알림</td></tr>
+<tr><td>5 독자적인 연습</td><td>12분</td><td>멀리서 지켜본다</td><td>400m 한 바퀴씩 역할을 바꿔 달리고 결승을 연습한다</td><td>관찰자가 신호마다 ○·× 기록, ○ 비율 95% 목표</td></tr>
+<tr><td>6 본시 복습</td><td>5분</td><td>출구 카드를 묻는다</td><td>말로 답한다</td><td>출구 카드 B</td></tr>
+</tbody></table></div>
+<p><strong>출구 카드 B</strong>: ① 대회에서 끈을 놓으면 어떻게 되나요? ② 결승선은 누가 먼저 지나나요? ③ 오늘 우리 짝이 바꾸기로 한 신호 말 하나는?</p>
+</div><label class="done" for="p3-b-done"><input type="checkbox" id="p3-b-done" data-k="p3-b-done" data-ch="p3-b"><span>이 자료로 수업했어요</span></label></section>
+<section class="ch" id="p3-c" data-part="3"><header class="chh"><span class="olbl">수업 자료 · 지도안 C</span><h2>골볼 입문</h2></header><div class="gobar"><span class="olbl">함께 쓰는 카드</span><div class="gos"><a class="go" href="#p2-c3"><small>2부 3장</small><span>골볼 기본 규칙</span></a><a class="go" href="#p1-c6-pc1"><small>프롬프트 카드</small><span>1부 6-1 수비 자세 지도 대본</span></a><a class="go" href="#deck" data-deck="p2-c3"><small>학습 카드 5장</small><span>2부 3장 카드 복습</span></a></div></div><div class="prose">
+<dl class="meta">
+<dt>대상</dt><dd>특수학교 중학생 6명(전맹 3명, 저시력 3명, V-07 포함)</dd>
+<dt>장소</dt><dd>체육관(테이프와 줄로 만든 골볼 코트, 축소 코트도 가능)</dd>
+<dt>준비물</dt><dd>골볼 공 2개, 안대 6개, 무릎·팔꿈치 보호대, 테이프와 줄</dd>
+<dt>학습 목표</dt><dd>① 수비 자세를 촉각 모델링으로 익힌다. ② 공 소리로 오는 방향을 말한다. ③ 정숙 규칙을 지킨다.</dd>
+</dl>
+<div class="tbl"><table>
+<thead><tr><th>단계</th><th>시간</th><th>교사 활동</th><th>학생 활동</th><th>자료·안전</th></tr></thead>
+<tbody>
+<tr><td>1 전시 과제 복습</td><td>5분</td><td>코트 선을 따라 걸으며 지난 시간의 기준점을 묻는다</td><td>손발로 선을 찾고 기준점을 말한다</td><td>안대 착용 확인</td></tr>
+<tr><td>2 새로운 과제 제시</td><td>10분</td><td>공의 무게와 소리를 손으로 익히게 하고(사전 교수 확인), 수비 자세를 촉각 모델링으로 보여 준다</td><td>교사의 자세를 차례로 만져 보고 따라 한다</td><td>얼굴 보호(팔 위치)부터</td></tr>
+<tr><td>3 초기 과제 연습</td><td>12분</td><td>공을 천천히 굴려 주고, 소리 방향 말하기에서 몸으로 막기로 넘어간다</td><td>방향 말하기, 굴린 공 막기</td><td>성공 기준: 열 번 중 여덟 번(80%)</td></tr>
+<tr><td>4 피드백 및 교정</td><td>8분</td><td>「팔은 머리 위로 길게」, 「발끝까지 펴기」 같은 큐로 교정하고, 필요하면 허락받고 신체 안내</td><td>다시 해 본다</td><td>신체 안내 전 허락 묻기</td></tr>
+<tr><td>5 독자적인 연습</td><td>10분</td><td>정숙을 지키며 멀리서 지켜본다</td><td>세 명씩 팀으로 돌아가며 수비</td><td>성공 기준: 굴린 공 스무 번 중 열아홉 번 몸에 닿기(95%)</td></tr>
+<tr><td>6 본시 복습</td><td>5분</td><td>출구 카드를 말로 묻는다</td><td>말로 답한다</td><td>출구 카드 C</td></tr>
+</tbody></table></div>
+<p><strong>출구 카드 C</strong>: ① 공이 어느 쪽에서 오는지 어떻게 알았나요? ② 막을 때 얼굴을 지키는 팔의 위치는? ③ 경기 중에 조용히 해야 하는 이유는?</p>
+</div><label class="done" for="p3-c-done"><input type="checkbox" id="p3-c-done" data-k="p3-c-done" data-ch="p3-c"><span>이 자료로 수업했어요</span></label></section>
+<section class="ch" id="p3-r" data-part="3"><header class="chh"><span class="olbl">수업 자료 · 평가</span><h2>가이드 기술 루브릭과 출구 카드</h2></header><div class="gobar"><span class="olbl">함께 쓰는 카드</span><div class="gos"><a class="go" href="#p2-c4-tc1"><small>과제 카드</small><span>2부 4-1 또래 가이드 자격 카드</span></a><a class="go" href="#deck" data-deck="all"><small>학습 카드 덱</small><span>전체 카드 복습</span></a></div></div><div class="prose">
+<p>관찰자가 짝의 가이드 기술을 평가할 때 쓰는 루브릭입니다. 영역마다 3·2·1점으로 매기고, 1점이 나온 영역은 다음 시간의 「전시 과제 복습」에서 다시 다룹니다.</p>
+<div class="tbl"><table>
+<thead><tr><th>영역</th><th>3 우수</th><th>2 보통</th><th>1 노력</th></tr></thead>
+<tbody>
+<tr><td>먼저 묻기</td><td>시작 전에 묻고 잡는 법을 설명하며, 선수의 선택을 따른다</td><td>묻지만 설명이 부족하다</td><td>묻지 않고 잡거나 끈다</td></tr>
+<tr><td>자세·위치</td><td>반 걸음 앞, 팔에 힘을 빼고 끝까지 유지한다</td><td>가끔 흐트러진다</td><td>나란히 걷거나 선수를 끈다</td></tr>
+<tr><td>미리 말하기</td><td>모든 변화 전에 예고한다</td><td>일부 신호가 늦다</td><td>지나간 뒤에 설명한다</td></tr>
+<tr><td>구체적인 말</td><td>방향·거리·높이로 말한다</td><td>가끔 「여기·저기」를 쓴다</td><td>주로 「여기·저기」를 쓴다</td></tr>
+<tr><td>안전</td><td>위험 지점에서 멈추고 확인한다</td><td>대부분 확인한다</td><td>위험 지점을 그냥 지난다</td></tr>
+<tr><td>떠나기</td><td>기준점에 닿게 한 뒤 말한다</td><td>말만 한다</td><td>말없이 떠난다</td></tr>
+<tr><td>끈과 신호(러닝)</td><td>끈이 느슨하고, 예고 → 실행, 선수가 먼저 결승</td><td>한 가지가 부족하다</td><td>두 가지 이상 부족하다</td></tr>
+</tbody></table></div>
+<h3>출구 카드 모음</h3>
+<p>수업 마지막 5분에 말로 묻고 말로 답합니다. 종이에 쓰게 하면 점자나 음성으로 답하는 학생의 방법이 막힐 수 있으므로, 말로 받거나 학생이 고른 방식으로 받습니다.</p>
+<ul>
+<li>오늘 배운 신호 하나를 실제로 말해 보세요.</li>
+<li>오늘 가장 도움이 된 친구의 말은 무엇이었나요?</li>
+<li>다음 시간에 다시 연습하고 싶은 구간은 어디인가요?</li>
+<li>시각장애 선수에게 물어보고 싶은 것 하나는 무엇인가요?</li>
+</ul>
+</div><label class="done" for="p3-r-done"><input type="checkbox" id="p3-r-done" data-k="p3-r-done" data-ch="p3-r"><span>이 자료로 수업했어요</span></label></section>
+</main>
+</div>
+<a class="top" href="#top">맨 위로</a>
+<script>
+(()=>{
+const S={get(k){try{return localStorage.getItem(k)}catch(e){return null}},
+  set(k,v){try{if(v===null||v===undefined||v===false||v==='')localStorage.removeItem(k);else localStorage.setItem(k,v===true?'1':String(v))}catch(e){}}};
+const P='vi-book:';
+const root=document.documentElement;
+if(!root.getAttribute('lang'))root.setAttribute('lang','ko');
+const $=id=>document.getElementById(id);
+
+/* 보기 설정: 글자 크기·고대비(이 기기에만 저장) */
+const fsBtns=[...document.querySelectorAll('[data-fs-set]')];
+function setFs(v){if(v!=='l'&&v!=='xl')v='m';if(v==='m')root.removeAttribute('data-fs');else root.setAttribute('data-fs',v);
+  fsBtns.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.fsSet===v)));S.set(P+'fs',v==='m'?null:v)}
+fsBtns.forEach(b=>b.addEventListener('click',()=>setFs(b.dataset.fsSet)));
+setFs(S.get(P+'fs'));
+const hc=$('hcBtn');
+function setHc(on){if(on)root.setAttribute('data-contrast','high');else root.removeAttribute('data-contrast');hc.setAttribute('aria-pressed',String(on));S.set(P+'hc',on)}
+hc.addEventListener('click',()=>setHc(hc.getAttribute('aria-pressed')!=='true'));
+setHc(S.get(P+'hc')==='1');
+
+if(matchMedia('(max-width:900px)').matches)document.querySelectorAll('nav.toc details').forEach(d=>d.open=false);
+
+/* 체크 항목과 진도 */
+document.querySelectorAll('input[data-k]').forEach(i=>{i.checked=S.get(P+i.dataset.k)==='1';i.addEventListener('change',()=>{S.set(P+i.dataset.k,i.checked);sync()})});
+function sync(){
+  const tot={},dn={};
+  document.querySelectorAll('input[data-ch]').forEach(i=>{const p=i.dataset.ch.split('-')[0];tot[p]=(tot[p]||0)+1;if(i.checked)dn[p]=(dn[p]||0)+1;
+    const a=document.querySelector('[data-toc="'+i.dataset.ch+'"]');if(a)a.classList.toggle('is-done',i.checked)});
+  let all=0,d=0;
+  Object.keys(tot).forEach(p=>{const el=$('c-'+p);if(el)el.textContent=(dn[p]||0)+'/'+tot[p];all+=tot[p];d+=dn[p]||0});
+  $('barAll').style.width=(all?d/all*100:0)+'%';
+  $('progTxt').textContent='끝낸 장 '+d+' / '+all;
+  document.querySelectorAll('.tcard').forEach(c=>{const ins=[...c.querySelectorAll('input[data-k]')];const n=ins.filter(i=>i.checked).length;
+    const out=c.querySelector('.tc-count');if(out)out.textContent='기준 '+n+'/'+ins.length;c.toggleAttribute('data-pass',ins.length>0&&n===ins.length)});
+}
+sync();
+
+/* 프롬프트 복사 */
+document.addEventListener('click',async e=>{
+  const b=e.target.closest('.copy');if(!b)return;
+  const pre=b.closest('figure').querySelector('pre');const txt=pre.innerText;
+  try{await navigator.clipboard.writeText(txt);b.textContent='복사됨';b.classList.add('ok')}
+  catch(err){const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨: 복사하세요'}
+  setTimeout(()=>{b.textContent='복사';b.classList.remove('ok')},2200);
+});
+
+/* 차례에서 지금 읽는 장 표시 */
+const links=[...document.querySelectorAll('[data-toc]')];
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){links.forEach(a=>a.classList.toggle('is-here',a.dataset.toc===en.target.id))}})},{rootMargin:'-20% 0px -70% 0px'});
+  document.querySelectorAll('section.ch').forEach(s=>io.observe(s));
+}
+
+/* 학습 카드: 장 안의 카드(details.fc)를 모아 덱을 만든다 */
+const chName=sec=>{const l=sec.querySelector('.chh .olbl'),h=sec.querySelector('.chh h2');return (l?l.textContent.trim():'')+' '+(h?h.textContent.trim():'')};
+const cards=[...document.querySelectorAll('details.fc')].map(el=>{
+  const sec=el.closest('section.ch');const aEl=el.querySelector('.fc-a');const src=aEl.querySelector('small');
+  const a=[...aEl.childNodes].filter(n=>n!==src).map(n=>n.textContent).join('').replace(/\s+/g,' ').trim();
+  return{id:el.dataset.fc,ch:sec?sec.id:'',chLabel:sec?chName(sec):'',q:el.querySelector('.fc-q').textContent.trim(),a,src:src?src.textContent.trim():'',el}});
+const K=c=>P+'fc:'+c.id;
+const st=c=>{const v=S.get(K(c));return v==='k'||v==='r'?v:''};
+function paintInline(c){const v=st(c);if(v)c.el.dataset.state=v;else delete c.el.dataset.state;const chip=c.el.querySelector('.fc-st');if(chip){chip.hidden=!v;chip.textContent=v==='k'?'알아요':v==='r'?'다시':''}}
+cards.forEach(paintInline);
+const tc=$('fcTotalCover');if(tc)tc.textContent=String(cards.length);
+
+const sel=$('dkFilter'),only=$('dkOnlyReview'),card=$('dkCard'),live=$('dkLive');
+[['p1','1부 훈련·트레이닝 관리 전체'],['p2','2부 가이드편 전체']].forEach(([p,label])=>{if(cards.some(c=>c.ch.startsWith(p+'-'))){const o=document.createElement('option');o.value='part:'+p;o.textContent=label;sel.appendChild(o)}});
+const seen=new Set();const og=document.createElement('optgroup');og.label='장별';
+cards.forEach(c=>{if(!seen.has(c.ch)){seen.add(c.ch);const o=document.createElement('option');o.value=c.ch;o.textContent=c.chLabel+' ('+cards.filter(x=>x.ch===c.ch).length+'장)';og.appendChild(o)}});
+sel.appendChild(og);
+
+let order=[],pos=0;
+function pool(){const f=sel.value;return cards.filter(c=>(f==='all'||(f.startsWith('part:')?c.ch.startsWith(f.slice(5)+'-'):c.ch===f))&&(!only.checked||st(c)==='r'))}
+function cur(){return cards.find(c=>c.id===order[pos])}
+function setFlip(on){card.setAttribute('aria-pressed',String(on));$('dkFront').setAttribute('aria-hidden',String(on));$('dkBack').setAttribute('aria-hidden',String(!on))}
+function render(){
+  const c=cur();const empty=!c;
+  card.hidden=empty;$('dkEmpty').hidden=!empty;
+  ['dkPrev','dkNext','dkAgain','dkKnow'].forEach(id=>{$(id).disabled=empty});
+  if(c){$('dkCh').textContent=c.chLabel;$('dkQ').textContent=c.q;$('dkBackQ').textContent='질문: '+c.q;$('dkA').textContent=c.a;$('dkSrc').textContent=c.src;$('dkPos').textContent=(pos+1)+' / '+order.length}
+  else $('dkPos').textContent='0 / 0';
+  const k=cards.filter(x=>st(x)==='k').length,r=cards.filter(x=>st(x)==='r').length;
+  $('dkStats').textContent='알아요 '+k+' · 다시 '+r+' · 아직 표시 안 한 카드 '+(cards.length-k-r);
+  $('dkBar').style.width=(cards.length?k/cards.length*100:0)+'%';
+}
+function rebuild(){order=pool().map(c=>c.id);if(pos>=order.length)pos=Math.max(0,order.length-1);setFlip(false);render()}
+function say(t){live.textContent='';setTimeout(()=>{live.textContent=t},30)}
+function go(d){if(!order.length)return;pos=(pos+d+order.length)%order.length;setFlip(false);render();say((pos+1)+'번째 카드, 앞면. '+cur().q)}
+function flip(){const c=cur();if(!c)return;const on=card.getAttribute('aria-pressed')!=='true';setFlip(on);say(on?'뒷면. '+c.a:'앞면. '+c.q)}
+function mark(v){const c=cur();if(!c)return;S.set(K(c),v);paintInline(c);
+  if(only.checked&&v==='k'){order=pool().map(x=>x.id);if(pos>=order.length)pos=0;setFlip(false);render();const n=cur();say(n?'알아요로 표시했습니다. 다음 카드: '+n.q:'다시 볼 카드를 모두 마쳤습니다.')}
+  else{render();go(1)}}
+card.addEventListener('click',flip);
+$('dkPrev').addEventListener('click',()=>go(-1));
+$('dkNext').addEventListener('click',()=>go(1));
+$('dkKnow').addEventListener('click',()=>mark('k'));
+$('dkAgain').addEventListener('click',()=>mark('r'));
+sel.addEventListener('change',()=>{pos=0;rebuild()});
+only.addEventListener('change',()=>{pos=0;rebuild()});
+$('dkShuffle').addEventListener('click',()=>{for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]]}pos=0;setFlip(false);render();const c=cur();if(c)say('카드를 섞었습니다. 첫 카드: '+c.q)});
+const rb=$('dkReset');let armed=null;
+rb.addEventListener('click',()=>{
+  if(!armed){rb.textContent='한 번 더 누르면 지웁니다';armed=setTimeout(()=>{armed=null;rb.textContent='기록 지우기'},3000);return}
+  clearTimeout(armed);armed=null;rb.textContent='기록 지우기';cards.forEach(c=>{S.set(K(c),null);paintInline(c)});pos=0;rebuild();say('학습 카드 기록을 지웠습니다.')});
+$('deckBox').addEventListener('keydown',e=>{if(e.target.closest('select'))return;
+  if(e.key==='ArrowRight'){go(1);e.preventDefault()}else if(e.key==='ArrowLeft'){go(-1);e.preventDefault()}});
+document.querySelectorAll('a[data-deck]').forEach(a=>a.addEventListener('click',()=>{sel.value=a.dataset.deck;only.checked=false;pos=0;rebuild()}));
+rebuild();
+
+/* 인쇄할 때는 학습 카드 답을 모두 펼친다 */
+let shut=[];
+addEventListener('beforeprint',()=>{shut=[...document.querySelectorAll('details.fc:not([open])')];shut.forEach(d=>{d.open=true})});
+addEventListener('afterprint',()=>{shut.forEach(d=>{d.open=false});shut=[]});
+})();
+</script>
+<!-- 아티팩트 본문 끝 -->
+</body></html>
