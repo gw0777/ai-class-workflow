@@ -113,6 +113,18 @@ def normalize_p_values(text: str) -> str:
     return _P_VALUE_RE.sub(r"\1\2", text or "")
 
 
+STANDARD_TERM = "특수체육"
+# 학회 용어 규칙: Adapted Physical Activity의 국문 표기는 '특수체육'으로 통일한다.
+# 옛 표기는 띄어쓰기 변형까지 잡는다. (옛 표기를 그대로 적으면 편집 도구가 바꿔 버려서 나눠 적는다)
+_OLD_TERM_RE = re.compile("적응" + r"\s*" + "체육")
+
+
+def normalize_terms(text: str) -> tuple[str, int]:
+    """용어 통일: 옛 표기를 '특수체육'으로 바꾸고 (바꾼 글, 바꾼 횟수)를 돌려준다."""
+    out, count = _OLD_TERM_RE.subn(STANDARD_TERM, text or "")
+    return out, count
+
+
 def _norm_key(ref: Reference) -> str:
     """중복 판별용 정규화 키 (DOI > URL > 제목)."""
     if ref.doi:
@@ -476,10 +488,12 @@ class PaperPipeline:
             "1. 표본(N=274) 일관성  2. 잠재변수 7개 일치  3. p값 선행 0 제거\n"
             "4. 표 캡션 좌상단/APA 형식  5. 적합도 지수 보고 완전성\n"
             "6. APA 7th 인용/참고문헌 형식  7. 학술적 문체/오탈자\n"
+            f"8. 용어 통일: Adapted Physical Activity의 국문 표기는 '{STANDARD_TERM}'으로만 쓴다"
+            "(다른 번역어 금지)\n"
             "반드시 아래 JSON 스키마로만 답하세요.\n"
             "{"
             '"checklist": {"1_sample":"OK/수정내용", "2_latent":"...", "3_pvalue":"...", '
-            '"4_table":"...", "5_fit":"...", "6_apa":"...", "7_style":"..."}, '
+            '"4_table":"...", "5_fit":"...", "6_apa":"...", "7_style":"...", "8_term":"..."}, '
             '"corrected_markdown": "<교정된 전체 Markdown 논문>", '
             '"notes": "<요약 코멘트>"'
             "}"
@@ -488,17 +502,21 @@ class PaperPipeline:
             system, draft.body_markdown, max_tokens=32000
         )
         if isinstance(raw, dict) and raw.get("corrected_markdown"):
-            checklist = raw.get("checklist") or {}
+            checklist = {str(k): str(v) for k, v in (raw.get("checklist") or {}).items()}
+            body, fixed = normalize_terms(normalize_p_values(str(raw["corrected_markdown"])))
+            if fixed:
+                checklist["8_term"] = f"{STANDARD_TERM}으로 {fixed}곳 통일(코드 규칙)"
             return ProofreadResult(
-                checklist={str(k): str(v) for k, v in checklist.items()},
-                corrected_markdown=normalize_p_values(str(raw["corrected_markdown"])),
+                checklist=checklist,
+                corrected_markdown=body,
                 notes=str(raw.get("notes", "")),
             )
-        # 파싱 실패 시 원본 유지
-        return ProofreadResult(
-            checklist={"_warning": "교정 JSON 파싱 실패 — 원본 유지"},
-            corrected_markdown=draft.body_markdown,
-        )
+        # 파싱 실패 시 원본 유지 (결정적 규칙인 용어 통일만 적용)
+        body, fixed = normalize_terms(draft.body_markdown)
+        checklist = {"_warning": "교정 JSON 파싱 실패 — 원본 유지"}
+        if fixed:
+            checklist["8_term"] = f"{STANDARD_TERM}으로 {fixed}곳 통일(코드 규칙)"
+        return ProofreadResult(checklist=checklist, corrected_markdown=body)
 
     # ----- Stage 6: Claude Evaluator (0~10 채점, GATE) ------------------- #
     EVAL_CRITERIA = [
