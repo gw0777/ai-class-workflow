@@ -1,0 +1,5 @@
+{
+  "name": "term-guard",
+  "version": "0.1.0",
+  "description": "특수체육 용어 가드: Claude가 쓰는 글에서 '적응체육'을 저장 전에 '특수체육'으로 바꿉니다."
+}
