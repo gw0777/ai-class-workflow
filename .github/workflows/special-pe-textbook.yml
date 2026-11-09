@@ -1,0 +1,19 @@
+name: CI (special_pe_visual_impairment)
+
+on:
+  push:
+    branches: ["**"]
+    paths: ["special_pe_visual_impairment/**", ".github/workflows/special-pe-textbook.yml"]
+  pull_request:
+    paths: ["special_pe_visual_impairment/**", ".github/workflows/special-pe-textbook.yml"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Textbook checks (standard library only; browser checks skip without Playwright)
+        run: python -m unittest discover -s special_pe_visual_impairment/tests -v
