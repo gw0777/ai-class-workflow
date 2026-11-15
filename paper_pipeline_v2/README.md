@@ -44,6 +44,13 @@ cp .env.example .env       # GEMINI_API_KEY, CLAUDE_API_KEY 입력
 python mcp_server.py        # http://localhost:8000
 ```
 
+**Windows 원클릭 설정** — 관리자 PowerShell에서 한 번 실행하면 의존성 설치 → .env 생성(키 입력) → 테스트 → 방화벽 규칙(TCP 8000)까지 자동 처리됩니다 (남는 수동 단계는 Tailscale 로그인뿐):
+
+```powershell
+cd paper_pipeline_v2
+powershell -ExecutionPolicy Bypass -File .\setup.ps1
+```
+
 ## 수익화 전략 (요약)
 자세한 분석은 [`MONETIZATION.md`](./MONETIZATION.md) 참고. 인기 SaaS 10종(Notion AI, ChatGPT Plus,
 GitHub Copilot, Perplexity Pro, Midjourney, Jasper, Copy.ai, Grammarly, Otter.ai, Canva AI)의
