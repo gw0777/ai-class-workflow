@@ -1,0 +1,79 @@
+name: Similarity check
+
+on:
+  workflow_dispatch:
+    inputs:
+      file:
+        description: "검사할 문서 경로(저장소 내, 예: drafts/paper.docx)"
+        required: true
+      corpus_paths:
+        description: "코퍼스로 색인할 저장소 내 경로(공백 구분, 기본: 저장소 루트)"
+        required: false
+        default: "."
+      corpus_repo:
+        description: "추가로 색인할 GitHub 저장소(owner/repo[@ref][:path], 선택)"
+        required: false
+        default: ""
+      fail_above:
+        description: "표절률(%)이 이 값을 넘으면 실패 처리(비우면 실패 없음)"
+        required: false
+        default: ""
+      verify_refs:
+        description: "참고문헌 실존 검증(Crossref/OpenAlex) 포함"
+        type: boolean
+        default: true
+  push:
+    paths: ["similarity_checker/**", ".github/workflows/similarity-check.yml"]
+  pull_request:
+    paths: ["similarity_checker/**", ".github/workflows/similarity-check.yml"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r similarity_checker/requirements.txt
+      - run: python -m pytest -q similarity_checker/tests
+
+  check:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - run: pip install -r similarity_checker/requirements.txt
+      - name: Build corpus
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -m similarity_checker index add ${{ inputs.corpus_paths }}
+          if [ -n "${{ inputs.corpus_repo }}" ]; then
+            python -m similarity_checker index add-github "${{ inputs.corpus_repo }}"
+          fi
+          python -m similarity_checker index stats
+      - name: Run check
+        env:
+          CROSSREF_MAILTO: ${{ vars.CROSSREF_MAILTO }}
+        run: |
+          ARGS="--out-dir reports"
+          if [ "${{ inputs.verify_refs }}" = "true" ]; then ARGS="$ARGS --refs --online"; fi
+          if [ -n "${{ inputs.fail_above }}" ]; then ARGS="$ARGS --fail-above ${{ inputs.fail_above }}"; fi
+          python -m similarity_checker check "${{ inputs.file }}" $ARGS
+      - name: Summary
+        if: always()
+        run: |
+          f=$(ls reports/*.md 2>/dev/null | head -1)
+          if [ -n "$f" ]; then head -40 "$f" >> "$GITHUB_STEP_SUMMARY"; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: similarity-report
+          path: reports/
