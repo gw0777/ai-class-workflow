@@ -1,0 +1,6 @@
+.env
+office.db
+office.db-journal
+output/
+__pycache__/
+*.log

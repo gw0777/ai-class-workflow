@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!-- 맥미니 24시간 서버용 launchd 설정. install_macmini.sh 가 __REPO__/__PYTHON__ 를 치환해 설치한다. -->
+  <key>Label</key><string>com.agentoffice</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>__PYTHON__</string>
+    <string>-m</string>
+    <string>agent_office</string>
+  </array>
+  <key>WorkingDirectory</key><string>__REPO__/agent_office</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PYTHONUNBUFFERED</key><string>1</string>
+    <key>PATH</key><string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
+  <!-- 조용히 죽는 것 방지: 로그인 시 자동 시작 + 죽으면 10초 후 재시작 -->
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key>
+  <dict>
+    <key>SuccessfulExit</key><false/>
+    <key>Crashed</key><true/>
+  </dict>
+  <key>ThrottleInterval</key><integer>10</integer>
+  <key>StandardOutPath</key><string>__REPO__/agent_office/logs/agent_office.out.log</string>
+  <key>StandardErrorPath</key><string>__REPO__/agent_office/logs/agent_office.err.log</string>
+  <key>ProcessType</key><string>Background</string>
+</dict>
+</plist>

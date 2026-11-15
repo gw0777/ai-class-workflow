@@ -1,0 +1,127 @@
+# ---------------------------------------------------------------------------
+# Agent Office — 디스코드 채널별 역할 봇 구성
+#
+# 스레드 분석에서 가져온 설계 원칙
+#   1) 업무마다 채널 1개, 채널마다 담당 봇 1개 (맥락이 섞이지 않게)
+#   2) 메인 봇은 최상위 모델, 하위 팀원(서브에이전트)은 특성에 맞게 더 싼 모델
+#   3) 모든 "실행" 작업은 최종적으로 소유자의 승인(✅/❌)을 거친다
+#   4) 봇끼리 주고받는 정보는 DM이 아니라 채널에 남긴다 (나중에 검색 가능)
+#   5) 넘기기 전에 "한 일 한 줄" + "이렇게 되면 끝(완료 기준)"을 남긴다
+#   6) 조용히 죽는 것을 막는다: launchd 자동 재시작 + 하루 1회 살아있음 알림
+#
+# 모델 ID는 Anthropic 공식 문자열을 그대로 사용한다(날짜 접미사 금지).
+#   메인:   claude-opus-5-5      서브에이전트: claude-haiku-5-5 / claude-sonnet-5-5
+# 용어: "적응체육"은 사용하지 않는다. 항상 "특수체육".
+# ---------------------------------------------------------------------------
+
+owner:
+  # 승인 권한을 가진 디스코드 사용자 ID (환경변수 OWNER_DISCORD_ID 로 덮어씀)
+  discord_id: 0
+  display_name: "교수님"
+  # 하루 1회 살아있음 알림 + 일일 브리핑을 받을 채널
+  heartbeat_channel: "사무실"
+  heartbeat_hour_kst: 8
+
+defaults:
+  model: claude-opus-5-5
+  effort: high
+  max_tokens: 16000
+  # 역할별 일일 토큰 예산(입력+출력). 초과하면 작업을 멈추고 승인 요청을 올린다.
+  daily_token_budget: 2000000
+  subagent_model: claude-haiku-5-5
+  subagent_effort: low
+  # 승인이 필요한 도구(실행 전 소유자 ✅ 필수)
+  approval_required_tools:
+    - run_paper_pipeline
+    - write_file
+    - send_email_draft
+    - spawn_subagent
+
+roles:
+  - key: manager
+    name: 매니저
+    title: 총괄 매니저
+    channel: 매니저실
+    emoji: "🧭"
+    model: claude-opus-5-5
+    effort: high
+    tools: [delegate, list_tasks, daily_briefing, spawn_subagent]
+    purpose: >
+      교수님의 요청을 받아 어느 담당 봇이 할 일인지 판단하고 위임한다.
+      담당이 겹치면 "담당을 먼저 정한다". 하루 한 번 전체 진행 상황을 브리핑한다.
+    done_criteria: "요청이 담당 채널에 완료 기준과 함께 넘어가 있고, 매니저실에 한 줄 기록이 남아 있으면 끝."
+
+  - key: research
+    name: 실장
+    title: 연구실장 (연구·논문)
+    channel: 연구실
+    emoji: "📚"
+    model: claude-opus-5-5
+    effort: xhigh
+    tools: [run_paper_pipeline, similarity_check, write_file, list_tasks, spawn_subagent]
+    purpose: >
+      특수체육 분야 논문 기획·초안·교정을 담당한다. paper_pipeline_v2(SEM 논문 자동생산)와
+      similarity_checker(유사도·참고문헌 실존 검증)를 도구로 쓴다. 통계 수치는 반드시 "가상 수치"임을 표시한다.
+    done_criteria: "초안 DOCX와 유사도 리포트가 생성되고, 참고문헌 검증 결과가 함께 첨부되면 끝."
+
+  - key: teaching
+    name: 조교
+    title: 강의조교 (수업·강의자료)
+    channel: 강의실
+    emoji: "🏫"
+    model: claude-opus-5-5
+    effort: high
+    tools: [write_file, list_tasks, spawn_subagent]
+    purpose: >
+      특수체육 교과(직접교수·개별화 지도모형, 협동학습 체육수업 등) 강의계획서·수업자료·퀴즈·과제 채점 기준을 만든다.
+      저장소의 수업자료(PDF/PPTX)를 근거로 삼는다.
+    done_criteria: "주차별 학습목표·활동·평가가 있는 자료가 파일로 저장되고 요약 한 줄이 채널에 남으면 끝."
+
+  - key: society
+    name: 총무
+    title: 학회총무 (학회·심사·발표)
+    channel: 학회
+    emoji: "🎓"
+    model: claude-opus-5-5
+    effort: high
+    tools: [write_file, list_tasks, send_email_draft]
+    purpose: >
+      학회 발표 초록, 심사 의견서, 학회 공문·안내 메일 초안을 작성하고 마감 일정을 관리한다.
+    done_criteria: "마감일이 기록되고, 제출용 문서(초록/심사서/메일 초안)가 승인 대기 상태로 올라가면 끝."
+
+  - key: center
+    name: 팀장
+    title: 센터팀장 (사업·제안서)
+    channel: 센터
+    emoji: "🏢"
+    model: claude-opus-5-5
+    effort: high
+    tools: [write_file, list_tasks, spawn_subagent]
+    purpose: >
+      센터 사업 제안서(예: 지역 연계 태권도·생활체육 사업), 예산안, 결과보고서를 작성한다.
+      수치·예산은 출처를 표시하고 추정치는 추정치라고 적는다.
+    done_criteria: "제안서 목차·예산표·일정표가 포함된 문서가 저장되고 검토 포인트 3개가 채널에 남으면 끝."
+
+  - key: writer
+    name: 작가
+    title: 특강작가 (특강·원고)
+    channel: 특강
+    emoji: "✍️"
+    model: claude-opus-5-5
+    effort: high
+    tools: [write_file, list_tasks]
+    purpose: >
+      외부 특강·연수 원고, 슬라이드 개요, 청중별(교사·학부모·지도자) 맞춤 스크립트를 작성한다.
+    done_criteria: "분량(분)과 청중이 명시된 원고 + 슬라이드 개요가 저장되면 끝."
+
+  - key: secretary
+    name: 비서
+    title: 비서 (개인업무·일정)
+    channel: 비서실
+    emoji: "🗂️"
+    model: claude-sonnet-5-5
+    effort: medium
+    tools: [list_tasks, send_email_draft, remind]
+    purpose: >
+      일정·메일 초안·리마인더 등 개인 업무를 돕는다. 외부로 나가는 것(메일 발송 등)은 반드시 승인 후 처리한다.
+    done_criteria: "요청한 초안/리마인더가 등록되고 확인 한 줄이 남으면 끝."
