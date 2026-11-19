@@ -1,0 +1,167 @@
+version: "1.1"
+name: education-co-design
+language: ko
+default_duration_minutes: 180
+human_owner: professor
+completion_policy:
+  structure_score_min: 98
+  operation_score_min: 90
+  weekly_operation_score_min: 80
+  critical_defects_max: 0
+  require_human_approval: true
+retry_policy:
+  max_revision_cycles: 2
+  escalate_after: 2
+  never_auto_approve: true
+
+roles:
+  co_designer:
+    id: EDU-DESIGNER
+    stage: proposal
+    purpose: "교수자의 의도와 학습자 맥락을 180분 수업 설계로 변환"
+    tools:
+      - source_search
+      - curriculum_read
+      - prior_artifact_read
+      - rubric_read
+    writes:
+      - design_proposal
+      - decision_log
+    cannot:
+      - overwrite_final_artifacts
+      - approve_own_proposal
+  producer:
+    id: EDU-PRODUCER
+    stage: build
+    purpose: "승인된 설계를 사용 가능한 수업자료로 구현"
+    tools:
+      - approved_proposal_read
+      - template_read
+      - artifact_create
+      - artifact_render
+    writes:
+      - presentation
+      - worksheet
+      - source_packet
+      - assessment_packet
+    cannot:
+      - change_learning_goals_without_reapproval
+      - mark_ready
+  qa:
+    id: EDU-QA
+    stage: verification
+    purpose: "근거·운영성·특수교육적 적합성을 독립 검수"
+    tools:
+      - artifact_read
+      - source_verify
+      - render_inspect
+      - rubric_score
+    writes:
+      - qa_report
+      - defect_list
+    cannot:
+      - silently_repair_artifacts
+      - approve_missing_evidence
+  lead_reviewer:
+    id: EDU-LEAD
+    stage: governance
+    purpose: "QA 결과와 결함 종료 여부를 상위 관점에서 재검토"
+    tools:
+      - qa_report_read
+      - decision_log_read
+      - score_recalculate
+      - defect_history_read
+      - escalation_write
+    writes:
+      - upper_review
+      - release_decision
+    cannot:
+      - approve_unresolved_critical_defects
+      - waive_human_approval
+      - silently_edit_artifacts
+
+states:
+  - INTAKE
+  - PROPOSAL
+  - HUMAN_REVIEW
+  - BUILD
+  - QA
+  - LOOP_STATION
+  - LEAD_REVIEW
+  - READY
+  - BLOCKED
+
+transitions:
+  INTAKE: PROPOSAL
+  PROPOSAL: HUMAN_REVIEW
+  HUMAN_REVIEW:
+    approved: BUILD
+    revise: PROPOSAL
+    hold: BLOCKED
+  BUILD: QA
+  QA: LOOP_STATION
+  LOOP_STATION:
+    artifact_fix: BUILD
+    design_fix: PROPOSAL
+    clear: LEAD_REVIEW
+    blocked: BLOCKED
+  LEAD_REVIEW:
+    pass: READY
+    return_to_loop: LOOP_STATION
+    return_to_design: PROPOSAL
+    blocked: BLOCKED
+
+loop_station:
+  max_cycles: 2
+  required_passes:
+    - id: preflight
+      question: "파일이 열리고 필수 산출물이 모두 존재하는가?"
+    - id: evidence
+      question: "성취기준·법령·사례·통계의 근거가 확인되는가?"
+    - id: pedagogy
+      question: "학습목표·활동·산출물·평가가 연결되는가?"
+    - id: operation
+      question: "학습자가 180분 동안 실제로 수행할 일이 충분한가?"
+    - id: render
+      question: "PPT·실습지의 시각적 배치와 사용성이 정상인가?"
+  exit_rule:
+    - "모든 pass가 PASS"
+    - "Critical 결함 0"
+    - "운영 점수 90점 이상"
+    - "교수자 승인 기록 존재"
+  repeat_record:
+    required:
+      - cycle_number
+      - pass_results
+      - changed_files
+      - remaining_defects
+      - next_transition
+
+required_weekly_outputs:
+  - instructor_runbook
+  - presentation
+  - source_or_case_packet
+  - student_worksheet
+  - worked_example
+  - incomplete_example
+  - assessment_or_exit_ticket
+  - differentiated_support
+  - next_week_link
+
+lesson_frame:
+  - minutes: 10
+    block: opening_recall
+  - minutes: 25
+    block: concept_input
+  - minutes: 30
+    block: source_case_analysis
+  - minutes: 10
+    block: break_transition
+  - minutes: 45
+    block: guided_practice
+  - minutes: 30
+    block: artifact_production
+  - minutes: 20
+    block: sharing_feedback
+  - minutes: 10
+    block: formative_check
