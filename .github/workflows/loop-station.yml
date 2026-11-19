@@ -1,0 +1,31 @@
+name: loop-station
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "loop-station/**"
+      - "agent.md"
+      - ".github/workflows/loop-station.yml"
+  pull_request:
+    paths:
+      - "loop-station/**"
+      - "agent.md"
+      - ".github/workflows/loop-station.yml"
+
+jobs:
+  test-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: 단위 테스트
+        run: python -m unittest discover -s loop-station/tests -v
+      - name: 기록 검증
+        run: python loop-station/tools/loopstation.py validate
+      - name: 사이트 빌드 (멱등성 확인)
+        run: |
+          python loop-station/tools/loopstation.py build
+          git diff --exit-code loop-station/site/

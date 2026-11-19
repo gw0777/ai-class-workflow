@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>스포츠경영전공 모션 쇼케이스</title>
+<meta name="description" content="스포츠과학부 스포츠경영전공을 8개 키워드와 12가지 모션그래픽 효과로 소개하고, 모션그래픽이 넓혀 줄 스포츠경영 분야를 시각화한 자체 완결형 페이지">
+<style>
+:root {
+  /* Layout: 72rem 중앙 칼럼 — 히어로(전공명·스플릿 플랩·전광판 요약·4종목 픽토그램) → 전공 소개 → 키워드 8카드(2열) → 확장 지도(허브+분야 카드+트랙 로드맵) → 효과 일람 표 → 용어 */
+  --bg: #EDF1F5;
+  --surface: #FFFFFF;
+  --surface-2: #E1E7EF;
+  --ink: #0F1C2E;
+  --ink-2: #47556B;
+  --line: #C3CDD9;
+  --accent: #AE351D;
+  --on-accent: #FFFFFF;
+  --amber: #E09A00;
+  --track: #C4472D;
+  --turf: #2E8450;
+  --turf-2: #287546;
+  --court: #D9AA6E;
+  --road: #69737F;
+  --mark: #FFFFFF;
+  --heat-0: #D7DFE9;
+  --heat-1: #AE351D;
+  --sky: #D3E1EE;
+  --flood: rgba(255, 255, 255, 0);
+  --board: #0C1118;
+  --board-2: #1C232E;
+  --board-ink: #FFC23D;
+  --board-fg: #F4F6F8;
+  --board-sub: #B9C2CE;
+  --f-sans: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", "Noto Sans CJK KR", system-ui, sans-serif;
+  --f-mono: ui-monospace, "SF Mono", "Cascadia Mono", "D2Coding", Menlo, Consolas, monospace;
+  --fs-xs: .8125rem;
+  --fs-sm: .9375rem;
+  --fs-md: 1.0625rem;
+  --fs-xl: clamp(1.5rem, 3.2vw, 2rem);
+  --fs-hero: clamp(2.6rem, 8vw, 5.25rem);
+  --radius: 12px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #09101B; --surface: #0F1928; --surface-2: #15223A; --ink: #E7EDF5; --ink-2: #9FAEC4; --line: #293A57;
+    --accent: #FF7555; --on-accent: #200A04; --amber: #FFC23D; --track: #8E3526; --turf: #1B6A3D; --turf-2: #185E36;
+    --court: #94703F; --road: #3B4657; --mark: #ECE6DC; --heat-0: #1B2840; --heat-1: #FF7555; --sky: #040912;
+    --flood: rgba(255, 236, 196, .13);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #09101B; --surface: #0F1928; --surface-2: #15223A; --ink: #E7EDF5; --ink-2: #9FAEC4; --line: #293A57;
+  --accent: #FF7555; --on-accent: #200A04; --amber: #FFC23D; --track: #8E3526; --turf: #1B6A3D; --turf-2: #185E36;
+  --court: #94703F; --road: #3B4657; --mark: #ECE6DC; --heat-0: #1B2840; --heat-1: #FF7555; --sky: #040912;
+  --flood: rgba(255, 236, 196, .13);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-sans);
+  font-size: 1rem; line-height: 1.7; word-break: keep-all; overflow-wrap: anywhere;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.wrap { width: min(72rem, 100% - 32px); margin-inline: auto; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.skip { position: absolute; left: 16px; top: -48px; z-index: 20; padding: .4rem .8rem; border-radius: 6px; background: var(--ink); color: var(--bg); text-decoration: none; font-weight: 700; }
+.skip:focus { top: 8px; }
+
+/* ---------- 히어로 ---------- */
+.hero {
+  background:
+    radial-gradient(42% 60% at 12% 0%, var(--flood), transparent 70%),
+    radial-gradient(42% 60% at 88% 0%, var(--flood), transparent 70%),
+    linear-gradient(180deg, var(--sky), var(--bg) 78%);
+  padding-block: 1rem 2.75rem;
+}
+.topbar { display: flex; flex-wrap: wrap; gap: .75rem 1rem; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: center; gap: .55rem; font-size: var(--fs-sm); font-weight: 700; }
+.brand svg { flex: none; }
+.controls { display: flex; flex-wrap: wrap; gap: .5rem; }
+.btn {
+  display: inline-flex; align-items: center; gap: .45rem; font: inherit; font-size: var(--fs-xs); font-weight: 700;
+  color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+  padding: .42rem .95rem; cursor: pointer; line-height: 1.4;
+}
+.btn:hover { border-color: var(--accent); }
+.btn svg { width: .8rem; height: .8rem; flex: none; fill: currentColor; }
+.btn svg[hidden] { display: none; }
+.hero-title { margin: 2.25rem 0 0; font-size: var(--fs-hero); font-weight: 900; line-height: 1.04; letter-spacing: -.035em; text-wrap: balance; }
+.hero-title .dept { display: block; margin-bottom: .9rem; font-size: var(--fs-sm); font-weight: 800; letter-spacing: .14em; color: var(--accent); }
+.hero-en {
+  display: block; margin-top: .4rem; font-size: clamp(1.1rem, 4.4vw, 3rem); font-weight: 900; font-style: italic;
+  letter-spacing: .02em; line-height: 1.1; color: transparent; -webkit-text-stroke: 1.5px var(--ink-2);
+  transform: skewX(-6deg); transform-origin: left bottom;
+}
+@supports not (-webkit-text-stroke: 1px black) { .hero-en { color: var(--ink-2); } }
+.flapline { margin: 1.6rem 0 0; font-size: clamp(1.15rem, 2.6vw, 1.6rem); font-weight: 700; line-height: 1.6; }
+.flap {
+  display: inline-block; min-width: 9em; margin-right: .3em; padding: .1em .55em; text-align: center;
+  color: var(--board-ink); background: linear-gradient(180deg, var(--board-2) 0 50%, var(--board) 50% 100%);
+  border-radius: 8px; font-weight: 800; transform-origin: 50% 50%;
+}
+.lede { max-width: 44rem; margin: 1rem 0 0; font-size: var(--fs-md); }
+.board {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2px; max-width: 44rem;
+  margin: 1.75rem 0 0; padding: 2px; background: var(--board-2); border-radius: var(--radius); overflow: hidden;
+}
+.board div { display: flex; flex-direction: column-reverse; gap: .2rem; padding: .7rem .9rem .65rem; background: var(--board); }
+.board dt { font-size: var(--fs-xs); font-weight: 600; color: var(--board-sub); }
+.board dd {
+  margin: 0; font-family: var(--f-mono); font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 700; line-height: 1;
+  color: var(--board-ink); font-variant-numeric: tabular-nums; text-shadow: 0 0 12px rgba(255, 194, 61, .45);
+}
+.sports { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .75rem; margin: 2rem 0 0; }
+.sport { margin: 0; display: flex; flex-direction: column; gap: .4rem; min-width: 0; }
+.sport canvas {
+  display: block; width: 100%; max-width: 100%; height: auto; aspect-ratio: 4 / 3; border-radius: var(--radius);
+  background: radial-gradient(70% 55% at 50% 0%, var(--flood), transparent 70%), var(--surface-2);
+}
+.sport figcaption { font-size: var(--fs-xs); color: var(--ink-2); }
+.sport figcaption b { margin-right: .35em; color: var(--ink); }
+
+/* ---------- 목차 ---------- */
+.toc { background: var(--surface); border-block: 1px solid var(--line); }
+.toc ul { display: flex; flex-wrap: wrap; gap: .25rem 1.4rem; list-style: none; margin: 0; padding: .7rem 0; }
+.toc a { font-size: var(--fs-sm); font-weight: 700; color: var(--ink-2); text-decoration: none; }
+.toc a:hover { color: var(--accent); }
+.toc span { font-family: var(--f-mono); margin-right: .35em; color: var(--accent); }
+
+/* ---------- 섹션 공통 ---------- */
+.section { padding-block: 3.5rem 0; scroll-margin-top: .5rem; }
+.sec-head { display: grid; gap: .15rem; margin-bottom: 1.5rem; padding-top: .9rem; border-top: 4px solid var(--ink); }
+.sec-en { font-family: var(--f-mono); font-size: var(--fs-xs); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
+h2 { margin: 0; font-size: var(--fs-xl); font-weight: 800; line-height: 1.3; letter-spacing: -.02em; text-wrap: balance; }
+h3 { text-wrap: balance; }
+.sec-lead { max-width: 46rem; margin: .5rem 0 0; font-size: var(--fs-md); color: var(--ink-2); }
+.sub-h { margin: 2.25rem 0 .35rem; font-size: 1.125rem; }
+.sub-note { margin: 0 0 .9rem; font-size: var(--fs-sm); color: var(--ink-2); }
+.chips { display: flex; flex-wrap: wrap; gap: .35rem; list-style: none; margin: 0; padding: 0; }
+.chip {
+  display: inline-block; padding: .12rem .6rem; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--bg); color: var(--ink); font-size: var(--fs-xs); font-weight: 600; text-decoration: none;
+}
+a.chip:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ---------- 1. 전공 소개 ---------- */
+.def { max-width: 46rem; margin: 0; font-size: var(--fs-md); }
+.sectors { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; align-items: start; list-style: none; margin: 0; padding: 0; }
+.sectors > li {
+  display: flex; flex-direction: column; gap: .4rem; min-width: 0; padding: 1rem 1.1rem;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+}
+.sectors h4 { margin: 0; font-size: var(--fs-md); }
+.sectors p { margin: 0; font-size: var(--fs-sm); color: var(--ink-2); }
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 2rem; }
+.two > div { min-width: 0; }
+
+/* ---------- 2. 키워드 카드 ---------- */
+.kgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+.kcard {
+  display: flex; flex-direction: column; min-width: 0; overflow: hidden; scroll-margin-top: 1rem;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+}
+.stage { position: relative; aspect-ratio: 16 / 10; max-width: 100%; overflow: hidden; isolation: isolate; container-type: inline-size; background: var(--surface-2); }
+.stage > canvas, .stage > svg { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.badge {
+  position: absolute; top: .6rem; right: .6rem; z-index: 4; padding: .1rem .5rem; border: 1px solid var(--line);
+  border-radius: 999px; background: var(--surface); color: var(--ink-2); font-size: .6875rem; font-weight: 700;
+}
+.kbody { display: flex; flex-direction: column; gap: .45rem; padding: 1rem 1.15rem 1.25rem; }
+.fx { margin: 0; font-family: var(--f-mono); font-size: var(--fs-xs); font-weight: 700; letter-spacing: .03em; color: var(--accent); }
+.kbody h3 { margin: 0; font-size: 1.1875rem; line-height: 1.35; }
+.en { display: block; font-size: var(--fs-xs); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.kbody p { margin: 0; font-size: var(--fs-sm); }
+.kbody .use { color: var(--ink-2); }
+.kbody .use b { margin-right: .4em; color: var(--ink); }
+
+/* SVG 공통 */
+.svg-text { fill: var(--ink); font-family: var(--f-sans); font-size: 13px; font-weight: 600; }
+.svg-small { font-size: 12px; }
+.svg-muted { fill: var(--ink-2); font-weight: 500; }
+.svg-val { font-family: var(--f-mono); font-weight: 700; font-variant-numeric: tabular-nums; }
+.svg-grid { stroke: var(--line); stroke-width: 1; }
+.bar { fill: var(--accent); }
+
+/* 효과 04 LED 광고보드 */
+.stage--led { background: linear-gradient(180deg, var(--surface-2) 0 14%, transparent 14%), repeating-linear-gradient(90deg, var(--turf) 0 10%, var(--turf-2) 10% 20%); }
+.pitch-lines { position: absolute; left: 8%; right: 8%; top: 36%; bottom: 30%; border: 2px solid rgba(255, 255, 255, .7); border-bottom: 0; }
+.pitch-lines::after { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; border-left: 2px solid rgba(255, 255, 255, .7); }
+.pitch-lines::before { content: ""; position: absolute; left: 50%; bottom: -24%; width: 22%; aspect-ratio: 1; border: 2px solid rgba(255, 255, 255, .7); border-radius: 50%; transform: translateX(-50%); }
+.led { position: absolute; left: 0; right: 0; display: flex; align-items: center; overflow: hidden; background: var(--board); }
+.led::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle, transparent 46%, rgba(0, 0, 0, .55) 54%) 0 0 / 4px 4px; pointer-events: none; }
+.led--far { top: 14%; height: 12%; }
+.led--near { bottom: 0; height: 30%; box-shadow: 0 -6px 18px rgba(0, 0, 0, .35); }
+.led-run { display: flex; flex: none; white-space: nowrap; animation: led-run 16s linear infinite; }
+.led--far .led-run { animation-duration: 24s; animation-direction: reverse; }
+.led-run span { padding-inline: 1.1em; font-weight: 900; letter-spacing: .06em; color: var(--board-ink); text-shadow: 0 0 10px rgba(255, 194, 61, .6); }
+.led-run span:nth-child(even) { color: var(--board-fg); text-shadow: 0 0 10px rgba(255, 255, 255, .45); }
+.led--near .led-run span { font-size: 1.2rem; font-size: 6.6cqw; }
+.led--far .led-run span { font-size: .7rem; font-size: 3.2cqw; }
+@keyframes led-run { to { transform: translateX(-50%); } }
+
+/* 효과 07 방송 그래픽 */
+.bc-field { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, var(--turf) 0 8%, var(--turf-2) 8% 16%); }
+.bc-field::before { content: ""; position: absolute; left: 50%; top: 50%; width: 24%; aspect-ratio: 1; border: 2px solid rgba(255, 255, 255, .7); border-radius: 50%; transform: translate(-50%, -50%); }
+.bc-field::after { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; border-left: 2px solid rgba(255, 255, 255, .7); }
+.bc-bug { position: absolute; top: 4.5cqw; left: 4cqw; display: flex; align-items: stretch; overflow: hidden; border-radius: 4px; font-size: .75rem; font-size: 3.1cqw; font-weight: 800; line-height: 1; box-shadow: 0 2px 10px rgba(0, 0, 0, .35); }
+.bc-bug span { display: flex; align-items: center; padding: .5em .65em; }
+.bc-live { background: var(--accent); color: var(--on-accent); }
+.bc-live::before { content: ""; width: .5em; height: .5em; margin-right: .35em; border-radius: 50%; background: currentColor; animation: blink 1.4s steps(2, start) infinite; }
+.bc-team { background: var(--board); color: var(--board-fg); }
+.bc-score { background: var(--board-fg); color: var(--board); font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.bc-clock { background: var(--board-2); color: var(--board-ink); font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.bc-l3 { position: absolute; left: 4cqw; bottom: 6cqw; display: flex; align-items: stretch; font-size: .8rem; font-size: 3.4cqw; box-shadow: 0 4px 14px rgba(0, 0, 0, .35); animation: l3 8s cubic-bezier(.2, .8, .2, 1) -2.4s infinite; }
+.bc-num { display: flex; align-items: center; padding: .1em .45em; background: var(--accent); color: var(--on-accent); font-family: var(--f-mono); font-size: 1.7em; font-weight: 800; }
+.bc-txt { display: flex; flex-direction: column; justify-content: center; padding: .4em .9em; line-height: 1.3; background: var(--board-fg); color: var(--board); }
+.bc-txt b { font-size: 1.05em; }
+.bc-txt small { font-size: .78em; color: #3E4A5C; }
+.bc-sting { position: absolute; inset: -20% -60%; z-index: 3; background: linear-gradient(100deg, transparent 40%, var(--accent) 40% 51%, var(--board-ink) 51% 55%, transparent 55%); transform: translateX(-100%); animation: sting 8s ease-in-out -2.4s infinite; pointer-events: none; }
+@keyframes l3 { 0%, 4% { clip-path: inset(0 100% 0 0); transform: translateX(-10px); } 14%, 70% { clip-path: inset(0 0 0 0); transform: none; } 80%, 100% { clip-path: inset(0 100% 0 0); transform: none; } }
+@keyframes sting { 0%, 84% { transform: translateX(-100%); } 96%, 100% { transform: translateX(100%); } }
+@keyframes blink { to { visibility: hidden; } }
+
+/* 효과 06 대진표 */
+.br-base path { fill: none; stroke: var(--line); stroke-width: 2.5; stroke-linejoin: round; }
+.br-win, .br-run { fill: none; stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round; }
+.br-win { stroke: var(--accent); }
+.br-run { stroke: var(--ink-2); }
+.br-teams rect, .br-final rect { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; }
+.br-teams text, .br-final text { fill: var(--ink); font-family: var(--f-sans); font-size: 13px; font-weight: 700; text-anchor: middle; dominant-baseline: central; }
+.br-final rect { stroke: var(--ink-2); }
+.br-final.is-win rect { fill: var(--accent); stroke: var(--accent); }
+.br-final.is-win text { fill: var(--on-accent); }
+.br-trophy path, .br-trophy rect { fill: var(--amber); stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; }
+.br-trophy .handle { fill: none; }
+.br-champ { text-anchor: middle; font-weight: 800; }
+
+/* 효과 09 히트맵 */
+.pitch-fill { fill: var(--turf); }
+.pitch-line { fill: none; stroke: var(--mark); stroke-width: 1.5; opacity: .85; }
+.seat { stroke: var(--surface-2); stroke-width: 1; }
+.readout { position: absolute; top: .6rem; left: .75rem; z-index: 2; display: flex; flex-direction: column; margin: 0; line-height: 1.15; }
+.readout span { font-size: .6875rem; font-weight: 700; color: var(--ink-2); }
+.readout b { font-family: var(--f-mono); font-size: 1.2rem; font-size: clamp(1.1rem, 5cqw, 1.8rem); font-variant-numeric: tabular-nums; }
+
+/* 효과 10 선수 카드 */
+.stage--card .badge { top: auto; right: auto; bottom: .6rem; left: .6rem; }
+.stage--card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6rem; background: radial-gradient(60% 70% at 50% 40%, var(--surface), var(--surface-2)); }
+.pcard-scene { width: 62cqw; height: 38cqw; perspective: 1000px; }
+.pcard { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .8s cubic-bezier(.3, .7, .2, 1); }
+.pcard.is-flipped { transform: rotateY(180deg); }
+.pcard-face { position: absolute; inset: 0; overflow: hidden; border-radius: 10px; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: 0 10px 24px rgba(8, 16, 30, .25); line-height: 1.25; }
+.pcard-front { display: grid; grid-template-columns: 38% minmax(0, 1fr); align-items: center; color: var(--board-fg); background: linear-gradient(115deg, var(--board) 0 80%, var(--accent) 80% 87%, var(--board) 87%); }
+.pcard-front svg { width: 100%; height: 78%; }
+.pcard-front svg * { fill: none; stroke: var(--board-fg); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+.pcard-front svg circle { fill: var(--board-fg); stroke: none; }
+.pcard-info { display: flex; flex-direction: column; gap: .15rem; padding-right: .8rem; }
+.pcard-no { font-family: var(--f-mono); font-size: clamp(1.5rem, 9cqw, 3.6rem); font-weight: 800; line-height: 1; color: var(--board-ink); }
+.pcard-info b { font-size: clamp(.95rem, 4cqw, 1.5rem); }
+.pcard-info small { font-size: clamp(.75rem, 2.6cqw, 1rem); color: var(--board-sub); }
+.pcard-back { display: flex; flex-direction: column; gap: .35rem; padding: clamp(.55rem, 3cqw, 1.2rem); background: var(--surface); color: var(--ink); border: 1px solid var(--line); transform: rotateY(180deg); }
+.pcard-back > b { font-size: clamp(.8rem, 3cqw, 1.1rem); }
+.pcard-back dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .25rem .8rem; margin: 0; }
+.pcard-back dt { font-size: clamp(.6875rem, 2.3cqw, .875rem); color: var(--ink-2); }
+.pcard-back dd { margin: 0; font-family: var(--f-mono); font-size: clamp(.875rem, 3.4cqw, 1.3rem); font-weight: 700; }
+
+/* ---------- 3. 확장 지도 ---------- */
+.expand { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 2rem; align-items: start; }
+.hub { display: block; width: 100%; max-width: 30rem; height: auto; margin-inline: auto; }
+.hub-spokes path { fill: none; stroke: var(--line); stroke-width: 2; }
+.hub-ring { fill: none; stroke: var(--accent); stroke-width: 2; }
+.hub-pulse { fill: var(--accent); }
+.hub-center circle { fill: var(--ink); }
+.hub-center text { fill: var(--bg); font-family: var(--f-sans); font-size: 14px; font-weight: 800; text-anchor: middle; dominant-baseline: central; }
+.hub-node { outline: none; }
+.hub-node rect { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; transition: stroke .2s; }
+.hub-node text { fill: var(--ink); font-family: var(--f-sans); font-size: 15px; font-weight: 700; text-anchor: middle; dominant-baseline: central; }
+.hub-node.is-hot rect, .hub-node:hover rect, .hub-node:focus-visible rect { stroke: var(--accent); stroke-width: 3; }
+.domains { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; list-style: none; margin: 0; padding: 0; }
+.domain {
+  display: flex; flex-direction: column; gap: .5rem; min-width: 0; padding: 1rem 1.1rem; scroll-margin-top: 1rem;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); transition: border-color .2s, box-shadow .2s;
+}
+.domain.is-hot, .domain:target { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.domain h3 { margin: 0; font-size: 1.0625rem; }
+.domain p { margin: 0; font-size: var(--fs-sm); }
+.domain .role { color: var(--ink-2); }
+.domain .role b { margin-right: .4em; color: var(--ink); }
+.road { position: relative; height: 2.75rem; margin: .5rem 0 1rem; }
+.road-lane { position: absolute; left: 0; right: 0; top: 50%; height: 1.5rem; border-radius: 999px; background: var(--track); transform: translateY(-50%); }
+.road-lane::after { content: ""; position: absolute; left: 1rem; right: 1rem; top: 50%; border-top: 2px dashed var(--mark); opacity: .8; }
+.road-cp {
+  position: absolute; top: 50%; width: 2rem; height: 2rem; margin-left: -1rem; display: grid; place-items: center;
+  border: 2px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--ink);
+  font-family: var(--f-mono); font-size: var(--fs-sm); font-weight: 800; transform: translateY(-50%); transition: background .3s, color .3s, border-color .3s;
+}
+.road-cp.is-reached { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.road-runner { position: absolute; top: 50%; left: 3%; width: .95rem; height: .95rem; margin-left: -.475rem; border-radius: 50%; background: var(--board-ink); box-shadow: 0 0 0 3px var(--board), 0 0 14px var(--board-ink); transform: translateY(-50%); }
+.stages { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; list-style: none; margin: 0; padding: 0; }
+.stages li {
+  display: flex; flex-direction: column; gap: .35rem; min-width: 0; padding: .9rem 1rem 1rem;
+  background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--line); border-radius: var(--radius); transition: border-color .3s;
+}
+.stages li.is-reached { border-top-color: var(--accent); }
+.stages .step { font-family: var(--f-mono); font-size: var(--fs-xs); font-weight: 700; color: var(--accent); }
+.stages h4 { margin: 0; font-size: var(--fs-md); }
+.stages p { margin: 0; font-size: var(--fs-sm); }
+.stages small { font-size: var(--fs-xs); color: var(--ink-2); }
+.ideas { max-width: 50rem; margin: 0; padding-left: 1.25rem; }
+.ideas li { margin: .35rem 0; }
+
+/* ---------- 4. 효과 일람 표 ---------- */
+.tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+table { width: 100%; min-width: 46rem; border-collapse: collapse; font-size: var(--fs-sm); }
+caption { padding: .8rem 1rem; text-align: left; font-weight: 700; }
+th, td { padding: .6rem .9rem; text-align: left; vertical-align: top; border-top: 1px solid var(--line); }
+thead th { background: var(--surface-2); font-size: var(--fs-xs); letter-spacing: .04em; }
+td:first-child { font-family: var(--f-mono); font-weight: 700; color: var(--accent); white-space: nowrap; }
+td a { color: var(--ink); text-underline-offset: 3px; }
+
+/* ---------- 5. 용어 ---------- */
+.gloss { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 2rem; margin: 0; }
+.gloss div { padding: .8rem 0; border-top: 1px solid var(--line); }
+.gloss dt { font-weight: 800; }
+.gloss dd { margin: .2rem 0 0; font-size: var(--fs-sm); color: var(--ink-2); }
+
+.foot { margin-top: 4rem; padding-block: 1.5rem 2.5rem; border-top: 1px solid var(--line); font-size: var(--fs-xs); color: var(--ink-2); }
+.foot p { margin: .25rem 0; max-width: 60rem; }
+
+/* ---------- 반응형 ---------- */
+@media (max-width: 960px) {
+  .expand { grid-template-columns: minmax(0, 1fr); }
+  .stages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .sports { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kgrid, .sectors, .two, .gloss { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 560px) {
+  .board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .domains, .stages { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- 모션 제어 ---------- */
+.is-paused *, .is-paused *::before, .is-paused *::after { animation-play-state: paused !important; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  :root:not(.motion-on) *, :root:not(.motion-on) *::before, :root:not(.motion-on) *::after { animation-play-state: paused !important; }
+  .pcard { transition: none; }
+}
+
+/* ---------- 인쇄 ---------- */
+@media print {
+  :root:root:root {
+    --bg: #FFFFFF; --surface: #FFFFFF; --surface-2: #F1F1F1; --ink: #000000; --ink-2: #444444; --line: #999999;
+    --accent: #9E2F1A; --on-accent: #FFFFFF; --heat-0: #E5E5E5; --heat-1: #9E2F1A; --sky: #FFFFFF; --flood: rgba(255, 255, 255, 0);
+    --track: #C4472D; --turf: #2E8450; --turf-2: #287546; --mark: #FFFFFF; --amber: #E09A00;
+    color-scheme: light;
+  }
+  body { font-size: 10.5pt; }
+  .controls, .toc, .skip, #flipBtn, .bc-sting, .screen-only { display: none !important; }
+  .hero { background: none; padding-block: 0 1rem; }
+  .board { background: #FFFFFF; border: 1.5px solid #000000; }
+  .board div { background: #FFFFFF; }
+  .board dt { color: #333333; }
+  .board dd { color: #000000; text-shadow: none; }
+  .flap { color: #000000; background: none; border: 1.5px solid #000000; }
+  .hero-en { color: #444444; -webkit-text-stroke: 0; }
+  .kgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kcard, .domain, .stages li, .sectors > li, tr, .gloss div { break-inside: avoid; }
+  .sec-head, .sub-h, .sub-note { break-after: avoid; }
+  .section { padding-block: 1.5rem 0; }
+  .led, .bc-team, .bc-clock { background: #FFFFFF; border: 1px solid #000000; }
+  .led::after { display: none; }
+  .led-run { animation: none; }
+  .foot { margin-top: 1.5rem; }
+  .led-run span, .led-run span:nth-child(even), .bc-team, .bc-clock { color: #000000; text-shadow: none; }
+  .bc-l3 { animation: none; clip-path: none; }
+  .pcard-scene { height: auto; perspective: none; }
+  .pcard { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; transform: none !important; }
+  .pcard-face { position: static; transform: none; backface-visibility: visible; -webkit-backface-visibility: visible; box-shadow: none; border: 1px solid #000000; }
+  .pcard-front { background: #FFFFFF; color: #000000; }
+  .pcard-front svg * { stroke: #000000; }
+  .pcard-front svg circle { fill: #000000; }
+  .pcard-no { color: #000000; }
+  .pcard-info small { color: #333333; }
+  .stage--card { aspect-ratio: auto; padding: 1rem; }
+  .tablewrap { overflow: visible; }
+  table { min-width: 0; }
+  a { text-decoration: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="11" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10.5c5 2.5 15 2.5 20 0M3 15.5c5-2.5 15-2.5 20 0" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span>스포츠과학부 · 스포츠경영전공</span>
+      </div>
+      <div class="controls">
+        <button type="button" class="btn" id="btnMotion">
+          <svg viewBox="0 0 10 10" aria-hidden="true" data-ico="pause"><rect x="1" y="1" width="3" height="8" rx=".6"/><rect x="6" y="1" width="3" height="8" rx=".6"/></svg>
+          <svg viewBox="0 0 10 10" aria-hidden="true" data-ico="play" hidden><path d="M2 1l7 4-7 4z"/></svg>
+          <span>모션 일시정지</span>
+        </button>
+        <button type="button" class="btn" id="btnTheme">
+          <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M5 .5a4.5 4.5 0 1 0 0 9z"/><circle cx="5" cy="5" r="4.2" fill="none" stroke="currentColor" stroke-width=".9"/></svg>
+          <span>다크 모드</span>
+        </button>
+      </div>
+    </div>
+
+    <h1 class="hero-title"><span class="dept">스포츠과학부</span>스포츠경영전공<span class="hero-en" aria-hidden="true">SPORTS MANAGEMENT</span></h1>
+
+    <p class="flapline">
+      <span class="sr-only">스포츠 마케팅, 스폰서십, 데이터 분석, 이벤트 운영, 미디어, 팬 인게이지먼트, 시설 경영, 선수 매니지먼트로 경기장 밖의 경기를 만듭니다.</span>
+      <span aria-hidden="true"><span class="flap" id="flap">마케팅으로</span>경기장 밖의 경기를 만듭니다</span>
+    </p>
+
+    <p class="lede">스포츠경영전공은 경기와 구단, 경기장과 팬을 경영의 언어로 다루는 전공입니다. 이 페이지는 전공을 대표하는 키워드 8개를 서로 다른 모션그래픽 효과로 보여 주고, 모션그래픽이 스포츠경영의 어느 분야까지 넓어질 수 있는지 6개 분야와 4단계 로드맵으로 정리합니다.</p>
+
+    <dl class="board" aria-label="이 페이지 한눈에 보기">
+      <div><dt>핵심 키워드</dt><dd>08</dd></div>
+      <div><dt>모션 효과</dt><dd>12</dd></div>
+      <div><dt>확장 분야</dt><dd>06</dd></div>
+      <div><dt>확장 단계</dt><dd>04</dd></div>
+    </dl>
+
+    <div class="sports" role="group" aria-label="4개 종목 픽토그램 애니메이션 (효과 02)">
+      <figure class="sport"><canvas data-sport="run" role="img" aria-label="트랙 위를 달리는 육상 선수 픽토그램"></canvas><figcaption><b>육상</b>트랙 · 달리기</figcaption></figure>
+      <figure class="sport"><canvas data-sport="soccer" role="img" aria-label="잔디 위에서 공을 몰고 달리는 축구 선수 픽토그램"></canvas><figcaption><b>축구</b>그라운드 · 드리블</figcaption></figure>
+      <figure class="sport"><canvas data-sport="basket" role="img" aria-label="코트 위에서 공을 튀기며 달리는 농구 선수 픽토그램"></canvas><figcaption><b>농구</b>코트 · 드리블</figcaption></figure>
+      <figure class="sport"><canvas data-sport="bike" role="img" aria-label="도로 위에서 페달을 밟는 사이클 선수 픽토그램"></canvas><figcaption><b>사이클</b>도로 · 페달링</figcaption></figure>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="페이지 목차">
+  <div class="wrap">
+    <ul>
+      <li><a href="#about"><span>1</span>전공 소개</a></li>
+      <li><a href="#keywords"><span>2</span>키워드 × 모션</a></li>
+      <li><a href="#expand"><span>3</span>확장성</a></li>
+      <li><a href="#fx-index"><span>4</span>효과 일람</a></li>
+      <li><a href="#glossary"><span>5</span>용어 풀이</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main">
+  <!-- 1. 전공 소개 -->
+  <section class="section wrap" id="about" aria-labelledby="about-h">
+    <div class="sec-head">
+      <span class="sec-en">01 · About the major</span>
+      <h2 id="about-h">1. 스포츠경영전공이란</h2>
+    </div>
+    <p class="def">스포츠경영은 프로구단·협회·리그 같은 스포츠 조직과 경기·대회, 경기장 시설, 스포츠 상품과 서비스를 대상으로 기획·마케팅·재무·인사·운영 등 경영의 기능을 적용하는 분야입니다. 스포츠과학부의 스포츠경영전공은 운동과 경기에 대한 이해를 바탕으로, 스포츠가 사람을 모으고 가치를 만들어 내는 과정을 설계하는 방법을 배웁니다.</p>
+
+    <h3 class="sub-h">스포츠산업의 세 영역</h3>
+    <p class="sub-note">스포츠산업 특수분류는 스포츠산업을 크게 세 업종으로 나눕니다. 각 영역에 연결되는 전공 키워드를 함께 표시했습니다.</p>
+    <ul class="sectors">
+      <li>
+        <h4>스포츠시설업</h4>
+        <p>경기장과 체육시설을 짓고 운영합니다.</p>
+        <ul class="chips" aria-label="연결 키워드"><li><a class="chip" href="#kw-facility">시설 경영</a></li><li><a class="chip" href="#kw-event">이벤트 운영</a></li></ul>
+      </li>
+      <li>
+        <h4>스포츠용품업</h4>
+        <p>운동용품과 장비를 만들고 유통합니다.</p>
+        <ul class="chips" aria-label="연결 키워드"><li><a class="chip" href="#kw-marketing">스포츠 마케팅</a></li><li><a class="chip" href="#kw-sponsorship">스폰서십</a></li></ul>
+      </li>
+      <li>
+        <h4>스포츠서비스업</h4>
+        <p>경기 운영, 마케팅 대행, 미디어·정보, 교육 서비스를 제공합니다.</p>
+        <ul class="chips" aria-label="연결 키워드"><li><a class="chip" href="#kw-media">스포츠 미디어</a></li><li><a class="chip" href="#kw-analytics">데이터 분석</a></li><li><a class="chip" href="#kw-fan">팬 인게이지먼트</a></li><li><a class="chip" href="#kw-athlete">선수 매니지먼트</a></li></ul>
+      </li>
+    </ul>
+
+    <div class="two">
+      <div>
+        <h3 class="sub-h">대표 교과 예시</h3>
+        <p class="sub-note">학교마다 교과 편성은 다릅니다.</p>
+        <ul class="chips">
+          <li><span class="chip">스포츠경영학원론</span></li><li><span class="chip">스포츠마케팅</span></li><li><span class="chip">스포츠재무·회계</span></li><li><span class="chip">스포츠시설경영</span></li>
+          <li><span class="chip">스포츠이벤트기획</span></li><li><span class="chip">스포츠미디어론</span></li><li><span class="chip">스포츠데이터분석</span></li><li><span class="chip">스포츠법과 정책</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="sub-h">진로 예시</h3>
+        <p class="sub-note">전공 키워드가 그대로 직무 이름이 되는 경우가 많습니다.</p>
+        <ul class="chips">
+          <li><span class="chip">프로구단 프런트</span></li><li><span class="chip">스포츠 마케팅·에이전시</span></li><li><span class="chip">체육단체·공공기관</span></li>
+          <li><span class="chip">스포츠 미디어·중계</span></li><li><span class="chip">경기장·이벤트 운영</span></li><li><span class="chip">스포츠 데이터 분석</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. 키워드 × 모션 -->
+  <section class="section wrap" id="keywords" aria-labelledby="kw-h">
+    <div class="sec-head">
+      <span class="sec-en">02 · Keywords × Motion</span>
+      <h2 id="kw-h">2. 키워드 × 모션그래픽</h2>
+      <p class="sec-lead">전공 키워드마다 그 일을 가장 잘 보여 주는 모션 효과를 하나씩 붙였습니다. 모든 장면은 이 파일 안의 코드로 그려지며, 효과 번호는 4절 일람표와 연결됩니다.</p>
+    </div>
+
+    <div class="kgrid">
+      <article class="kcard" id="kw-marketing">
+        <div class="stage">
+          <canvas id="cvParticles" role="img" aria-label="작은 입자들이 모여 BRAND, FANS, VALUE라는 단어를 차례로 만들었다가 흩어지는 애니메이션"></canvas>
+        </div>
+        <div class="kbody">
+          <p class="fx">효과 03 · 파티클 타이포그래피</p>
+          <h3>스포츠 마케팅<span class="en">Sports Marketing</span></h3>
+          <p>경기와 선수, 구단의 가치를 팬과 소비자에게 전달하고 관계를 키우는 활동입니다. 흩어진 입자가 BRAND, FANS, VALUE로 모였다 흩어지며 브랜드 메시지가 만들어지는 과정을 보여 줍니다.</p>
+          <p class="use"><b>활용</b>시즌 슬로건 공개, 캠페인 티저 영상</p>
+        </div>
+      </article>
+
+      <article class="kcard" id="kw-sponsorship">
+        <div class="stage stage--led" role="img" aria-label="경기장 LED 광고보드 시안. 앞쪽 보드와 먼 쪽 보드에 OFFICIAL PARTNER, SPONSOR A 같은 스폰서 문구가 서로 반대 방향으로 흐른다.">
+          <span class="badge" aria-hidden="true">예시 시안</span>
+          <div class="led led--far" aria-hidden="true"><div class="led-run"><span>WELCOME TO THE ARENA</span><span>SPONSOR C</span><span>FAN ZONE OPEN</span><span>SPONSOR D</span><span>WELCOME TO THE ARENA</span><span>SPONSOR C</span><span>FAN ZONE OPEN</span><span>SPONSOR D</span></div></div>
+          <div class="pitch-lines" aria-hidden="true"></div>
+          <div class="led led--near" aria-hidden="true"><div class="led-run"><span>SPONSOR A</span><span>OFFICIAL PARTNER</span><span>매치데이 예매 오픈</span><span>SPONSOR B</span><span>SPONSOR A</span><span>OFFICIAL PARTNER</span><span>매치데이 예매 오픈</span><span>SPONSOR B</span></div></div>
+        </div>
+        <div class="kbody">
+          <p class="fx">효과 04 · LED 광고보드 롤링</p>
+          <h3>스폰서십<span class="en">Sponsorship</span></h3>
+          <p>기업이 구단·대회에 자원을 제공하고 노출과 브랜드 연상 효과를 얻는 파트너십입니다. 경기장 LED 보드에 스폰서 문구가 흐르는 장면으로 광고가 노출되는 지점을 보여 줍니다.</p>
+          <p class="use"><b>활용</b>A보드·리본보드 광고 시안, 스폰서 제안서</p>
+        </div>
+      </article>
+
+      <article class="kcard" id="kw-analytics">
+        <div class="stage">
+          <span class="badge" aria-hidden="true">예시 데이터</span>
+          <svg id="svgChart" viewBox="0 0 400 250" role="img" aria-label="경기 지표 예시 막대그래프. 점유율 58%, 패스 성공률 86%, 슈팅 정확도 43%, 압박 성공률 64%. 막대가 0에서 각 값까지 자라고 숫자가 함께 올라간다."></svg>
+        </div>
+        <div class="kbody">
+          <p class="fx">효과 05 · 차트 성장·카운트업</p>
+          <h3>스포츠 데이터 분석<span class="en">Sports Analytics</span></h3>
+          <p>경기·선수·관중 데이터를 모으고 해석해 의사결정에 쓰는 일입니다. 막대가 자라고 숫자가 올라가는 차트로 지표를 한눈에 전달합니다.</p>
+          <p class="use"><b>활용</b>경기 분석 리포트, 중계 데이터 그래픽</p>
+        </div>
+      </article>
+
+      <article class="kcard" id="kw-event">
+        <div class="stage">
+          <svg id="svgBracket" viewBox="0 0 400 250" role="img" aria-label="8개 팀 토너먼트 대진표. A팀부터 H팀까지 8강과 4강을 거쳐 C팀과 G팀이 결승에 오르고, C팀이 우승하는 경로가 차례로 그려진다.">
+            <g class="br-base">
+              <path d="M76 32H104V88H76"/><path d="M76 162H104V218H76"/><path d="M104 60H150V190H104"/><path d="M150 125H170"/>
+              <path d="M324 32H296V88H324"/><path d="M324 162H296V218H324"/><path d="M296 60H250V190H296"/><path d="M250 125H230"/>
+            </g>
+            <path id="brRun" class="br-run" d="M324 162H296V190H250V125H230"/>
+            <path id="brWin" class="br-win" d="M76 162H104V190H150V125H170"/>
+            <g class="br-teams">
+              <rect x="12" y="19" width="64" height="26" rx="5"/><text x="44" y="32">A팀</text>
+              <rect x="12" y="75" width="64" height="26" rx="5"/><text x="44" y="88">B팀</text>
+              <rect x="12" y="149" width="64" height="26" rx="5"/><text x="44" y="162">C팀</text>
+              <rect x="12" y="205" width="64" height="26" rx="5"/><text x="44" y="218">D팀</text>
+              <rect x="324" y="19" width="64" height="26" rx="5"/><text x="356" y="32">E팀</text>
+              <rect x="324" y="75" width="64" height="26" rx="5"/><text x="356" y="88">F팀</text>
+              <rect x="324" y="149" width="64" height="26" rx="5"/><text x="356" y="162">G팀</text>
+              <rect x="324" y="205" width="64" height="26" rx="5"/><text x="356" y="218">H팀</text>
+            </g>
+            <g id="brFinal" class="br-final"><rect x="170" y="110" width="60" height="30" rx="6"/><text x="200" y="125">결승</text></g>
+            <g id="brTrophy" class="br-trophy" transform="translate(200 66)">
+              <path d="M-13 -18H13V-8C13 2 6 8 0 8C-6 8 -13 2 -13 -8Z"/>
+              <path class="handle" d="M-13 -14C-22 -14 -22 -2 -10 0M13 -14C22 -14 22 -2 10 0"/>
+              <rect x="-2.5" y="8" width="5" height="7"/><rect x="-10" y="15" width="20" height="5" rx="1.5"/>
+            </g>
+            <text id="brChamp" class="svg-text br-champ" x="200" y="160">우승 · C팀</text>
+          </svg>
+        </div>
+        <div class="kbody">
+          <p class="fx">효과 06 · 대진표 라인 드로잉</p>
+          <h3>이벤트·대회 운영<span class="en">Event Operations</span></h3>
+          <p>대회의 일정, 대진, 인력, 안전, 시상까지 전 과정을 기획하고 운영합니다. 대진표 선이 차례로 그려지며 결승 진출 팀과 우승 팀이 드러납니다.</p>
+          <p class="use"><b>활용</b>대진 추첨 발표, 토너먼트 진행 현황판</p>
+        </div>
+      </article>
+
+      <article class="kcard" id="kw-media">
+        <div class="stage stage--bc" role="img" aria-label="중계 화면 예시. 왼쪽 위에 홈 2 대 1 원정 점수와 경기 시간을 보여 주는 스코어 버그, 아래쪽에 선수 소개 로워서드, 장면을 넘기는 스팅어가 차례로 나타난다.">
+          <span class="badge" aria-hidden="true">예시 화면</span>
+          <div class="bc-field" aria-hidden="true"></div>
+          <div class="bc-bug" aria-hidden="true"><span class="bc-live">LIVE</span><span class="bc-team">HOME</span><span class="bc-score">2 - 1</span><span class="bc-team">AWAY</span><span class="bc-clock" id="bcClock">67:12</span></div>
+          <div class="bc-l3" aria-hidden="true"><span class="bc-num">10</span><span class="bc-txt"><b>선수 A</b><small>미드필더 · 시즌 7골 5도움</small></span></div>
+          <div class="bc-sting" aria-hidden="true"></div>
+        </div>
+        <div class="kbody">
+          <p class="fx">효과 07 · 방송 그래픽 시퀀스</p>
+          <h3>스포츠 미디어<span class="en">Media &amp; Broadcasting</span></h3>
+          <p>중계권, 방송·OTT, 하이라이트와 SNS 콘텐츠로 경기를 더 많은 사람에게 전달합니다. 스코어 버그, 로워서드, 전환 스팅어가 이어지는 중계 화면을 재현했습니다.</p>
+          <p class="use"><b>활용</b>중계·OTT 화면 그래픽, 하이라이트 영상</p>
+        </div>
+      </article>
+
+      <article class="kcard" id="kw-fan">
+        <div class="stage">
+          <canvas id="cvCrowd" role="img" aria-label="관중석 여섯 줄을 따라 왼쪽에서 오른쪽으로 파도타기가 번지는 애니메이션. 일어선 관중은 강조색으로 표시된다."></canvas>
+        </div>
+        <div class="kbody">
+          <p class="fx">효과 08 · 관중 파도타기</p>
+          <h3>팬 인게이지먼트<span class="en">Fan Engagement</span></h3>
+          <p>팬이 경기와 구단에 참여하고 애착을 갖도록 경험을 설계하는 일입니다. 관중석을 따라 번지는 파도타기로 참여가 퍼져 나가는 모습을 표현합니다.</p>
+          <p class="use"><b>활용</b>응원 이벤트 전광판, 팬 참여 캠페인</p>
+        </div>
+      </article>
+
+      <article class="kcard" id="kw-facility">
+        <div class="stage">
+          <span class="badge" aria-hidden="true">예시 데이터</span>
+          <svg id="svgHeat" viewBox="0 0 400 250" role="img" aria-label="경기장 평면도 위 32개 좌석 구역이 티켓 판매에 따라 옅은 색에서 진한 색으로 채워지는 히트맵. 위쪽 메인 스탠드가 가장 먼저, 가장 진하게 채워진다.">
+            <defs><linearGradient id="heatGrad"><stop offset="0" style="stop-color:var(--heat-0)"/><stop offset="1" style="stop-color:var(--heat-1)"/></linearGradient></defs>
+            <text class="svg-text svg-small svg-muted" x="200" y="20" text-anchor="middle">메인 스탠드</text>
+            <rect class="pitch-fill" x="120" y="75" width="160" height="100" rx="3"/>
+            <g class="pitch-line"><rect x="126" y="81" width="148" height="88"/><path d="M200 81V169"/><circle cx="200" cy="125" r="14"/><rect x="126" y="103" width="22" height="44"/><rect x="252" y="103" width="22" height="44"/></g>
+            <g id="seats"></g>
+            <rect x="150" y="230" width="100" height="7" rx="3.5" fill="url(#heatGrad)"/>
+            <text class="svg-text svg-small svg-muted" x="144" y="234" text-anchor="end" dominant-baseline="central">0%</text>
+            <text class="svg-text svg-small svg-muted" x="256" y="234" dominant-baseline="central">100%</text>
+          </svg>
+          <p class="readout" aria-hidden="true"><span>좌석 점유율</span><b id="occ">85%</b></p>
+        </div>
+        <div class="kbody">
+          <p class="fx">효과 09 · 좌석 점유 히트맵</p>
+          <h3>스포츠 시설 경영<span class="en">Facility Management</span></h3>
+          <p>경기장과 체육시설의 수익, 좌석, 동선, 유지관리를 경영합니다. 구역별 좌석이 팔릴수록 색이 진해지는 히트맵으로 점유율 변화를 보여 줍니다.</p>
+          <p class="use"><b>활용</b>티켓 판매 현황판, 좌석 가격 전략 회의 자료</p>
+        </div>
+      </article>
+
+      <article class="kcard" id="kw-athlete">
+        <div class="stage stage--card">
+          <span class="badge" aria-hidden="true">예시 선수</span>
+          <div class="pcard-scene">
+            <div class="pcard" id="pcard">
+              <div class="pcard-face pcard-front">
+                <svg viewBox="0 0 60 80" aria-hidden="true"><circle cx="30" cy="11" r="7.5"/><path d="M30 24V46M30 27L19 16L15 6M30 27L41 16L45 6M30 46L22 61L20 75M30 46L38 61L41 75"/></svg>
+                <div class="pcard-info"><span class="pcard-no">10</span><b>선수 A</b><small>미드필더 (MF)</small></div>
+              </div>
+              <div class="pcard-face pcard-back">
+                <b>매니지먼트 리포트</b>
+                <dl>
+                  <div><dt>계약 잔여</dt><dd>2년</dd></div>
+                  <div><dt>시장가치 지수</dt><dd>▲ 12%</dd></div>
+                  <div><dt>부상 위험</dt><dd>낮음</dd></div>
+                  <div><dt>후원 계약</dt><dd>2건</dd></div>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn" id="flipBtn" aria-pressed="false" aria-controls="pcard">카드 뒤집기</button>
+        </div>
+        <div class="kbody">
+          <p class="fx">효과 10 · 3D 카드 플립</p>
+          <h3>선수 매니지먼트<span class="en">Athlete Management</span></h3>
+          <p>선수의 계약, 이미지, 후원, 경력 관리를 지원합니다. 앞면의 선수 프로필이 뒤집히면 뒷면의 관리 지표가 나타나며, 버튼으로 직접 뒤집어 볼 수 있습니다.</p>
+          <p class="use"><b>활용</b>선수 프로필 카드, 계약·가치 리포트</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 3. 확장성 -->
+  <section class="section wrap" id="expand" aria-labelledby="ex-h">
+    <div class="sec-head">
+      <span class="sec-en">03 · Expansion map</span>
+      <h2 id="ex-h">3. 모션그래픽으로 넓어지는 스포츠경영</h2>
+      <p class="sec-lead">모션그래픽은 스포츠경영의 여러 업무를 더 빠르고 설득력 있게 전달하는 도구입니다. 아래 지도는 여섯 개 확장 분야와 각 분야에 연결되는 전공 키워드를 보여 줍니다. 분야 카드에 마우스를 올리거나 지도의 분야를 누르면 서로 연결된 항목이 강조됩니다.</p>
+    </div>
+
+    <div class="expand">
+      <svg id="svgHub" class="hub" viewBox="0 0 480 420" role="group" aria-labelledby="hubTitle">
+        <title id="hubTitle">확장 지도: 스포츠경영 × 모션그래픽에서 여섯 분야로 이어지는 연결망 (효과 11)</title>
+        <g class="hub-spokes"><path d="M240 210L240 40"/><path d="M240 210L400 125"/><path d="M240 210L400 295"/><path d="M240 210L240 380"/><path d="M240 210L80 295"/><path d="M240 210L80 125"/></g>
+        <circle class="hub-ring" cx="240" cy="210" r="54"/>
+        <g><circle class="hub-pulse" cx="240" cy="210" r="4.5"/><circle class="hub-pulse" cx="240" cy="210" r="4.5"/><circle class="hub-pulse" cx="240" cy="210" r="4.5"/><circle class="hub-pulse" cx="240" cy="210" r="4.5"/><circle class="hub-pulse" cx="240" cy="210" r="4.5"/><circle class="hub-pulse" cx="240" cy="210" r="4.5"/></g>
+        <g class="hub-center"><circle cx="240" cy="210" r="54"/><text x="240" y="199">스포츠경영</text><text x="240" y="221">× 모션그래픽</text></g>
+        <a class="hub-node" href="#dom-1" data-node="d1"><rect x="170" y="20" width="140" height="40" rx="20"/><text x="240" y="40">구단·리그 브랜딩</text></a>
+        <a class="hub-node" href="#dom-2" data-node="d2"><rect x="330" y="105" width="140" height="40" rx="20"/><text x="400" y="125">중계·OTT 그래픽</text></a>
+        <a class="hub-node" href="#dom-3" data-node="d3"><rect x="330" y="275" width="140" height="40" rx="20"/><text x="400" y="295">경기장 미디어</text></a>
+        <a class="hub-node" href="#dom-4" data-node="d4"><rect x="170" y="360" width="140" height="40" rx="20"/><text x="240" y="380">데이터 스토리텔링</text></a>
+        <a class="hub-node" href="#dom-5" data-node="d5"><rect x="10" y="275" width="140" height="40" rx="20"/><text x="80" y="295">스폰서 활성화</text></a>
+        <a class="hub-node" href="#dom-6" data-node="d6"><rect x="10" y="105" width="140" height="40" rx="20"/><text x="80" y="125">디지털 팬 경험</text></a>
+      </svg>
+
+      <ul class="domains">
+        <li class="domain" id="dom-1" data-node="d1">
+          <h3>구단·리그 브랜딩</h3>
+          <p>시즌 오프닝 타이틀, 선수 소개 영상, 매치데이 SNS 숏폼</p>
+          <ul class="chips" aria-label="연결 키워드"><li><a class="chip" href="#kw-marketing">스포츠 마케팅</a></li><li><a class="chip" href="#kw-athlete">선수 매니지먼트</a></li></ul>
+          <p class="role"><b>직무</b>구단 마케팅·브랜드 매니저</p>
+        </li>
+        <li class="domain" id="dom-2" data-node="d2">
+          <h3>중계·OTT 그래픽</h3>
+          <p>스코어 버그, 실시간 기록 오버레이, 하이라이트 자막</p>
+          <ul class="chips" aria-label="연결 키워드"><li><a class="chip" href="#kw-media">스포츠 미디어</a></li><li><a class="chip" href="#kw-analytics">데이터 분석</a></li></ul>
+          <p class="role"><b>직무</b>중계 그래픽 디자이너, 스포츠 PD</p>
+        </li>
+        <li class="domain" id="dom-3" data-node="d3">
+          <h3>경기장 미디어</h3>
+          <p>전광판·LED 리본보드 연출, 입장·하프타임 쇼, 미디어 파사드</p>
+          <ul class="chips" aria-label="연결 키워드"><li><a class="chip" href="#kw-facility">시설 경영</a></li><li><a class="chip" href="#kw-fan">팬 인게이지먼트</a></li></ul>
+          <p class="role"><b>직무</b>경기 운영·장내 연출 담당</p>
+        </li>
+        <li class="domain" id="dom-4" data-node="d4">
+          <h3>데이터 스토리텔링</h3>
+          <p>경기 분석 리포트, 스카우팅 시각화, 관중·매출 대시보드</p>
+          <ul class="chips" aria-label="연결 키워드"><li><a class="chip" href="#kw-analytics">데이터 분석</a></li><li><a class="chip" href="#kw-facility">시설 경영</a></li></ul>
+          <p class="role"><b>직무</b>스포츠 데이터 분석가</p>
+        </li>
+        <li class="domain" id="dom-5" data-node="d5">
+          <h3>스폰서 활성화</h3>
+          <p>가상 광고, 스폰서 캠페인 영상, 노출 성과 리포트</p>
+          <ul class="chips" aria-label="연결 키워드"><li><a class="chip" href="#kw-sponsorship">스폰서십</a></li><li><a class="chip" href="#kw-marketing">스포츠 마케팅</a></li></ul>
+          <p class="role"><b>직무</b>스폰서십 매니저, 에이전시 기획자</p>
+        </li>
+        <li class="domain" id="dom-6" data-node="d6">
+          <h3>디지털 팬 경험</h3>
+          <p>AR 필터, 응원 앱 인터랙션, e스포츠 방송 오버레이, 현장 실시간 투표 그래픽</p>
+          <ul class="chips" aria-label="연결 키워드"><li><a class="chip" href="#kw-fan">팬 인게이지먼트</a></li><li><a class="chip" href="#kw-event">이벤트 운영</a></li></ul>
+          <p class="role"><b>직무</b>디지털 콘텐츠 기획자</p>
+        </li>
+      </ul>
+    </div>
+
+    <h3 class="sub-h">확장 4단계 로드맵</h3>
+    <p class="sub-note">단계가 올라갈수록 그래픽이 데이터와 관객에 더 긴밀하게 연결됩니다. 트랙 위의 점이 1단계부터 4단계까지 차례로 지나갑니다. (효과 12)</p>
+    <div class="road" id="road" aria-hidden="true">
+      <div class="road-lane"></div>
+      <span class="road-cp" style="left:12.5%">1</span><span class="road-cp" style="left:37.5%">2</span><span class="road-cp" style="left:62.5%">3</span><span class="road-cp" style="left:87.5%">4</span>
+      <span class="road-runner"></span>
+    </div>
+    <ol class="stages">
+      <li><span class="step">1단계</span><h4>정적 비주얼</h4><p>포스터, 카드뉴스, 경기 결과 이미지처럼 멈춘 화면으로 정보를 전달합니다.</p><small>필요 역량: 레이아웃, 타이포그래피</small></li>
+      <li><span class="step">2단계</span><h4>루프 모션그래픽</h4><p>선수 소개 영상, 숏폼, 전광판 루프처럼 정해진 움직임으로 주목도를 높입니다.</p><small>필요 역량: 타이밍, 이징, 스토리보드</small></li>
+      <li><span class="step">3단계</span><h4>데이터 연동 그래픽</h4><p>경기 기록, 티켓 판매, 중계 데이터가 바뀌면 그래픽도 자동으로 갱신됩니다.</p><small>필요 역량: 데이터 구조 이해, 템플릿 설계</small></li>
+      <li><span class="step">4단계</span><h4>인터랙티브·몰입형</h4><p>AR 필터, 가상 광고, 앱 인터랙션처럼 팬이 직접 반응하고 참여합니다.</p><small>필요 역량: 사용자 경험 설계, 실시간 그래픽 엔진 이해</small></li>
+    </ol>
+
+    <h3 class="sub-h">수업 실습 아이디어</h3>
+    <ul class="ideas">
+      <li>키워드 카드 하나를 골라 개막전 홍보 같은 실제 상황에 맞춘 15초 모션 시안의 콘티를 짜 봅니다.</li>
+      <li>좌석 점유 히트맵처럼 경영 지표 하나를 정해, 숫자 표를 움직이는 그래픽으로 바꾸는 기획서를 써 봅니다.</li>
+      <li>가상의 스폰서 한 곳을 정해 LED 보드, SNS, 중계 그래픽을 묶은 통합 활성화 계획을 세워 봅니다.</li>
+    </ul>
+  </section>
+
+  <!-- 4. 효과 일람 -->
+  <section class="section wrap" id="fx-index" aria-labelledby="fx-h">
+    <div class="sec-head">
+      <span class="sec-en">04 · Effects index</span>
+      <h2 id="fx-h">4. 효과·기법 일람</h2>
+      <p class="sec-lead">이 페이지에 쓰인 12가지 효과와 구현 기법, 스포츠경영 현장의 활용 예입니다. 모든 효과는 외부 라이브러리 없이 HTML·CSS·JavaScript만으로 동작합니다.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <caption>표 1. 모션 효과 12종의 구현 기법과 활용 예</caption>
+        <thead><tr><th scope="col">번호</th><th scope="col">효과</th><th scope="col">구현 기법</th><th scope="col">페이지 위치</th><th scope="col">스포츠경영 활용 예</th></tr></thead>
+        <tbody>
+          <tr><td>01</td><td>스플릿 플랩 키네틱 타이포그래피</td><td>Web Animations API 회전 전환</td><td><a href="#main">첫 화면 문구</a></td><td>전광판 문구, 매치데이 카운트다운</td></tr>
+          <tr><td>02</td><td>픽토그램 선수 애니메이션</td><td>Canvas 2D 절차적 관절 애니메이션, 역기구학</td><td><a href="#main">첫 화면 4종목 패널</a></td><td>종목 안내 사인, 대회 오프닝 타이틀</td></tr>
+          <tr><td>03</td><td>파티클 타이포그래피</td><td>Canvas 픽셀 샘플링과 위치 보간</td><td><a href="#kw-marketing">스포츠 마케팅</a></td><td>브랜드 슬로건 공개, 캠페인 티저</td></tr>
+          <tr><td>04</td><td>LED 광고보드 롤링</td><td>CSS 무한 이동 애니메이션, 도트 마스크</td><td><a href="#kw-sponsorship">스폰서십</a></td><td>A보드·리본보드 광고 시안</td></tr>
+          <tr><td>05</td><td>차트 성장·카운트업</td><td>SVG 막대와 이징 보간</td><td><a href="#kw-analytics">스포츠 데이터 분석</a></td><td>경기 분석 리포트, 중계 데이터 그래픽</td></tr>
+          <tr><td>06</td><td>대진표 라인 드로잉</td><td>SVG 선 그리기(stroke-dashoffset)</td><td><a href="#kw-event">이벤트·대회 운영</a></td><td>대진 추첨 발표, 토너먼트 현황판</td></tr>
+          <tr><td>07</td><td>방송 그래픽 시퀀스</td><td>CSS 키프레임: 스코어 버그, 로워서드, 스팅어</td><td><a href="#kw-media">스포츠 미디어</a></td><td>중계·OTT 화면 그래픽, 하이라이트 영상</td></tr>
+          <tr><td>08</td><td>관중 파도타기</td><td>Canvas 가우시안 파형</td><td><a href="#kw-fan">팬 인게이지먼트</a></td><td>응원 이벤트 전광판, 팬 참여 캠페인</td></tr>
+          <tr><td>09</td><td>좌석 점유 히트맵</td><td>SVG 단일 색상 순차 척도 보간</td><td><a href="#kw-facility">스포츠 시설 경영</a></td><td>티켓 판매 현황, 좌석 가격 전략 자료</td></tr>
+          <tr><td>10</td><td>3D 카드 플립</td><td>CSS 3D 변형, 뒷면 숨김</td><td><a href="#kw-athlete">선수 매니지먼트</a></td><td>선수 프로필 카드, 계약·가치 리포트</td></tr>
+          <tr><td>11</td><td>허브 펄스 네트워크</td><td>SVG 좌표 보간</td><td><a href="#expand">확장 지도</a></td><td>사업 구조도, 스폰서 네트워크 소개</td></tr>
+          <tr><td>12</td><td>트랙 진행 로드맵</td><td>CSS 위치 보간과 상태 클래스</td><td><a href="#road">확장 4단계 로드맵</a></td><td>프로젝트 로드맵, 시즌 일정 진행</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 5. 용어 -->
+  <section class="section wrap" id="glossary" aria-labelledby="gl-h">
+    <div class="sec-head">
+      <span class="sec-en">05 · Glossary</span>
+      <h2 id="gl-h">5. 용어 풀이</h2>
+    </div>
+    <dl class="gloss">
+      <div><dt>모션그래픽</dt><dd>그래픽 요소에 시간과 움직임을 더해 정보를 전달하는 영상·화면 디자인입니다.</dd></div>
+      <div><dt>키네틱 타이포그래피</dt><dd>글자의 위치·크기·회전을 움직여 의미와 리듬을 강조하는 기법입니다.</dd></div>
+      <div><dt>스플릿 플랩</dt><dd>공항·역 안내판처럼 판이 반으로 넘어가며 글자가 바뀌는 표시 방식입니다.</dd></div>
+      <div><dt>파티클</dt><dd>수많은 작은 입자를 각자의 규칙으로 움직여 형태나 분위기를 만드는 기법입니다.</dd></div>
+      <div><dt>이징 (easing)</dt><dd>움직임의 속도 변화를 조절해 자연스럽게 출발하고 멈추게 하는 곡선입니다.</dd></div>
+      <div><dt>역기구학 (IK)</dt><dd>손발 끝의 목표 위치에서 관절 각도를 거꾸로 계산하는 방법입니다. 사이클 선수의 다리 움직임에 사용했습니다.</dd></div>
+      <div><dt>스코어 버그</dt><dd>중계 화면 모서리에 늘 떠 있는 점수·경기 시간 그래픽입니다.</dd></div>
+      <div><dt>로워서드</dt><dd>화면 아래쪽 3분의 1 영역에 인물 이름이나 정보를 띄우는 자막 그래픽입니다.</dd></div>
+      <div><dt>스팅어</dt><dd>장면과 장면 사이를 짧은 그래픽으로 덮으며 넘기는 전환 효과입니다. 리플레이 전환에 자주 쓰입니다.</dd></div>
+      <div><dt>스폰서십 액티베이션</dt><dd>스폰서가 얻은 권리를 캠페인, 현장 체험, 콘텐츠 같은 실제 활동으로 실행하는 일입니다.</dd></div>
+      <div><dt>가상 광고</dt><dd>실제 경기장에는 없지만 중계 화면에 컴퓨터 그래픽으로 합성해 보여 주는 광고입니다.</dd></div>
+      <div><dt>히트맵</dt><dd>값의 크기를 색의 진하기로 나타내는 시각화입니다. 이 페이지에서는 구역별 좌석 점유율에 사용했습니다.</dd></div>
+    </dl>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>스포츠과학부 스포츠경영전공 모션 쇼케이스 · 루프 스테이션 실행 20261008-090000-sports-management-motion</p>
+    <p>자체 완결형 HTML: 외부 글꼴·스크립트·이미지 없이 이 파일 하나로 동작하며, 그림과 애니메이션은 모두 CSS·SVG·Canvas 코드로 그렸습니다.</p>
+    <p>차트 수치, 선수·팀·스폰서 이름, 좌석 점유율은 모두 설명을 위한 예시입니다.</p>
+    <p class="screen-only">움직임이 불편하면 상단의 ‘모션 일시정지’ 버튼을 누르세요. 운영체제에서 ‘동작 줄이기’를 켠 경우 정지 상태로 시작합니다.</p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  'use strict';
+  const root = document.documentElement;
+  if (!root.lang) root.lang = 'ko';
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const mqDark = matchMedia('(prefers-color-scheme: dark)');
+  const mqReduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const SVGNS = 'http://www.w3.org/2000/svg';
+
+  /* ---------- 색 토큰: CSS 변수를 읽어 캔버스·SVG에 공급 ---------- */
+  const TOKENS = ['bg', 'surface', 'surface-2', 'ink', 'ink-2', 'line', 'accent', 'mark', 'track', 'turf', 'turf-2', 'court', 'road', 'amber', 'heat-0', 'heat-1'];
+  const PRINT = { bg: '#FFFFFF', surface: '#FFFFFF', 'surface-2': '#F1F1F1', ink: '#000000', 'ink-2': '#444444', line: '#999999', accent: '#9E2F1A', mark: '#FFFFFF', track: '#C4472D', turf: '#2E8450', 'turf-2': '#287546', court: '#D9AA6E', road: '#69737F', amber: '#E09A00', 'heat-0': '#E5E5E5', 'heat-1': '#9E2F1A' };
+  let C = {};
+  let printing = false;
+  function readTokens() {
+    if (printing) { C = Object.assign({}, PRINT); return; }
+    const cs = getComputedStyle(root);
+    const next = {};
+    TOKENS.forEach(k => { next[k] = cs.getPropertyValue('--' + k).trim(); });
+    C = next;
+  }
+
+  /* ---------- 수학 도우미 ---------- */
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const easeOut = t => 1 - Math.pow(1 - clamp(t), 3);
+  const easeIn = t => Math.pow(clamp(t), 3);
+  const easeIO = t => { t = clamp(t); return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+  const rnd = i => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+  const hex = h => { h = h.replace('#', ''); if (h.length === 3) h = h.replace(/./g, '$&$&'); const n = parseInt(h, 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
+  const mix = (a, b, t) => { const A = hex(a), B = hex(b); return 'rgb(' + A.map((v, i) => Math.round(v + (B[i] - v) * t)).join(',') + ')'; };
+  const mk = (tag, attrs, parent) => { const e = document.createElementNS(SVGNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; };
+
+  /* ---------- 장면 등록·재생 루프 ---------- */
+  const scenes = [];
+  let simT = 0, playing = !mqReduce.matches, raf = 0, last = 0;
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+    entries.forEach(e => { const s = e.target.__scene; if (!s) return; s.visible = e.isIntersecting; if (s.visible) drawScene(s); });
+  }, { rootMargin: '120px' }) : null;
+  const ro = 'ResizeObserver' in window ? new ResizeObserver(entries => {
+    entries.forEach(e => { const s = e.target.__scene; if (s && s.canvas) { fitCanvas(s); drawScene(s); } });
+  }) : null;
+
+  function addScene(el, s) {
+    if (!el) return null;
+    s.el = el; s.t0 = s.t0 || 0; s.visible = !io; el.__scene = s; scenes.push(s);
+    if (s.canvas) { fitCanvas(s); if (ro) ro.observe(el); }
+    if (io) io.observe(el);
+    return s;
+  }
+  function fitCanvas(s) {
+    const c = s.canvas, r = c.getBoundingClientRect();
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const w = Math.max(1, Math.round(r.width)), h = Math.max(1, Math.round(r.height));
+    if (c.width !== w * dpr || c.height !== h * dpr) { c.width = w * dpr; c.height = h * dpr; }
+    const changed = s.w !== w || s.h !== h;
+    s.w = w; s.h = h; s.dpr = dpr; s.ctx = c.getContext('2d');
+    if (changed && s.resize) s.resize();
+  }
+  function drawScene(s) {
+    const t = simT + s.t0;
+    if (s.canvas) {
+      const ctx = s.ctx;
+      ctx.setTransform(s.dpr, 0, 0, s.dpr, 0, 0);
+      ctx.clearRect(0, 0, s.w, s.h);
+    }
+    s.draw(t);
+  }
+  function renderAll(all) { scenes.forEach(s => { if (all || s.visible) drawScene(s); }); }
+  function tick(now) {
+    const dt = last ? Math.min(.05, (now - last) / 1000) : 0;
+    last = now; simT += dt;
+    renderAll(false);
+    raf = playing && !document.hidden ? requestAnimationFrame(tick) : 0;
+  }
+  function start() { if (!raf && playing && !document.hidden) { last = 0; raf = requestAnimationFrame(tick); } }
+  function stop() { if (raf) cancelAnimationFrame(raf); raf = 0; }
+
+  /* ---------- 효과 02: 픽토그램 선수 ---------- */
+  function limb(ctx, x, y, a1, l1, a2, l2) {
+    const kx = x + Math.sin(a1) * l1, ky = y + Math.cos(a1) * l1;
+    const ex = kx + Math.sin(a2) * l2, ey = ky + Math.cos(a2) * l2;
+    ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(kx, ky); ctx.lineTo(ex, ey); ctx.stroke();
+    return [ex, ey];
+  }
+  function ik(ax, ay, bx, by, l1, l2, bend) {
+    const dx = bx - ax, dy = by - ay;
+    const d = Math.min(Math.hypot(dx, dy), l1 + l2 - .01);
+    const c = clamp((l1 * l1 + d * d - l2 * l2) / (2 * l1 * d), -1, 1);
+    const a = Math.atan2(dy, dx) + bend * Math.acos(c);
+    return [ax + Math.cos(a) * l1, ay + Math.sin(a) * l1];
+  }
+  function seg(ctx, pts) {
+    ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.stroke();
+  }
+  function shadow(ctx, x, G, rx, ry) {
+    ctx.fillStyle = 'rgba(0,0,0,.16)';
+    ctx.beginPath(); ctx.ellipse(x, G, rx, ry, 0, 0, Math.PI * 2); ctx.fill();
+  }
+  function ground(ctx, kind, w, h, G, off) {
+    const gh = h - G, thin = Math.max(1.5, h * .009);
+    if (kind === 'run') {
+      ctx.fillStyle = C.track; ctx.fillRect(0, G, w, gh);
+      ctx.fillStyle = C.mark; ctx.globalAlpha = .9;
+      ctx.fillRect(0, G + gh * .42, w, thin);
+      const sp = w * .5;
+      for (let x = -(off % sp); x < w; x += sp) ctx.fillRect(x, G + gh * .62, w * .012, gh * .3);
+      ctx.globalAlpha = 1;
+    } else if (kind === 'soccer') {
+      const sp = h * .32, o = off % (sp * 2);
+      for (let x = -o; x < w; x += sp * 2) {
+        ctx.fillStyle = C.turf; ctx.fillRect(x, G, sp, gh);
+        ctx.fillStyle = C['turf-2']; ctx.fillRect(x + sp, G, sp, gh);
+      }
+      ctx.fillStyle = C.mark; ctx.globalAlpha = .9; ctx.fillRect(0, G, w, thin); ctx.globalAlpha = 1;
+    } else if (kind === 'basket') {
+      ctx.fillStyle = C.court; ctx.fillRect(0, G, w, gh);
+      ctx.strokeStyle = 'rgba(60,35,10,.28)'; ctx.lineWidth = 1;
+      const row = gh / 3, sp = w * .28, o = off % sp;
+      for (let r = 1; r < 3; r++) { ctx.beginPath(); ctx.moveTo(0, G + r * row); ctx.lineTo(w, G + r * row); ctx.stroke(); }
+      ctx.beginPath();
+      for (let x = -o; x < w + sp; x += sp) {
+        ctx.moveTo(x, G); ctx.lineTo(x, G + row);
+        ctx.moveTo(x + sp / 2, G + row); ctx.lineTo(x + sp / 2, G + row * 2);
+        ctx.moveTo(x, G + row * 2); ctx.lineTo(x, h);
+      }
+      ctx.stroke();
+      ctx.fillStyle = C.accent; ctx.fillRect(0, G + gh * .5, w, thin * 1.2);
+    } else {
+      ctx.fillStyle = C.road; ctx.fillRect(0, G, w, gh);
+      ctx.fillStyle = C.mark; ctx.globalAlpha = .9;
+      const sp = w * .22;
+      for (let x = -(off % sp); x < w; x += sp) ctx.fillRect(x, G + gh * .5, sp * .5, thin * 1.3);
+      ctx.fillRect(0, G + gh * .08, w, thin * .8);
+      ctx.globalAlpha = 1;
+    }
+  }
+  function ball(ctx, kind, x, y, r, rot) {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(rot);
+    ctx.lineWidth = Math.max(1, r * .16);
+    if (kind === 'soccer') {
+      ctx.fillStyle = '#FFFFFF'; ctx.strokeStyle = '#1A2433';
+      ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#1A2433'; ctx.beginPath();
+      for (let i = 0; i < 5; i++) { const a = -Math.PI / 2 + i * Math.PI * 2 / 5; ctx.lineTo(Math.cos(a) * r * .42, Math.sin(a) * r * .42); }
+      ctx.closePath(); ctx.fill();
+    } else {
+      ctx.fillStyle = '#E07A2E'; ctx.strokeStyle = '#3A1C0A';
+      ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-r, 0); ctx.lineTo(r, 0); ctx.moveTo(0, -r); ctx.lineTo(0, r); ctx.stroke();
+      ctx.beginPath(); ctx.arc(-r * 1.25, 0, r * .9, -.75, .75); ctx.stroke();
+      ctx.beginPath(); ctx.arc(r * 1.25, 0, r * .9, Math.PI - .75, Math.PI + .75); ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function runner(ctx, x, G, H, t, kind, off) {
+    const s = t * Math.PI * 2 * (kind === 'run' ? 1.45 : 1.2);
+    const L1 = H * .26, L2 = H * .26, A1 = H * .17, A2 = H * .16, TL = H * .3, R = H * .08, lw = H * .09;
+    const lean = kind === 'run' ? .2 : .12;
+    const leg = p => { const th = .7 * Math.sin(p); const ph = .25 + 1.2 * Math.pow((1 + Math.cos(p)) / 2, 2); return [th, th - ph]; };
+    const LN = leg(s), LF = leg(s + Math.PI);
+    const reach = a => Math.cos(a[0]) * L1 + Math.cos(a[1]) * L2;
+    const hx = x, hy = G - Math.max(reach(LN), reach(LF)) - lw / 2;
+    const sx = hx + Math.sin(lean) * TL, sy = hy - Math.cos(lean) * TL;
+    shadow(ctx, hx + H * .05, G, H * .26, H * .035);
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = lw;
+    ctx.strokeStyle = C['ink-2'];
+    const armF = -.85 * Math.sin(s + Math.PI);
+    limb(ctx, sx, sy, armF, A1, armF + 1.45, A2);
+    limb(ctx, hx, hy, LF[0], L1, LF[1], L2);
+    ctx.strokeStyle = C.ink;
+    seg(ctx, [[hx, hy], [sx, sy]]);
+    ctx.fillStyle = C.ink;
+    ctx.beginPath(); ctx.arc(sx + Math.sin(lean) * R * 1.55, sy - Math.cos(lean) * R * 1.55, R, 0, Math.PI * 2); ctx.fill();
+    limb(ctx, hx, hy, LN[0], L1, LN[1], L2);
+    if (kind === 'basket') {
+      const a = .55 + .12 * Math.sin(2 * s);
+      const hand = limb(ctx, sx, sy, a, A1, a + .35, A2);
+      const rb = H * .085, top = hand[1] + rb + lw * .3, bot = G - rb;
+      const u = Math.abs(Math.cos(s));
+      ball(ctx, 'basket', hand[0] + H * .01, bot - (bot - top) * u, rb, s * .3);
+    } else {
+      const armN = -.85 * Math.sin(s);
+      limb(ctx, sx, sy, armN, A1, armN + 1.45, A2);
+      if (kind === 'soccer') {
+        const rb = H * .075;
+        ball(ctx, 'soccer', hx + H * .36 + Math.sin(s) * H * .05, G - rb, rb, off / rb);
+      }
+    }
+  }
+  function cyclist(ctx, x, G, H, t, off) {
+    const Rw = H * .2, lw = H * .08;
+    const rear = [x - H * .33, G - Rw], front = [x + H * .33, G - Rw];
+    const bb = [x - H * .05, G - Rw + H * .01];
+    const seat = [x - H * .14, G - H * .5], headT = [x + H * .22, G - H * .5], headB = [x + H * .25, G - H * .38];
+    const bar = [x + H * .21, G - H * .58], barEnd = [x + H * .29, G - H * .56];
+    shadow(ctx, x, G, H * .55, H * .03);
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    const rot = off / Rw;
+    [rear, front].forEach(c => {
+      ctx.strokeStyle = C['ink-2']; ctx.lineWidth = H * .035;
+      ctx.beginPath(); ctx.arc(c[0], c[1], Rw, 0, Math.PI * 2); ctx.stroke();
+      ctx.lineWidth = Math.max(1, H * .01); ctx.beginPath();
+      for (let i = 0; i < 6; i++) { const a = rot + i * Math.PI / 3; ctx.moveTo(c[0], c[1]); ctx.lineTo(c[0] + Math.cos(a) * Rw, c[1] + Math.sin(a) * Rw); }
+      ctx.stroke();
+    });
+    const ca = t * Math.PI * 2 * 1.1, cl = H * .085;
+    const pN = [bb[0] + Math.cos(ca) * cl, bb[1] + Math.sin(ca) * cl];
+    const pF = [bb[0] - Math.cos(ca) * cl, bb[1] - Math.sin(ca) * cl];
+    const hip = [seat[0] + H * .01, seat[1] - H * .035];
+    const L1 = H * .27, L2 = H * .27;
+    ctx.lineWidth = lw; ctx.strokeStyle = C['ink-2'];
+    seg(ctx, [hip, ik(hip[0], hip[1], pF[0], pF[1], L1, L2, -1), pF]);
+    ctx.strokeStyle = C.ink; ctx.lineWidth = H * .04;
+    seg(ctx, [rear, bb, headB, headT, seat, bb]); seg(ctx, [seat, rear]); seg(ctx, [headB, front]); seg(ctx, [headT, bar, barEnd]);
+    ctx.lineWidth = H * .05; seg(ctx, [[seat[0] - H * .05, seat[1] - H * .01], [seat[0] + H * .04, seat[1] - H * .01]]);
+    ctx.lineWidth = H * .03; seg(ctx, [pF, pN]);
+    const lean = 1.05, TL = H * .3, R = H * .08;
+    const sh = [hip[0] + Math.sin(lean) * TL, hip[1] - Math.cos(lean) * TL];
+    ctx.lineWidth = lw; seg(ctx, [hip, sh]);
+    ctx.fillStyle = C.ink;
+    ctx.beginPath(); ctx.arc(sh[0] + Math.sin(lean + .25) * R * 1.6, sh[1] - Math.cos(lean + .25) * R * 1.6, R, 0, Math.PI * 2); ctx.fill();
+    seg(ctx, [hip, ik(hip[0], hip[1], pN[0], pN[1], L1, L2, -1), pN]);
+    seg(ctx, [sh, ik(sh[0], sh[1], barEnd[0], barEnd[1], H * .17, H * .16, 1), barEnd]);
+  }
+  function sportScene(canvas) {
+    const kind = canvas.dataset.sport;
+    addScene(canvas, {
+      canvas, t0: .3,
+      draw(t) {
+        const ctx = this.ctx, w = this.w, h = this.h, G = h * .8, off = t * h * 1.15;
+        ground(ctx, kind, w, h, G, off);
+        const x = w * .5 + Math.sin(t * .7) * w * .05;
+        if (kind === 'bike') cyclist(ctx, x - h * .02, G, h * .7, t, off);
+        else runner(ctx, x - (kind === 'soccer' ? h * .08 : 0), G, h * .6, t, kind, off);
+      }
+    });
+  }
+
+  /* ---------- 효과 03: 파티클 타이포그래피 ---------- */
+  function particleScene(canvas) {
+    const words = ['BRAND', 'FANS', 'VALUE'];
+    const FONT = '"Arial Black", "Helvetica Neue", Arial, sans-serif';
+    addScene(canvas, {
+      canvas, t0: 2.4, n: 0, targets: [], scatter: [], size: 3,
+      resize() {
+        const w = this.w, h = this.h;
+        if (w < 20 || h < 20) { this.n = 0; return; }
+        const step = Math.max(3, Math.round(w / 95));
+        const off = document.createElement('canvas'); off.width = w; off.height = h;
+        const o = off.getContext('2d', { willReadFrequently: true });
+        const raw = words.map(word => {
+          o.clearRect(0, 0, w, h);
+          let fs = h * .5; o.font = '900 ' + fs + 'px ' + FONT;
+          const m = o.measureText(word).width;
+          if (m > w * .84) { fs *= w * .84 / m; o.font = '900 ' + fs + 'px ' + FONT; }
+          o.textAlign = 'center'; o.textBaseline = 'middle'; o.fillStyle = '#000';
+          o.fillText(word, w / 2, h * .52);
+          const d = o.getImageData(0, 0, w, h).data, pts = [];
+          for (let y = 0; y < h; y += step) for (let x = 0; x < w; x += step) if (d[(y * w + x) * 4 + 3] > 140) pts.push([x, y]);
+          return pts;
+        });
+        const n = Math.max(1, ...raw.map(p => p.length));
+        this.targets = raw.map(p => Array.from({ length: n }, (_, i) => p.length ? p[i < p.length ? i : Math.floor(rnd(i) * p.length)] : [w / 2, h / 2]));
+        this.scatter = [0, 1, 2].map(k => Array.from({ length: n }, (_, i) => [rnd(i * 3.1 + k * 91.7) * w, rnd(i * 5.3 + k * 47.9 + 7) * h]));
+        this.size = step * .78; this.n = n;
+      },
+      draw(t) {
+        if (!this.n) return;
+        const ctx = this.ctx, cyc = 4.4, k = Math.floor(t / cyc), tc = t - k * cyc;
+        const T = this.targets[k % 3], S0 = this.scatter[k % 3], S1 = this.scatter[(k + 1) % 3], sz = this.size;
+        const pos = i => {
+          const d = rnd(i + .5) * .55;
+          if (tc < 1.9) { const e = easeIO((tc - d) / 1.3); return [S0[i][0] + (T[i][0] - S0[i][0]) * e, S0[i][1] + (T[i][1] - S0[i][1]) * e]; }
+          if (tc < 3.4) return [T[i][0] + Math.sin(t * 2.2 + i) * .5, T[i][1] + Math.cos(t * 2 + i * .7) * .5];
+          const e = easeIn((tc - 3.4 - d * .6) / .6);
+          return [T[i][0] + (S1[i][0] - T[i][0]) * e, T[i][1] + (S1[i][1] - T[i][1]) * e];
+        };
+        [[C.accent, false], [C.amber, true]].forEach(([col, hi]) => {
+          ctx.fillStyle = col;
+          for (let i = 0; i < this.n; i++) {
+            if ((i % 6 === 0) !== hi) continue;
+            const p = pos(i); ctx.fillRect(p[0] - sz / 2, p[1] - sz / 2, sz, sz);
+          }
+        });
+      }
+    });
+  }
+
+  /* ---------- 효과 05: 차트 성장·카운트업 ---------- */
+  function chartScene(svg) {
+    if (!svg) return;
+    const data = [['점유율', 58], ['패스 성공률', 86], ['슈팅 정확도', 43], ['압박 성공률', 64]];
+    const X0 = 122, W = 230, BH = 20;
+    [0, 50, 100].forEach(v => {
+      const x = X0 + W * v / 100;
+      mk('line', { x1: x, x2: x, y1: 18, y2: 214, class: 'svg-grid' }, svg);
+      mk('text', { x, y: 236, 'text-anchor': 'middle', 'dominant-baseline': 'central', class: 'svg-text svg-small svg-muted' }, svg).textContent = v === 100 ? '100%' : String(v);
+    });
+    const rows = data.map(([label, v], i) => {
+      const y = 30 + i * 50;
+      mk('text', { x: 8, y: y + BH / 2, 'dominant-baseline': 'central', class: 'svg-text' }, svg).textContent = label;
+      const bar = mk('path', { class: 'bar' }, svg);
+      mk('title', {}, bar).textContent = label + ' ' + v + '% (예시)';
+      const val = mk('text', { y: y + BH / 2, 'dominant-baseline': 'central', class: 'svg-text svg-val' }, svg);
+      return { v, y, bar, val };
+    });
+    const barPath = (x, y, w, h) => {
+      if (w < .5) return 'M' + x + ' ' + y;
+      const r = Math.min(4, w, h / 2);
+      return 'M' + x + ' ' + y + 'h' + (w - r) + 'a' + r + ' ' + r + ' 0 0 1 ' + r + ' ' + r + 'v' + (h - 2 * r) + 'a' + r + ' ' + r + ' 0 0 1 ' + (-r) + ' ' + r + 'h' + (-(w - r)) + 'z';
+    };
+    addScene(svg, {
+      t0: 3.2,
+      draw(t) {
+        const tc = t % 7, shrink = tc > 6.2 ? easeIO((tc - 6.2) / .6) : 0;
+        rows.forEach((r, i) => {
+          const p = easeOut((tc - .3 - i * .15) / 1.4) * (1 - shrink);
+          const w = W * r.v / 100 * p;
+          r.bar.setAttribute('d', barPath(X0, r.y, w, BH));
+          r.val.setAttribute('x', (X0 + w + 8).toFixed(1));
+          r.val.textContent = Math.round(r.v * p) + '%';
+        });
+      }
+    });
+  }
+
+  /* ---------- 효과 06: 대진표 라인 드로잉 ---------- */
+  function bracketScene(svg) {
+    if (!svg) return;
+    const win = $('#brWin', svg), run = $('#brRun', svg), champ = $('#brChamp', svg), trophy = $('#brTrophy', svg), fin = $('#brFinal', svg);
+    const Lw = win.getTotalLength(), Lr = run.getTotalLength();
+    win.style.strokeDasharray = Lw; run.style.strokeDasharray = Lr;
+    addScene(svg, {
+      t0: 4.6,
+      draw(t) {
+        const tc = t % 7.5, fade = tc > 6.8 ? 1 - (tc - 6.8) / .7 : 1;
+        win.style.strokeDashoffset = Lw * (1 - easeIO((tc - .4) / 2.4));
+        run.style.strokeDashoffset = Lr * (1 - easeIO((tc - .5) / 2.2));
+        win.style.opacity = run.style.opacity = fade;
+        const done = easeOut((tc - 3) / .5);
+        trophy.setAttribute('transform', 'translate(200 66) scale(' + (.4 + .6 * done).toFixed(3) + ')');
+        trophy.style.opacity = champ.style.opacity = done * fade;
+        fin.classList.toggle('is-win', tc > 3 && tc < 7.2);
+      }
+    });
+  }
+
+  /* ---------- 효과 08: 관중 파도타기 ---------- */
+  function crowdScene(canvas) {
+    addScene(canvas, {
+      canvas, t0: 1.2,
+      draw(t) {
+        const ctx = this.ctx, w = this.w, h = this.h;
+        const rows = 6, sp = Math.max(13, w / 30), top = h * .16, rowH = h * .78 / rows;
+        const hr = Math.min(sp * .26, rowH * .2);
+        const waveX = ((t * .3) % 1.4 - .2) * w, ww = w * .075;
+        ctx.fillStyle = C.line;
+        for (let r = 0; r <= rows; r++) ctx.fillRect(0, top + r * rowH + rowH * .62, w, 1);
+        ctx.lineCap = 'round';
+        for (let r = 0; r < rows; r++) {
+          const y0 = top + r * rowH + rowH * .4, shift = (r % 2) * sp / 2;
+          const normal = [], raised = [];
+          let j = 0;
+          for (let x = -sp + shift; x < w + sp; x += sp, j++) {
+            const jx = x + (rnd(r * 97 + j) - .5) * sp * .2;
+            const b = Math.exp(-Math.pow((jx - waveX - r * sp * .25) / ww, 2));
+            (b > .45 ? raised : normal).push([jx, y0 - b * rowH * .55]);
+          }
+          [[normal, C['ink-2']], [raised, C.accent]].forEach(([arr, col]) => {
+            if (!arr.length) return;
+            ctx.fillStyle = col; ctx.strokeStyle = col; ctx.lineWidth = hr * .7;
+            ctx.beginPath();
+            arr.forEach(([x, y]) => { ctx.moveTo(x + hr, y); ctx.arc(x, y, hr, 0, Math.PI * 2); ctx.rect(x - hr * 1.1, y + hr * 1.3, hr * 2.2, hr * 2.4); });
+            ctx.fill();
+            if (arr === raised) {
+              ctx.beginPath();
+              arr.forEach(([x, y]) => { ctx.moveTo(x - hr, y + hr * 1.5); ctx.lineTo(x - hr * 1.8, y - hr * 1.6); ctx.moveTo(x + hr, y + hr * 1.5); ctx.lineTo(x + hr * 1.8, y - hr * 1.6); });
+              ctx.stroke();
+            }
+          });
+        }
+      }
+    });
+  }
+
+  /* ---------- 효과 09: 좌석 점유 히트맵 ---------- */
+  function heatScene(svg) {
+    if (!svg) return;
+    const g = $('#seats', svg), out = $('#occ');
+    const add = (x, y, w, h, main) => { const r = mk('rect', { x, y, width: w, height: h, rx: 3, class: 'seat' }, g); if (main) r.dataset.main = '1'; };
+    for (let i = 0; i < 5; i++) { const x = 120 + i * 32 + 1.5; add(x, 52, 29, 18, true); add(x, 30, 29, 18, true); add(x, 180, 29, 18); add(x, 202, 29, 18); }
+    for (let i = 0; i < 3; i++) { const y = 75 + i * 100 / 3 + 1.5, h = 100 / 3 - 3; add(96, y, 18, h); add(74, y, 18, h); add(286, y, 18, h); add(308, y, 18, h); }
+    const meta = $$('.seat', g).map((el, i) => {
+      const main = !!el.dataset.main;
+      return { el, cap: main ? .93 + rnd(i) * .07 : .62 + rnd(i + 9) * .36, d: (main ? 0 : .4) + rnd(i + 31) * 2.2 };
+    });
+    let shown = '';
+    addScene(svg, {
+      t0: 6.4,
+      draw(t) {
+        const tc = t % 9, fade = tc > 8.2 ? 1 - (tc - 8.2) / .8 : 1;
+        let sum = 0;
+        meta.forEach(m => { const o = m.cap * easeIO((tc - m.d) / 3.2) * fade; sum += o; m.el.setAttribute('fill', mix(C['heat-0'], C['heat-1'], o)); });
+        const txt = Math.round(sum / meta.length * 100) + '%';
+        if (out && txt !== shown) { out.textContent = txt; shown = txt; }
+      }
+    });
+  }
+
+  /* ---------- 효과 10: 3D 카드 플립 ---------- */
+  function cardScene() {
+    const card = $('#pcard'), btn = $('#flipBtn');
+    if (!card || !btn) return;
+    let manual = false, cur = null;
+    const s = addScene(card, {
+      draw(t) {
+        const f = (Math.floor(t / 4.5) % 2 === 1) !== manual;
+        if (f !== cur) { cur = f; card.classList.toggle('is-flipped', f); btn.setAttribute('aria-pressed', String(f)); }
+      }
+    });
+    btn.addEventListener('click', () => { manual = !manual; drawScene(s); });
+  }
+
+  /* ---------- 효과 07: 중계 시계 ---------- */
+  function clockScene() {
+    const el = $('#bcClock');
+    if (!el) return;
+    const base = 67 * 60 + 12;
+    let lastS = -1;
+    addScene(el.closest('.stage'), {
+      draw(t) {
+        const sec = base + Math.floor(t);
+        if (sec !== lastS) { lastS = sec; el.textContent = String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0'); }
+      }
+    });
+  }
+
+  /* ---------- 효과 11: 허브 펄스 ---------- */
+  function hubScene(svg) {
+    if (!svg) return;
+    const pulses = $$('.hub-pulse', svg), ring = $('.hub-ring', svg);
+    const CX = 240, CY = 210, R0 = 56;
+    const P = [[240, 40], [400, 125], [400, 295], [240, 380], [80, 295], [80, 125]];
+    const spokes = P.map(([x, y]) => { const dx = x - CX, dy = y - CY, len = Math.hypot(dx, dy); return { ux: dx / len, uy: dy / len, len }; });
+    addScene(svg, {
+      t0: .5,
+      draw(t) {
+        // 펄스는 중심 원 가장자리에서 출발해 분야 노드 뒤로 사라진다 (노드가 펄스 위에 그려짐)
+        pulses.forEach((c, i) => {
+          const f = (t * .42 + i / 6) % 1, sp = spokes[i], d = R0 + (sp.len - R0) * f;
+          c.setAttribute('cx', (CX + sp.ux * d).toFixed(1));
+          c.setAttribute('cy', (CY + sp.uy * d).toFixed(1));
+          c.style.opacity = f < .1 ? f / .1 : 1;
+        });
+        const g = (t * .5) % 1;
+        ring.setAttribute('r', (54 + 30 * g).toFixed(1));
+        ring.style.opacity = ((1 - g) * .6).toFixed(3);
+      }
+    });
+    const clearHot = () => $$('.is-hot').forEach(el => el.classList.remove('is-hot'));
+    $$('.domain').forEach(card => {
+      const node = $('.hub-node[data-node="' + card.dataset.node + '"]', svg);
+      const on = () => { clearHot(); card.classList.add('is-hot'); if (node) node.classList.add('is-hot'); };
+      const off = () => { card.classList.remove('is-hot'); if (node) node.classList.remove('is-hot'); };
+      card.addEventListener('mouseenter', on); card.addEventListener('mouseleave', off);
+      card.addEventListener('focusin', on); card.addEventListener('focusout', off);
+    });
+  }
+
+  /* ---------- 효과 12: 트랙 로드맵 ---------- */
+  function roadScene(el) {
+    if (!el) return;
+    const runnerEl = $('.road-runner', el), cps = $$('.road-cp', el), items = $$('.stages li');
+    const at = [12.5, 37.5, 62.5, 87.5];
+    addScene(el, {
+      t0: 6.6,
+      draw(t) {
+        const x = 3 + 94 * ((t % 10) / 10);
+        runnerEl.style.left = x.toFixed(2) + '%';
+        at.forEach((a, i) => { const on = x >= a; cps[i].classList.toggle('is-reached', on); if (items[i]) items[i].classList.toggle('is-reached', on); });
+      }
+    });
+  }
+
+  /* ---------- 효과 01: 스플릿 플랩 ---------- */
+  const FLAP = ['마케팅으로', '스폰서십으로', '데이터 분석으로', '이벤트 운영으로', '미디어로', '팬 인게이지먼트로', '시설 경영으로', '선수 매니지먼트로'];
+  const flapEl = $('#flap');
+  let flapIdx = 0;
+  function flip(el, text) {
+    if (!el.animate) { el.textContent = text; return; }
+    const a = el.animate([{ transform: 'perspective(400px) rotateX(0deg)' }, { transform: 'perspective(400px) rotateX(-90deg)' }], { duration: 160, easing: 'ease-in' });
+    a.onfinish = () => { el.textContent = text; el.animate([{ transform: 'perspective(400px) rotateX(90deg)' }, { transform: 'perspective(400px) rotateX(0deg)' }], { duration: 220, easing: 'ease-out' }); };
+  }
+  setInterval(() => {
+    if (!playing || document.hidden || !flapEl) return;
+    flapIdx = (flapIdx + 1) % FLAP.length;
+    flip(flapEl, FLAP[flapIdx]);
+  }, 2600);
+
+  /* ---------- 조작 버튼 ---------- */
+  const btnMotion = $('#btnMotion'), btnTheme = $('#btnTheme');
+  function setPlaying(p, byUser) {
+    playing = p;
+    root.classList.toggle('is-paused', !p);
+    if (byUser && p) root.classList.add('motion-on');
+    $('span', btnMotion).textContent = p ? '모션 일시정지' : '모션 재생';
+    $('[data-ico="pause"]', btnMotion).toggleAttribute('hidden', !p);
+    $('[data-ico="play"]', btnMotion).toggleAttribute('hidden', p);
+    if (p) start(); else { stop(); renderAll(false); }
+  }
+  btnMotion.addEventListener('click', () => setPlaying(!playing, true));
+  const effTheme = () => root.getAttribute('data-theme') || (mqDark.matches ? 'dark' : 'light');
+  function syncThemeBtn() { $('span', btnTheme).textContent = effTheme() === 'dark' ? '라이트 모드' : '다크 모드'; }
+  btnTheme.addEventListener('click', () => { root.setAttribute('data-theme', effTheme() === 'dark' ? 'light' : 'dark'); });
+  function onTheme() { readTokens(); syncThemeBtn(); renderAll(false); }
+  if (mqDark.addEventListener) mqDark.addEventListener('change', onTheme);
+  new MutationObserver(onTheme).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  if (mqReduce.addEventListener) mqReduce.addEventListener('change', e => { if (e.matches) setPlaying(false); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else start(); });
+  // 인쇄 시에는 각 장면의 대표 정지 화면(simT = 0)을 인쇄용 색으로 그린다
+  let heldT = 0;
+  addEventListener('beforeprint', () => { printing = true; heldT = simT; simT = 0; readTokens(); scenes.forEach(s => { if (s.canvas) fitCanvas(s); }); renderAll(true); });
+  addEventListener('afterprint', () => { printing = false; simT = heldT; readTokens(); renderAll(true); });
+
+  /* ---------- 초기화 ---------- */
+  readTokens();
+  syncThemeBtn();
+  $$('canvas[data-sport]').forEach(sportScene);
+  particleScene($('#cvParticles'));
+  chartScene($('#svgChart'));
+  bracketScene($('#svgBracket'));
+  clockScene();
+  crowdScene($('#cvCrowd'));
+  heatScene($('#svgHeat'));
+  cardScene();
+  hubScene($('#svgHub'));
+  roadScene($('#road'));
+  renderAll(true);
+  setPlaying(playing, false);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "run_id": "20261008-090000-sports-management-motion",
+  "created_at": "2026-10-08T09:00:00+09:00",
+  "type": "html_report",
+  "title": "스포츠경영전공 모션 쇼케이스 — 키워드 모션그래픽과 확장성 시각화",
+  "rubric": "loop-station/rubrics/html_report.md",
+  "gate_threshold": 98,
+  "requirements_summary": "스포츠과학부 스포츠경영전공을 핵심 키워드로 소개하고, 다양한 모션그래픽 효과와 스포츠 이미지를 제작해 모션그래픽을 통한 스포츠경영의 확장성을 시각화한다. 저장소 최신 브랜치(agent.md·루프 스테이션 규약: 자체 완결형 HTML, lang=ko, 라이트/다크 모드, 98점 게이트)를 참고해 제작한다.",
+  "deliverables": [
+    {
+      "path": "loop-station/deliverables/20261008-090000-sports-management-motion/sports-management-motion.html",
+      "format": "html",
+      "description": "스포츠경영전공 모션 쇼케이스 (자체 완결형 HTML: 키워드 8개 × 모션 효과 12종, 4종목 픽토그램 애니메이션, 확장 지도 6분야 + 4단계 로드맵, 효과 일람표, 용어 풀이 / 라이트·다크·동작 줄이기·인쇄 대응)"
+    }
+  ],
+  "iterations": [
+    {
+      "round": 1,
+      "total": 87,
+      "criteria": [
+        {"category": "정확성", "item": "내용 정확성", "score": 5, "max": 5, "comment": "스포츠산업 특수분류 3대 업종(시설업·용품업·서비스업), 스코어 버그·로워서드·가상 광고 등 용어 정의를 대조 확인. 수치·선수·팀·스폰서는 모두 예시로 명시"},
+        {"category": "정확성", "item": "데이터 일관성", "score": 5, "max": 5, "comment": "전광판 요약(키워드 08·효과 12·분야 06·단계 04)이 키워드 카드 8개, 효과 일람 12행, 분야 카드 6개, 로드맵 4단계와 일치. 카드의 효과 번호와 일람표 번호도 일치"},
+        {"category": "정확성", "item": "마크업 유효성", "score": 5, "max": 5, "comment": "HTML 파서 검사 결과 중첩 오류 0, 미종료 태그 0, 중복 id 0, 끊긴 내부 앵커 0"},
+        {"category": "정확성", "item": "오탈자 없음", "score": 5, "max": 5, "comment": "본문·카드·표·용어 풀이 전체 교정, 키워드 명칭(데이터 분석, 팬 인게이지먼트 등) 표기 통일 확인"},
+        {"category": "구조·완결성", "item": "문서 구조", "score": 5, "max": 5, "comment": "h1(전공명) → h2 5개 절 → h3/h4 하위 구성이 논리적이며 목차와 일치"},
+        {"category": "구조·완결성", "item": "요구사항 전부 반영", "score": 5, "max": 5, "comment": "키워드 소개(8개), 다양한 효과(12종), 스포츠 이미지(4종목 픽토그램·경기장·관중·선수 카드), 확장성(6분야 지도 + 4단계 로드맵) 모두 포함"},
+        {"category": "구조·완결성", "item": "자체 완결성", "score": 5, "max": 5, "comment": "외부 CDN·글꼴·이미지·스크립트 없음. 그림은 모두 CSS·SVG·Canvas 코드로 생성"},
+        {"category": "구조·완결성", "item": "핵심 요약 제공", "score": 5, "max": 5, "comment": "첫 화면에 전공 요약 문단과 전광판형 요약(4개 수치)을 배치"},
+        {"category": "명료성·가독성", "item": "문장 명료성", "score": 5, "max": 5, "comment": "카드마다 정의 1문장 + 효과 설명 1문장 + 활용 1줄로 짧게 구성"},
+        {"category": "명료성·가독성", "item": "정보 위계", "score": 4, "max": 5, "comment": "선수 카드 앞면의 대각선 강조 띠가 '미드필더 (MF)' 글자 위를 지나 가독성 저하 (경미)"},
+        {"category": "명료성·가독성", "item": "표·시각 요소", "score": 2, "max": 5, "comment": "확장 지도에서 좌우 노드의 연결선이 중심 원과 노드 사각형 사이에 거의 보이지 않고, 펄스가 대부분의 시간 동안 원·노드 뒤에 가려져 연결 관계가 드러나지 않음 (중대)"},
+        {"category": "명료성·가독성", "item": "전문용어 처리", "score": 5, "max": 5, "comment": "용어 풀이 12개(키네틱 타이포그래피, 스코어 버그, 역기구학 등) 제공"},
+        {"category": "기술 품질", "item": "렌더링 정상", "score": 2, "max": 5, "comment": "모션 버튼에 일시정지·재생 아이콘이 동시에 표시됨. SVG 요소에는 hidden 속성 기본 스타일이 적용되지 않고, JS의 .hidden 프로퍼티도 SVG에 반영되지 않음 (중대)"},
+        {"category": "기술 품질", "item": "반응형", "score": 4, "max": 5, "comment": "가로 스크롤 없음(375px·1280px 확인). 다만 모바일에서 '예시 선수' 배지가 선수 카드 모서리와 겹침 (경미)"},
+        {"category": "기술 품질", "item": "라이트/다크 모드", "score": 5, "max": 5, "comment": "prefers-color-scheme + data-theme 양방향 토큰, 캔버스·SVG도 테마 변경 시 다시 그림"},
+        {"category": "기술 품질", "item": "접근성", "score": 4, "max": 5, "comment": "lang=ko, 캔버스 role=img·대체 텍스트, 일시정지 버튼, 동작 줄이기 대응 확인. 라이트 모드 히어로 상단 학부명(강조색)이 하늘색 배경 위 대비 4.44:1로 4.5:1 미달 (경미)"},
+        {"category": "실용성", "item": "즉시 사용 가능성", "score": 4, "max": 5, "comment": "스포츠산업 3영역 카드가 가장 긴 카드 높이로 늘어나 짧은 카드 아래에 빈 공간이 생김 (경미)"},
+        {"category": "실용성", "item": "인쇄 적합성", "score": 2, "max": 5, "comment": "인쇄 시 LED 광고보드 문구가 출력되지 않고 파티클 카드가 흩어진 순간으로 찍힘. 절 제목이 페이지 끝에 홀로 남고 마지막 한 줄이 별도 페이지로 넘어감 (중대)"},
+        {"category": "실용성", "item": "유지보수 용이성", "score": 5, "max": 5, "comment": "색은 CSS 토큰, 차트·좌석·플랩 문구는 JS 데이터 배열로 분리되어 갱신이 쉬움"},
+        {"category": "실용성", "item": "목적 부합", "score": 5, "max": 5, "comment": "전공 소개와 모션그래픽 확장성 제시라는 목적에 맞는 어조와 깊이, 수업 실습 아이디어 포함"}
+      ],
+      "deductions": [
+        {"severity": "major", "points": -3, "where": "상단 조작 버튼(모션 일시정지)", "reason": "일시정지·재생 아이콘이 동시에 표시됨", "fix_directive": "SVG 아이콘에 svg[hidden]{display:none} 규칙을 추가하고 JS에서 toggleAttribute('hidden')로 전환할 것"},
+        {"severity": "major", "points": -3, "where": "3절 확장 지도(허브)", "reason": "좌우 노드 연결선이 거의 보이지 않고 펄스가 대부분 가려짐", "fix_directive": "viewBox를 480×420으로 넓히고 중심 원을 r54로 줄여 노드를 재배치, 펄스는 원 가장자리에서 출발해 일정 속도로 이동하게 할 것"},
+        {"severity": "major", "points": -3, "where": "인쇄 스타일", "reason": "LED 보드 문구 누락, 파티클 카드가 흩어진 프레임으로 인쇄, 절 제목 고립, 마지막 줄 단독 페이지", "fix_directive": "인쇄 시 LED 애니메이션·도트 마스크 해제, beforeprint에서 대표 정지 프레임(simT=0)으로 다시 그리기, 제목에 break-after: avoid, 화면 전용 안내문 숨김"},
+        {"severity": "minor", "points": -1, "where": "히어로 학부명", "reason": "라이트 모드 강조색 대비 4.44:1 (4.5:1 미달)", "fix_directive": "라이트 강조색을 #AE351D로 조정해 4.74:1 이상 확보할 것"},
+        {"severity": "minor", "points": -1, "where": "효과 10 선수 카드 (모바일)", "reason": "'예시 선수' 배지가 카드 모서리와 겹침", "fix_directive": "선수 카드 장면의 배지를 왼쪽 아래로 옮길 것"},
+        {"severity": "minor", "points": -1, "where": "효과 10 선수 카드 앞면", "reason": "대각선 강조 띠가 포지션 글자와 겹침", "fix_directive": "띠 위치를 80~87% 지점으로 옮겨 글자 영역을 피할 것"},
+        {"severity": "minor", "points": -1, "where": "1절 스포츠산업의 세 영역", "reason": "짧은 카드가 가장 긴 카드 높이로 늘어나 빈 공간 발생", "fix_directive": "그리드에 align-items: start 적용"}
+      ],
+      "verdict": "revise"
+    },
+    {
+      "round": 2,
+      "total": 98,
+      "criteria": [
+        {"category": "정확성", "item": "내용 정확성", "score": 5, "max": 5, "comment": "수정 후 본문 내용 재대조, 사실 진술 변경 없음 확인"},
+        {"category": "정확성", "item": "데이터 일관성", "score": 5, "max": 5, "comment": "요약 수치 4개와 카드·표·분야·단계 개수 재대조 일치"},
+        {"category": "정확성", "item": "마크업 유효성", "score": 5, "max": 5, "comment": "수정 후 파서 재검사: 중첩 오류·미종료 태그·중복 id·끊긴 앵커 모두 0"},
+        {"category": "정확성", "item": "오탈자 없음", "score": 5, "max": 5, "comment": "추가·변경 문구 포함 전체 재교정"},
+        {"category": "구조·완결성", "item": "문서 구조", "score": 5, "max": 5, "comment": "절 구성 유지, 인쇄 시에도 제목이 내용과 함께 배치됨"},
+        {"category": "구조·완결성", "item": "요구사항 전부 반영", "score": 5, "max": 5, "comment": "키워드·효과·스포츠 이미지·확장성 구성 유지"},
+        {"category": "구조·완결성", "item": "자체 완결성", "score": 5, "max": 5, "comment": "외부 자원 없음 재확인"},
+        {"category": "구조·완결성", "item": "핵심 요약 제공", "score": 5, "max": 5, "comment": "첫 화면 요약·전광판 유지"},
+        {"category": "명료성·가독성", "item": "문장 명료성", "score": 5, "max": 5, "comment": "명료성 유지"},
+        {"category": "명료성·가독성", "item": "정보 위계", "score": 5, "max": 5, "comment": "이전 감점 해소됨 — 강조 띠를 카드 오른쪽 끝으로 옮겨 이름·포지션이 띠와 겹치지 않음"},
+        {"category": "명료성·가독성", "item": "표·시각 요소", "score": 5, "max": 5, "comment": "이전 감점 해소됨 — 허브 재배치로 6개 연결선이 모두 보이고 펄스가 원 가장자리에서 노드까지 이동, 분야 카드 호버 시 해당 노드만 강조"},
+        {"category": "명료성·가독성", "item": "전문용어 처리", "score": 5, "max": 5, "comment": "용어 풀이 12개 유지"},
+        {"category": "기술 품질", "item": "렌더링 정상", "score": 5, "max": 5, "comment": "이전 감점 해소됨 — 재생 중엔 일시정지 아이콘만, 정지 중엔 재생 아이콘만 표시(헤드리스 브라우저로 상태 전환 검증). 콘솔 오류 0"},
+        {"category": "기술 품질", "item": "반응형", "score": 4, "max": 5, "comment": "이전 감점 해소됨 — 배지 겹침 제거, 375px·1280px 가로 스크롤 0. 다만 375px에서 확장 지도 노드 글자가 약 10.7px로 작음 (경미, 아래 분야 카드가 같은 내용을 큰 글자로 제공)"},
+        {"category": "기술 품질", "item": "라이트/다크 모드", "score": 5, "max": 5, "comment": "테마 전환 버튼·시스템 설정 양쪽에서 토큰과 캔버스 재렌더링 확인"},
+        {"category": "기술 품질", "item": "접근성", "score": 5, "max": 5, "comment": "이전 감점 해소됨 — 강조색 대비 sky 4.74:1, 배경 5.56:1, 흰 면 6.31:1. 동작 줄이기 시 정지 상태로 시작 확인"},
+        {"category": "실용성", "item": "즉시 사용 가능성", "score": 5, "max": 5, "comment": "이전 감점 해소됨 — 3영역 카드가 내용 높이에 맞춰 정렬"},
+        {"category": "실용성", "item": "인쇄 적합성", "score": 4, "max": 5, "comment": "이전 감점 해소됨 — LED 문구·BRAND 파티클이 인쇄되고 A4 9쪽으로 정리됨. 다만 배경 미인쇄 설정에서는 LED·중계 장면의 잔디 배경이 빠짐 (경미, 내용 손실 없음)"},
+        {"category": "실용성", "item": "유지보수 용이성", "score": 5, "max": 5, "comment": "토큰·데이터 배열 구조 유지"},
+        {"category": "실용성", "item": "목적 부합", "score": 5, "max": 5, "comment": "목적 부합 유지"}
+      ],
+      "deductions": [
+        {"severity": "minor", "points": -1, "where": "3절 확장 지도 (375px 화면)", "reason": "좁은 화면에서 노드 글자가 약 10.7px로 작음", "fix_directive": "필요 시 640px 이하에서 지도 아래 분야 카드를 우선 읽도록 안내 문구를 추가하거나 노드 레이블을 축약할 것 (분야 카드가 같은 내용을 제공하므로 이번 판은 유지)"},
+        {"severity": "minor", "points": -1, "where": "인쇄 스타일", "reason": "배경 미인쇄 설정에서 잔디·경기장 배경색이 빠짐", "fix_directive": "배경 그래픽 인쇄 옵션을 켜면 그대로 출력됨. 기본 설정에서는 내용이 유지되므로 이번 판은 유지"}
+      ],
+      "verdict": "pass"
+    }
+  ],
+  "final_total": 98,
+  "passed": true,
+  "notes": "저장소 최신 브랜치(claude/agent-realtime-system-27dh6b, 2026-08-25)의 agent.md·루프 스테이션 규약을 작업 브랜치로 가져와 그 절차대로 제작. 검증: 헤드리스 Chromium으로 1280px·375px, 라이트·다크·동작 줄이기 4개 조합 렌더링(콘솔 오류 0, 가로 스크롤 0), 버튼·테마 전환·카드 뒤집기·허브 연동·인쇄 PDF 확인, 토큰 대비 계산."
+}

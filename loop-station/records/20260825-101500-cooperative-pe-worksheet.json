@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "run_id": "20260825-101500-cooperative-pe-worksheet",
+  "created_at": "2026-08-25T10:15:00+09:00",
+  "type": "education",
+  "title": "협동학습 줄넘기 활동지 — 함께 뛰는 우리 모둠",
+  "rubric": "loop-station/rubrics/education.md",
+  "gate_threshold": 98,
+  "requirements_summary": "초등 5~6학년 대상 협동학습(직소 모형) 기반 줄넘기 체육 활동지. 학습목표·역할 분담·활동 순서·관찰 기준표·평가표·안전 수칙 포함, 인쇄 가능한 자체 완결형 HTML.",
+  "deliverables": [
+    {
+      "path": "loop-station/deliverables/20260825-101500-cooperative-pe-worksheet/worksheet.html",
+      "format": "html",
+      "description": "협동학습 줄넘기 활동지 (자체 완결형 HTML, 라이트/다크 모드, 인쇄 대응)"
+    }
+  ],
+  "iterations": [
+    {
+      "round": 1,
+      "total": 92,
+      "criteria": [
+        {"category": "정확성", "item": "사실/개념 정확성", "score": 5, "max": 5, "comment": "직소 협동학습의 역할 순환 구조와 줄넘기 동작 요령(손목 회전, 무릎 착지)이 정확함"},
+        {"category": "정확성", "item": "용어 일관성", "score": 5, "max": 5, "comment": "모둠/역할 명칭이 문서 전체에서 동일하게 사용됨"},
+        {"category": "정확성", "item": "수치·인용 검증", "score": 5, "max": 5, "comment": "40분 차시 배분(5+10+10+10+5)이 합산 일치함"},
+        {"category": "정확성", "item": "오탈자 없음", "score": 4, "max": 5, "comment": "'번갈아 뛰기'가 한 곳에서 '번갈아뛰기'로 붙여 씀 (경미)"},
+        {"category": "구조·완결성", "item": "학습목표 명시", "score": 2, "max": 5, "comment": "초안의 목표가 '줄넘기를 잘할 수 있다' 수준으로 관찰 가능한 행동·기준(횟수/시간)이 없음 (중대)"},
+        {"category": "구조·완결성", "item": "도입-전개-정리 구조", "score": 5, "max": 5, "comment": "도입(준비운동)-전개 3단계-정리(정리운동·평가) 흐름이 완결적"},
+        {"category": "구조·완결성", "item": "요구사항 전부 반영", "score": 5, "max": 5, "comment": "역할 분담·관찰표·기록표·안전 수칙 등 요구 요소 모두 포함"},
+        {"category": "구조·완결성", "item": "분량 적정", "score": 5, "max": 5, "comment": "1차시 40분·모둠 1장 배부에 적합한 분량"},
+        {"category": "명료성·대상 적합성", "item": "학습자 수준 적합", "score": 5, "max": 5, "comment": "5~6학년 어휘 수준에 맞고 역할 이름이 친근함"},
+        {"category": "명료성·대상 적합성", "item": "문장 명료성", "score": 5, "max": 5, "comment": "지시문이 한 문장 한 동작으로 명료함"},
+        {"category": "명료성·대상 적합성", "item": "예시 적절성", "score": 5, "max": 5, "comment": "관찰 기준표 항목이 동작 요령과 직접 연결됨"},
+        {"category": "명료성·대상 적합성", "item": "지시문 실행 가능성", "score": 5, "max": 5, "comment": "역할 교대·거리 유지 등 그대로 실행 가능"},
+        {"category": "형식·표현", "item": "서식 일관성", "score": 4, "max": 5, "comment": "일부 표 제목의 번호 체계가 본문 소제목과 불일치 (경미)"},
+        {"category": "형식·표현", "item": "시각 요소 품질", "score": 5, "max": 5, "comment": "표 중심 구성으로 기록·관찰 활동에 적합"},
+        {"category": "형식·표현", "item": "한국어 어문 규범", "score": 5, "max": 5, "comment": "학생 대상 경어체가 일관됨"},
+        {"category": "형식·표현", "item": "접근성 (HTML인 경우)", "score": 5, "max": 5, "comment": "lang=ko, 다크 모드, 인쇄 미디어 쿼리, 충분한 대비 확인"},
+        {"category": "실용성", "item": "즉시 사용 가능성", "score": 5, "max": 5, "comment": "인쇄 후 바로 배부 가능"},
+        {"category": "실용성", "item": "확장/재사용 용이성", "score": 5, "max": 5, "comment": "종목만 바꿔 다른 차시에 재사용 가능한 구조"},
+        {"category": "실용성", "item": "평가/활동 연계", "score": 2, "max": 5, "comment": "초안의 자기평가표가 학습목표와 연계되지 않은 일반 문항(재미있었다 등)으로 구성됨 (중대)"},
+        {"category": "실용성", "item": "맥락 적합성", "score": 5, "max": 5, "comment": "초등 체육 '건강 활동' 영역과 협동학습 맥락에 부합"}
+      ],
+      "deductions": [
+        {"severity": "major", "points": -3, "where": "1. 학습목표", "reason": "목표가 관찰 가능한 행동·수치 기준 없이 서술됨", "fix_directive": "각 목표에 행동 동사와 성취 기준(30초 20회, 연속 10회 등)을 명시할 것"},
+        {"severity": "major", "points": -3, "where": "6. 모둠 자기평가", "reason": "평가 문항이 학습목표와 연계되지 않음", "fix_directive": "평가 문항을 학습목표 1~3과 1:1로 연계하고 협동 태도 문항을 추가할 것"},
+        {"severity": "minor", "points": -1, "where": "3. 활동 순서 전개 1", "reason": "'번갈아뛰기' 띄어쓰기 오류", "fix_directive": "'번갈아 뛰기'로 통일할 것"},
+        {"severity": "minor", "points": -1, "where": "4~6절 표 제목", "reason": "표 제목 번호 체계가 소제목과 불일치", "fix_directive": "소제목 번호와 표 참조 문구를 일치시킬 것"}
+      ],
+      "verdict": "revise"
+    },
+    {
+      "round": 2,
+      "total": 99,
+      "criteria": [
+        {"category": "정확성", "item": "사실/개념 정확성", "score": 5, "max": 5, "comment": "수정 후 재확인 — 개념 설명 정확 유지"},
+        {"category": "정확성", "item": "용어 일관성", "score": 5, "max": 5, "comment": "용어 일관성 유지 확인"},
+        {"category": "정확성", "item": "수치·인용 검증", "score": 5, "max": 5, "comment": "시간 배분·횟수 기준 재검산 일치"},
+        {"category": "정확성", "item": "오탈자 없음", "score": 5, "max": 5, "comment": "이전 감점 해소됨 — '번갈아 뛰기'로 통일, 전체 재교정 완료"},
+        {"category": "구조·완결성", "item": "학습목표 명시", "score": 5, "max": 5, "comment": "이전 감점 해소됨 — 3개 목표 모두 행동 동사 + 수치 기준(30초 20회, 연속 10회) 명시"},
+        {"category": "구조·완결성", "item": "도입-전개-정리 구조", "score": 5, "max": 5, "comment": "구조 유지 확인"},
+        {"category": "구조·완결성", "item": "요구사항 전부 반영", "score": 5, "max": 5, "comment": "요구 요소 전체 포함 재확인"},
+        {"category": "구조·완결성", "item": "분량 적정", "score": 5, "max": 5, "comment": "분량 적정 유지"},
+        {"category": "명료성·대상 적합성", "item": "학습자 수준 적합", "score": 5, "max": 5, "comment": "어휘 수준 적합 유지"},
+        {"category": "명료성·대상 적합성", "item": "문장 명료성", "score": 5, "max": 5, "comment": "지시문 명료성 유지"},
+        {"category": "명료성·대상 적합성", "item": "예시 적절성", "score": 5, "max": 5, "comment": "관찰 기준표-동작 요령 연계 유지"},
+        {"category": "명료성·대상 적합성", "item": "지시문 실행 가능성", "score": 5, "max": 5, "comment": "실행 가능성 유지"},
+        {"category": "형식·표현", "item": "서식 일관성", "score": 4, "max": 5, "comment": "번호 체계는 통일했으나 4절 표의 열 너비가 다른 표와 미세하게 달라 보이는 부분 잔존 (경미)"},
+        {"category": "형식·표현", "item": "시각 요소 품질", "score": 5, "max": 5, "comment": "표 구성 품질 유지"},
+        {"category": "형식·표현", "item": "한국어 어문 규범", "score": 5, "max": 5, "comment": "문체 일관 유지"},
+        {"category": "형식·표현", "item": "접근성 (HTML인 경우)", "score": 5, "max": 5, "comment": "lang=ko·다크 모드·인쇄 대응 재확인"},
+        {"category": "실용성", "item": "즉시 사용 가능성", "score": 5, "max": 5, "comment": "즉시 배부 가능 상태"},
+        {"category": "실용성", "item": "확장/재사용 용이성", "score": 5, "max": 5, "comment": "재사용 구조 유지"},
+        {"category": "실용성", "item": "평가/활동 연계", "score": 5, "max": 5, "comment": "이전 감점 해소됨 — 자기평가 문항이 학습목표 1~3과 1:1 연계되고 협동 태도 문항 추가"},
+        {"category": "실용성", "item": "맥락 적합성", "score": 5, "max": 5, "comment": "교육과정 맥락 부합 유지"}
+      ],
+      "deductions": [
+        {"severity": "minor", "points": -1, "where": "4. 관찰 기준표", "reason": "표 열 너비가 다른 표와 미세하게 불일치", "fix_directive": "추후 개정 시 표 열 너비 클래스로 통일 권장 (사용성에는 영향 없음)"}
+      ],
+      "verdict": "pass"
+    }
+  ],
+  "final_total": 99,
+  "passed": true,
+  "notes": "루프 스테이션 시스템의 엔드투엔드 동작을 증명하는 샘플 실행. 회전 1에서 학습목표 구체화·평가 연계라는 중대 결함 2건을 도출하고, 회전 2에서 해소를 항목별로 확인한 뒤 앵커 규칙(치명 0·중대 0·경미 1건)을 충족하여 통과."
+}
