@@ -1,0 +1,26 @@
+name: CI (agent_office)
+
+on:
+  push:
+    branches: ["**"]
+    paths: ["agent_office/**", ".github/workflows/agent-office.yml"]
+  pull_request:
+    paths: ["agent_office/**", ".github/workflows/agent-office.yml"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: agent_office
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r requirements.txt ruff
+      - name: Lint
+        run: ruff check agent_office tests
+      - name: Unit tests (no Discord/API keys required)
+        run: python -m pytest -q tests
