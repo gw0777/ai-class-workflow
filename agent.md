@@ -77,3 +77,20 @@
 | `loop-station/tools/loopstation.py` | 기록 검증(validate) + 검수 보고서/대시보드 생성(build) — Python 표준 라이브러리만 사용 |
 | `loop-station/site/` | 생성된 검수 보고서·대시보드 HTML (브라우저로 바로 열람) |
 | `loop-station/tests/` | 도구 단위 테스트 (`python3 -m unittest`) |
+| `loop-station/LOOP_CANON.md` | 루프 정석 명세 — 트리거·커넥터·메모리·서브에이전트·워크트리·스킬·사람 검토 |
+| `loop-station/tools/loopcanon.py` | 루프 정석 실행기 (발동·가드·격리·병합·중단·검토) — Python 표준 라이브러리만 사용 |
+| `loop-station/loops/` | 루프 명세 JSON (`<loop_id>.json`) |
+| `loop-station/memory/<loop_id>/` | 메모리 4종(상태·처리 이력·평가 기록·컨텍스트) + 스킬 메모리 |
+| `loop-station/runs/<loop_id>/<run_id>/` | 실행별 격리 작업 폴더 (서브에이전트 결과·병합·보고서·첨부) |
+
+## 6. 루프 정석 운영 절차 (트리거로 깨어나는 반복 업무)
+
+`loop-station/loops/`에 명세가 있는 반복 업무는 위 3장 절차를 아래 7단계 안에서 수행한다. 상세: [`loop-station/LOOP_CANON.md`](loop-station/LOOP_CANON.md)
+
+1. **트리거** — 시간 기반은 `loopcanon.py due`, 이벤트 기반은 `loopcanon.py match`로 발동 여부와 긴급도 순서를 확인한다. 긴급(high)부터 처리한다.
+2. **시작** — `loopcanon.py start <loop_id>`. 거부되면(동시 실행·중복·일일 상한) 우회하지 말고 사유를 보고한다.
+3. **메모리 읽기** — 작업 전에 `memory/<loop_id>/skill-notes.md`(스킬 메모리)와 `context.md`(컨텍스트)를 먼저 읽는다.
+4. **서브에이전트 병렬 실행** — 같은 `group`은 한 번에 병렬로 띄운다. 각자 `workers/<role>/output.json`에 `{"findings": {...}}`만 쓰고, 자기 폴더 밖에는 쓰지 않는다. 저장소 파일을 고치는 작업은 `isolation: "worktree"`로 띄운다.
+5. **병합** — `loopcanon.py merge`. 충돌은 어느 쪽을 택했는지 근거와 함께 `report.json`의 `resolutions`에 적는다. 실패한 서브에이전트는 보고서에 빠진 출처로 밝힌다.
+6. **자가진단·판정** — 산출물은 `attachments/`에, 요약·개선 제안·첨부 목록은 `report.json`에 쓴다. `gate_record: true`이면 3장 ③~⑤대로 98점 게이트 기록을 `records/<run_id>.json`에 남긴다. `loopcanon.py check`가 미충족이면 지적된 문제만 고쳐 다시 판정한다. 회전 상한에 닿으면 중단하고 잔여 결함을 보고한다.
+7. **사람 검토** — `사람 검토 대기`가 되면 `skill.reporting` 기준대로 검토자에게 알린다. **쓰기 커넥터 작업(메일 발송 등)은 검토자 승인(`review --decision approve`) 전에 하지 않는다.** 검토 교훈은 `--lesson`으로 스킬 메모리에 남긴다.

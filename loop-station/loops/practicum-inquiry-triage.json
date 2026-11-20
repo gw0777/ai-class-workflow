@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "loop_id": "practicum-inquiry-triage",
+  "title": "특수체육 실습 문의 메일 우선 처리",
+  "trigger": {
+    "type": "event",
+    "source": "email",
+    "utc_offset": "+09:00",
+    "any_keywords": ["실습", "교생", "특수체육", "수업 참관"],
+    "exclude_keywords": ["광고", "수신거부", "unsubscribe"],
+    "priority_rules": [
+      {"level": "high", "keywords": ["긴급", "부상", "사고", "안전", "오늘"]},
+      {"level": "low", "keywords": ["참고", "공유드립니다"]}
+    ],
+    "default_priority": "normal"
+  },
+  "connectors": [
+    {"category": "communication", "name": "Gmail", "access": "read_write", "purpose": "문의 메일 읽기 · 답장 초안 작성 (발송은 사람이 한다)"},
+    {"category": "project", "name": "Notion", "access": "read", "purpose": "현장 교육실습 매뉴얼(5개 영역) DB 조회"}
+  ],
+  "memory": {
+    "context": [
+      "실습 매뉴얼: special-pe-practicum/manual/practicum-manual.md",
+      "근거 라이브러리: special-pe-practicum/evidence/evidence-library.csv",
+      "준비도 컷오프: 65점 이상 주도지도 / 40~64점 공동지도 / 39점 이하 보조·관찰",
+      "용어는 '특수체육'으로 통일한다"
+    ]
+  },
+  "subagents": [
+    {"role": "manual-searcher", "task": "실습 매뉴얼에서 문의와 관련된 영역·절차를 찾아 findings에 낸다", "group": 1},
+    {"role": "evidence-searcher", "task": "근거 라이브러리에서 답변을 뒷받침할 논문을 찾아 findings에 낸다", "group": 1},
+    {"role": "history-checker", "task": "처리 이력 메모리에서 같은 발신처·비슷한 문의의 이전 처리 결과를 찾아 findings에 낸다", "group": 1}
+  ],
+  "worktree": {"isolation": "directory"},
+  "skill": {
+    "purpose": "실습 관련 문의 메일이 도착하면 긴급도를 매겨 급한 것부터 처리하고, 매뉴얼 근거가 달린 답장 초안을 만든다",
+    "deliverable": "답장 초안(요약 200자 이내) + 근거 발췌 파일 첨부",
+    "user": "실습 담당 교수(검토·발송), 실습생·협력학교(수신)",
+    "instruction_mode": "path",
+    "steps": [
+      "1. match로 긴급도와 처리 순서를 정한다",
+      "2. start로 실행 폴더를 만들고 스킬 메모리를 읽는다",
+      "3. 서브에이전트 3개를 병렬로 실행한다",
+      "4. merge로 결과를 합치고 충돌을 결정한다",
+      "5. 답장 초안·근거 발췌를 attachments/에 쓰고 report.json을 채운다",
+      "6. check로 완료 조건을 판정한다",
+      "7. 담당 교수 검토(review) 뒤 사람이 발송한다"
+    ],
+    "conditions": [
+      "답변의 모든 절차·기준은 실습 매뉴얼 또는 근거 라이브러리에서 출처를 단다",
+      "준비도 판정은 65점/40점 컷오프를 그대로 쓴다",
+      "용어는 '특수체육'으로 통일한다"
+    ],
+    "success_criteria": [
+      "요약 200자 이내(공백 포함)",
+      "후속 조치·FAQ 개선 제안 3건 이상",
+      "근거 발췌 첨부 1개 이상",
+      "긴급(high) 문의는 도착 후 60분 안에 검토 대기 상태 도달"
+    ],
+    "prohibitions": [
+      {"rule": "답장을 직접 발송하지 않는다 — 초안까지만 만든다", "reason": "실습생·학교에 나간 안내는 되돌릴 수 없으므로 담당 교수가 확인한다"},
+      {"rule": "학생의 장애 진단명·연락처 등 개인정보를 메모리·이력에 원문으로 남기지 않는다", "reason": "메모리는 저장소에 커밋되어 오래 남는 민감정보가 된다"},
+      {"rule": "매뉴얼에 없는 내용을 확정적으로 답하지 않는다", "reason": "근거 없는 안내가 실습 현장의 안전 판단을 흐린다"}
+    ],
+    "reporting": {
+      "to": "실습 담당 교수",
+      "format": "답장 초안 + 근거 발췌 + 긴급도",
+      "when": "긴급(high)은 시작 즉시 알리고, 나머지는 검토 대기 상태가 되면 알린다"
+    },
+    "exceptions": [
+      {"situation": "안전사고·부상 신고", "handling": "초안 작성보다 담당 교수 즉시 보고를 먼저 한다. 답장은 담당 교수가 직접 쓴다"},
+      {"situation": "키워드는 맞지만 실습과 무관한 메일", "handling": "초안을 만들지 않고 이력에 '무관'으로 남긴 뒤 종료한다"},
+      {"situation": "일일 실행 상한(20건) 도달", "handling": "남은 문의는 다음 날 대기열로 넘기고 담당 교수에게 적체 건수를 보고한다"}
+    ],
+    "self_check": {"rubric": "loop-station/rubrics/document.md", "gate_record": false}
+  },
+  "stop_conditions": {
+    "summary_max_chars": 200,
+    "min_improvements": 3,
+    "min_attachments": 1,
+    "max_rounds": 3,
+    "daily_run_cap": 20
+  },
+  "human_review": {
+    "required": true,
+    "reviewer": "실습 담당 교수",
+    "checklist": [
+      "답변 근거(매뉴얼 절·논문)가 정확한가",
+      "긴급도 판정이 맞는가",
+      "개인정보가 초안·첨부에 불필요하게 들어가지 않았는가"
+    ]
+  }
+}
