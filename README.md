@@ -7,7 +7,7 @@
 | [`agent_office/`](./agent_office) | 디스코드 채널별 역할 봇 7개(매니저·실장·조교·총무·팀장·작가·비서) 하네스: 승인 가드레일, 넘김 기록, 맥미니 launchd 24시간 가동, 사무실 대시보드 |
 | [`agent_system/`](./agent_system) | 교육 공동설계(co-design) 에이전트 시스템 |
 | [`book-publishing-app/`](./book-publishing-app) | 도서 출판 앱 |
-| [`loop-station/`](./loop-station) | 스포츠경영 모션그래픽·실시간 에이전트 루프스테이션 (`agent.md` 참조) |
+| [`loop-station/`](./loop-station) | 98점 품질 게이트 루프스테이션 + **루프 정석**(트리거·커넥터·메모리·서브에이전트·워크트리·스킬·사람 검토, [`LOOP_CANON.md`](./loop-station/LOOP_CANON.md)) (`agent.md` 참조) |
 | [`special-pe-practicum/`](./special-pe-practicum) | 특수체육 실습 자료 |
 | [`special_pe_visual_impairment/`](./special_pe_visual_impairment) | 시각장애 특수체육 자료 |
 | [`claude-mods/`](./claude-mods) · [`reports/`](./reports) | Claude 모드 설정 및 리포트 (paper_pipeline_v2 파이프라인 개선과 함께 통합) |

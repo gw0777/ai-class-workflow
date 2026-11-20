@@ -60,7 +60,8 @@ special-pe-practicum/
 ├── evidence/
 │   └── evidence-library.csv               # 근거 논문 13편
 ├── manual/
-│   └── practicum-manual.md                # 현장 교육실습 5영역 매뉴얼
+│   ├── practicum-manual.md                # 현장 교육실습 5영역 매뉴얼
+│   └── practicum-journal-4mode.md         # 네 칸 실습 일지 (야생 학습 4모드, ⑤ 성찰일지 확장)
 └── n8n/
     └── ape-practicum-diagnosis.workflow.json  # n8n 워크플로 정의 (import 가능)
 ```

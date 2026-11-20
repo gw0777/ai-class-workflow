@@ -25,6 +25,8 @@ jobs:
         run: python -m unittest discover -s loop-station/tests -v
       - name: 기록 검증
         run: python loop-station/tools/loopstation.py validate
+      - name: 루프 정석 명세 검증
+        run: python loop-station/tools/loopcanon.py validate
       - name: 사이트 빌드 (멱등성 확인)
         run: |
           python loop-station/tools/loopstation.py build

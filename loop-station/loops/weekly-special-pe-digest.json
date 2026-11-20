@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "loop_id": "weekly-special-pe-digest",
+  "title": "특수체육 주간 연구 다이제스트",
+  "trigger": {
+    "type": "schedule",
+    "weekdays": ["fri"],
+    "time": "09:00",
+    "utc_offset": "+09:00",
+    "window_minutes": 60
+  },
+  "connectors": [
+    {"category": "data", "name": "PubMed", "access": "read", "purpose": "지정 키워드의 최근 7일 논문 수집"},
+    {"category": "web_search", "name": "Scholar Gateway", "access": "read", "purpose": "PubMed 밖 학술 문헌 보완 수집"},
+    {"category": "project", "name": "Notion", "access": "read_write", "purpose": "근거 논문 라이브러리 DB 중복 확인 · 신규 논문 행 추가"},
+    {"category": "communication", "name": "Gmail", "access": "write", "purpose": "다이제스트 메일 초안 작성 (발송은 사람이 한다)"}
+  ],
+  "memory": {
+    "context": [
+      "검색 키워드: adapted physical education, preservice teacher practicum, inclusive physical education, para-sport education",
+      "용어는 '특수체육'으로 통일한다",
+      "대상 독자: 특수체육 현장 교육실습 담당 교수와 실습생",
+      "기존 근거 라이브러리: special-pe-practicum/evidence/evidence-library.csv (실습 5개 영역 ①~⑤ 매핑)"
+    ]
+  },
+  "subagents": [
+    {"role": "pubmed-collector", "task": "PubMed에서 키워드별 최근 7일 논문을 모아 DOI를 키로 서지·요지를 findings에 낸다", "group": 1},
+    {"role": "scholar-collector", "task": "Scholar Gateway에서 같은 키워드로 모아 DOI를 키로 서지·요지를 findings에 낸다", "group": 1},
+    {"role": "library-auditor", "task": "기존 근거 라이브러리를 분석해 실습 5개 영역별 공백과 중복 DOI를 findings에 낸다", "group": 1}
+  ],
+  "worktree": {"isolation": "directory"},
+  "skill": {
+    "purpose": "매주 금요일 오전, 특수체육 현장 교육실습에 쓸 최신 연구를 모아 담당 교수가 5분 안에 읽을 다이제스트로 만든다",
+    "deliverable": "다이제스트 메일 초안(요약 200자 이내) + 신규 논문 목록 CSV 첨부",
+    "user": "특수체육 현장 교육실습 담당 교수",
+    "instruction_mode": "goal",
+    "steps": [],
+    "conditions": [
+      "최근 7일 이내 출판 또는 온라인 선공개 논문만 다룬다",
+      "근거 라이브러리에 이미 있는 DOI는 제외한다",
+      "신규 논문마다 실습 5개 영역(①~⑤) 중 하나 이상에 매핑한다",
+      "용어는 '특수체육'으로 통일한다"
+    ],
+    "success_criteria": [
+      "요약 200자 이내(공백 포함)",
+      "실습 매뉴얼 개선 제안 3건 이상",
+      "첨부 파일 1개 이상(신규 논문 목록 CSV)",
+      "자가진단 98점 이상 (document 루브릭)"
+    ],
+    "prohibitions": [
+      {"rule": "메일을 직접 발송하지 않는다 — 초안까지만 만든다", "reason": "밖으로 나간 메일은 되돌릴 수 없으므로 사람 검토 뒤에 보낸다"},
+      {"rule": "확인되지 않은 서지(저자·연도·DOI)를 지어내 넣지 않는다", "reason": "근거 라이브러리 전체의 신뢰도가 무너진다"},
+      {"rule": "서브에이전트는 자기 작업 폴더(workers/<role>/) 밖에 쓰지 않는다", "reason": "격리가 깨지면 한 작업의 실패가 다른 결과까지 오염시킨다"}
+    ],
+    "reporting": {
+      "to": "특수체육 현장 교육실습 담당 교수",
+      "format": "메일 초안 + 검수 보고서(loop-station/site/run-<run_id>.html) 경로",
+      "when": "판정 통과로 사람 검토 대기 상태가 되는 즉시"
+    },
+    "exceptions": [
+      {"situation": "이번 주 신규 논문이 0편", "handling": "'이번 주 신규 없음' 다이제스트로 대신하고, 개선 제안은 library-auditor의 영역별 공백 분석으로 채운다"},
+      {"situation": "커넥터(PubMed·Scholar Gateway) 응답 실패", "handling": "실패한 서브에이전트만 실패로 남기고 나머지 결과로 병합한다. 보고서에 빠진 출처를 밝힌다"},
+      {"situation": "5회전 안에 완료 조건을 채우지 못함", "handling": "중단(halted)하고 잔여 결함과 원인을 담당 교수에게 보고한다"}
+    ],
+    "self_check": {"rubric": "loop-station/rubrics/document.md", "gate_record": true}
+  },
+  "stop_conditions": {
+    "summary_max_chars": 200,
+    "min_improvements": 3,
+    "min_attachments": 1,
+    "min_options": 3,
+    "max_rounds": 5,
+    "daily_run_cap": 1
+  },
+  "human_review": {
+    "required": true,
+    "reviewer": "특수체육 현장 교육실습 담당 교수",
+    "checklist": [
+      "서지 정보(저자·연도·DOI)가 원문과 일치하는가",
+      "개선 제안이 실습 현장에서 바로 실행 가능한가",
+      "메일 수신자·제목이 맞는가"
+    ]
+  }
+}
