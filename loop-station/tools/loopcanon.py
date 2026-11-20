@@ -2,6 +2,8 @@
 """루프 정석(Loop Canon) 실행기.
 
 트리거 → 커넥터 → 메모리 → 서브에이전트(병렬) → 워크트리(격리·병합) → 스킬(자가진단) → 사람 검토.
+야생 학습 4모드(옵션 → 가설 → 멘탈 시뮬레이션 → 액관해 → 지도 → 멘탈 레프리젠테이션)를 겹쳐
+옵션 칸(options·chosen), 멘탈 시뮬레이션(simulate), 지도→옵션 다리(lessons_applied)를 보강했다.
 
 판단(수집·분석·작성·채점)은 에이전트가 하고, 규칙(발동·중복 방지·상한·격리·병합·중단·검토)은
 이 도구가 결정론적으로 강제한다. 자가진단 루브릭 단계는 기존 loopstation.py 98점 게이트를 그대로 쓴다.
@@ -11,6 +13,7 @@ Python 표준 라이브러리만 사용한다. 명세: loop-station/LOOP_CANON.m
     python3 loop-station/tools/loopcanon.py validate [loops/*.json ...]
     python3 loop-station/tools/loopcanon.py due [--at 2026-11-20T09:00:00+09:00]
     python3 loop-station/tools/loopcanon.py match --event events.json
+    python3 loop-station/tools/loopcanon.py simulate <loop_id> [--at ...] [--event event.json]
     python3 loop-station/tools/loopcanon.py start <loop_id> [--at ...] [--event event.json]
     python3 loop-station/tools/loopcanon.py merge <run_dir|run_id>
     python3 loop-station/tools/loopcanon.py check <run_dir|run_id> [--record records/<run_id>.json]
@@ -39,10 +42,13 @@ SCHEMA_VERSION = 1
 MAX_ROUNDS_CAP = loopstation.MAX_ITERATIONS  # 품질 게이트와 같은 회전 상한(5)
 DEFAULT_WINDOW_MINUTES = 60
 MAX_SUMMARY_CHARS_CAP = 2000
+MAX_OPTIONS_CAP = 10
+MIN_LESSON_REF_CHARS = 4  # 교훈 인용이 이보다 짧으면 우연히 겹친 것으로 본다
 
 LOOP_ID_RE = re.compile(r"^[a-z0-9][a-z0-9-]*$")
 TIME_RE = re.compile(r"^([01]\d|2[0-3]):([0-5]\d)$")
 OFFSET_RE = re.compile(r"^[+-](\d{2}):(\d{2})$")
+LESSON_RE = re.compile(r"^- (\d{4}-\d{2}-\d{2}) \[([^\]]+)\] (.+)$")
 
 TRIGGER_TYPES = ("schedule", "event")
 WEEKDAYS = ("mon", "tue", "wed", "thu", "fri", "sat", "sun")
@@ -357,6 +363,7 @@ def _validate_stop(stop: object, err) -> None:
         ("summary_max_chars", 1, MAX_SUMMARY_CHARS_CAP),
         ("min_improvements", 1, 100),
         ("min_attachments", 0, 100),
+        ("min_options", 0, MAX_OPTIONS_CAP),
         ("max_rounds", 1, MAX_ROUNDS_CAP),
         ("daily_run_cap", 1, 1000),
     )
@@ -640,6 +647,19 @@ class Memory:
             entries.append(entry)
         return entries
 
+    def lessons(self) -> list[dict]:
+        """스킬 메모리에서 교훈 줄(- 날짜 [run_id] 내용)을 읽는다."""
+        if not self.skill_path.exists():
+            return []
+        found = []
+        for line in self.skill_path.read_text(encoding="utf-8").splitlines():
+            m = LESSON_RE.match(line.strip())
+            if m:
+                found.append(
+                    {"date": m.group(1), "run_id": m.group(2), "text": m.group(3)}
+                )
+        return found
+
     def add_lesson(self, run_id: str, at: datetime, lesson: str) -> None:
         with self.skill_path.open("a", encoding="utf-8") as fh:
             fh.write(f"- {at.date().isoformat()} [{run_id}] {lesson.strip()}\n")
@@ -700,15 +720,23 @@ def _transition(
     )
 
 
-def start_run(
-    paths: Paths, spec: dict, at: datetime, event: dict | None = None
-) -> Path:
-    """트리거를 확인하고 가드를 통과하면 실행 폴더를 만든다. 실행 폴더 경로를 돌려준다."""
+class CapReached(LoopError):
+    """일일 실행 상한 도달 — start는 이력에 blocked를 남기고, simulate는 남기지 않는다."""
+
+    def __init__(self, message: str, trigger_key: str) -> None:
+        super().__init__(message)
+        self.trigger_key = trigger_key
+
+
+def plan_run(paths: Paths, spec: dict, at: datetime, event: dict | None = None) -> dict:
+    """가드를 모두 확인하고 실행 계획을 돌려준다. 파일·메모리를 전혀 바꾸지 않는다.
+
+    start_run과 simulate(멘탈 시뮬레이션)가 같은 판정을 쓰도록 한 곳에 모았다.
+    """
     trig = spec["trigger"]
     loop_id = spec["loop_id"]
     tz = parse_offset(trig["utc_offset"])
     mem = Memory(paths, loop_id)
-    mem.ensure(spec)
 
     state = mem.state()
     if state["status"] in ACTIVE_STATUSES:
@@ -752,18 +780,9 @@ def start_run(
     )
     cap = spec["stop_conditions"]["daily_run_cap"]
     if started_today >= cap:
-        mem.append(
-            "history",
-            {
-                "at": at.isoformat(),
-                "run_id": None,
-                "event": "blocked",
-                "reason": "daily_run_cap",
-                "trigger_key": trigger_key,
-            },
-        )
-        raise LoopError(
-            f"일일 실행 상한 도달: {local_date} {started_today}/{cap}회 — 다음 날로 넘깁니다"
+        raise CapReached(
+            f"일일 실행 상한 도달: {local_date} {started_today}/{cap}회 — 다음 날로 넘깁니다",
+            trigger_key,
         )
 
     run_id = f"{local:%Y%m%d-%H%M%S}-{loop_id}"
@@ -771,51 +790,101 @@ def start_run(
     if run_dir.exists():
         raise LoopError(f"같은 run_id의 실행 폴더가 이미 있습니다: {run_dir}")
 
-    workers = []
-    for s in sorted(spec["subagents"], key=lambda s: s["group"]):
-        (run_dir / "workers" / s["role"]).mkdir(parents=True)
-        workers.append(
+    return {
+        "loop_id": loop_id,
+        "run_id": run_id,
+        "run_dir": run_dir,
+        "trigger_type": trig["type"],
+        "trigger_key": trigger_key,
+        "priority": priority,
+        "local_date": local_date,
+        "started_today": started_today,
+        "daily_run_cap": cap,
+        "workers": [
             {
                 "role": s["role"],
                 "task": s["task"],
                 "group": s["group"],
                 "output": f"workers/{s['role']}/output.json",
             }
+            for s in sorted(spec["subagents"], key=lambda s: s["group"])
+        ],
+        "lessons": mem.lessons(),
+    }
+
+
+def start_run(
+    paths: Paths, spec: dict, at: datetime, event: dict | None = None
+) -> Path:
+    """트리거를 확인하고 가드를 통과하면 실행 폴더를 만든다. 실행 폴더 경로를 돌려준다."""
+    mem = Memory(paths, spec["loop_id"])
+    try:
+        plan = plan_run(paths, spec, at, event)
+    except CapReached as exc:
+        mem.ensure(spec)
+        mem.append(
+            "history",
+            {
+                "at": at.isoformat(),
+                "run_id": None,
+                "event": "blocked",
+                "reason": "daily_run_cap",
+                "trigger_key": exc.trigger_key,
+            },
         )
+        raise
+    mem.ensure(spec)
+
+    run_dir = plan["run_dir"]
+    for w in plan["workers"]:
+        (run_dir / "workers" / w["role"]).mkdir(parents=True)
     (run_dir / "attachments").mkdir(parents=True)
     meta = {
         "schema_version": SCHEMA_VERSION,
-        "loop_id": loop_id,
-        "run_id": run_id,
+        "loop_id": plan["loop_id"],
+        "run_id": plan["run_id"],
         "started_at": at.isoformat(),
         "updated_at": at.isoformat(),
-        "trigger_type": trig["type"],
-        "trigger_key": trigger_key,
-        "priority": priority,
+        "trigger_type": plan["trigger_type"],
+        "trigger_key": plan["trigger_key"],
+        "priority": plan["priority"],
         "event": event,
         "isolation": spec["worktree"]["isolation"],
         "round": 1,
         "status": "running",
-        "workers": workers,
+        "workers": plan["workers"],
     }
     _write_json(run_dir / "run.json", meta)
-    _write_json(
-        run_dir / "report.json",
-        {"summary": "", "improvements": [], "attachments": [], "resolutions": {}},
+    _write_json(run_dir / "report.json", report_skeleton())
+    mem.save_state(
+        status="running", run_id=plan["run_id"], round=1, updated_at=at.isoformat()
     )
-    mem.save_state(status="running", run_id=run_id, round=1, updated_at=at.isoformat())
     mem.append(
         "history",
         {
             "at": at.isoformat(),
-            "run_id": run_id,
+            "run_id": plan["run_id"],
             "event": "started",
-            "trigger_key": trigger_key,
-            "local_date": local_date,
-            "priority": priority,
+            "trigger_key": plan["trigger_key"],
+            "local_date": plan["local_date"],
+            "priority": plan["priority"],
         },
     )
     return run_dir
+
+
+def report_skeleton() -> dict:
+    """에이전트가 채울 report.json 뼈대. 야생 학습 4모드 순서대로 둔다."""
+    return {
+        "options": [],  # 옵션: 고려한 길 {name, reason}
+        "chosen": {"name": "", "reason": ""},  # 가설: 고른 길과 이유
+        "lessons_applied": [],  # 지도→옵션 다리: {lesson, how}
+        "lessons_skip_reason": "",
+        "summary": "",
+        "improvements": [],
+        "attachments": [],
+        "resolutions": {},
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -902,8 +971,88 @@ def merge_run(paths: Paths, run_dir: Path, at: datetime | None = None) -> dict:
 # ---------------------------------------------------------------------------
 
 
+def _lesson_matches(ref: str, lesson: dict) -> bool:
+    ref = ref.strip()
+    if ref == lesson["run_id"]:
+        return True
+    if len(ref) < MIN_LESSON_REF_CHARS:
+        return False
+    return ref in lesson["text"] or lesson["text"] in ref
+
+
+def _evaluate_wild_learning(
+    report: dict, stop: dict, lessons: list[dict], problems: list[str], metrics: dict
+) -> None:
+    """야생 학습 4모드 중 루프 정석에 비어 있던 두 칸을 판정한다.
+
+    옵션(고려한 길 N개) → 가설(고른 길과 이유), 지도 → 옵션 다리(스킬 메모리 교훈 반영).
+    """
+    need = stop["min_options"]
+    options = report.get("options")
+    options = options if isinstance(options, list) else []
+    names: list[str] = []
+    for i, o in enumerate(options):
+        if (
+            not isinstance(o, dict)
+            or not _is_str(o.get("name"))
+            or not _is_str(o.get("reason"))
+        ):
+            problems.append(f"options[{i}]: name과 reason(왜 후보인지) 문자열 필수")
+            continue
+        if o["name"].strip() in names:
+            problems.append(
+                f"options[{i}]: 같은 이름의 옵션이 중복됩니다 ({o['name']})"
+            )
+            continue
+        names.append(o["name"].strip())
+    metrics["options"] = len(names)
+    if len(names) < need:
+        problems.append(
+            f"고려한 옵션 {len(names)}개 < 최소 {need}개 (옵션 칸: 고르기 전에 넓게)"
+        )
+    if need > 0:
+        chosen = report.get("chosen")
+        if not isinstance(chosen, dict) or not _is_str(chosen.get("reason")):
+            problems.append(
+                "chosen: 고른 옵션의 name과 고른 이유(reason)가 필요합니다 (가설 칸)"
+            )
+        elif not _is_str(chosen.get("name")) or chosen["name"].strip() not in names:
+            problems.append(f"chosen.name이 options에 없습니다: {chosen.get('name')!r}")
+
+    metrics["lessons_available"] = len(lessons)
+    applied = report.get("lessons_applied")
+    applied = applied if isinstance(applied, list) else []
+    valid = 0
+    for i, a in enumerate(applied):
+        if (
+            not isinstance(a, dict)
+            or not _is_str(a.get("lesson"))
+            or not _is_str(a.get("how"))
+        ):
+            problems.append(
+                f"lessons_applied[{i}]: lesson과 how(어떻게 반영했는지) 문자열 필수"
+            )
+        elif not any(_lesson_matches(a["lesson"], le) for le in lessons):
+            problems.append(
+                f"lessons_applied[{i}]: 스킬 메모리에 없는 교훈입니다 ({a['lesson']!r})"
+            )
+        else:
+            valid += 1
+    metrics["lessons_applied"] = valid
+    if lessons and valid == 0 and not _is_str(report.get("lessons_skip_reason")):
+        problems.append(
+            f"스킬 메모리 교훈 {len(lessons)}개를 이번 실행에 어떻게 썼는지 기록이 없습니다 "
+            "(지도 → 옵션 다리): lessons_applied에 반영한 교훈과 방법을 적거나, "
+            "lessons_skip_reason에 반영하지 않은 이유를 적으세요"
+        )
+
+
 def evaluate_report(
-    spec: dict, run_dir: Path, meta: dict, record_path: Path
+    spec: dict,
+    run_dir: Path,
+    meta: dict,
+    record_path: Path,
+    lessons: list[dict] | None = None,
 ) -> tuple[list[str], dict]:
     stop = spec["stop_conditions"]
     problems: list[str] = []
@@ -915,6 +1064,8 @@ def evaluate_report(
         return [str(exc)], metrics
     if not isinstance(report, dict):
         return ["보고서(report.json)는 JSON 객체여야 합니다"], metrics
+
+    _evaluate_wild_learning(report, stop, lessons or [], problems, metrics)
 
     summary = report.get("summary")
     n_chars = len(summary.strip()) if isinstance(summary, str) else 0
@@ -1013,7 +1164,9 @@ def check_run(
     mem = Memory(paths, meta["loop_id"])
     record_path = record_path or (paths.records / f"{meta['run_id']}.json")
 
-    problems, metrics = evaluate_report(spec, run_dir, meta, record_path)
+    problems, metrics = evaluate_report(
+        spec, run_dir, meta, record_path, lessons=mem.lessons()
+    )
     passed = not problems
     checked_round = meta["round"]
     max_rounds = spec["stop_conditions"]["max_rounds"]
@@ -1162,6 +1315,49 @@ def _cmd_match(paths: Paths, event_file: Path) -> int:
     return 0
 
 
+def _single_event(path: Path | None, cmd: str) -> dict | None:
+    if not path:
+        return None
+    events = _load_events(path)
+    if len(events) != 1:
+        raise LoopError(
+            f"{cmd} --event 에는 이벤트 1건만 넘깁니다 (여러 건은 match로 대기열부터)"
+        )
+    return events[0]
+
+
+def _cmd_simulate(paths: Paths, spec: dict, at: datetime, event: dict | None) -> int:
+    """멘탈 시뮬레이션 — start와 같은 가드를 돌리되 아무것도 만들지 않는다."""
+    try:
+        plan = plan_run(paths, spec, at, event)
+    except LoopError as exc:
+        print(f"[시뮬레이션] 시작하면 거부됩니다: {exc}")
+        return 1
+    stop = spec["stop_conditions"]
+    print(f"[시뮬레이션] 시작할 수 있습니다 → {plan['run_id']}")
+    print(
+        f"  트리거 {plan['trigger_key']} · 긴급도 {PRIORITY_LABELS[plan['priority']]} · "
+        f"오늘 {plan['started_today']}/{plan['daily_run_cap']}회 사용"
+    )
+    for w in plan["workers"]:
+        print(f"  group {w['group']} · {w['role']}: {w['task']}")
+    print(
+        f"  완료 조건: 옵션 {stop['min_options']}개 이상 · 요약 {stop['summary_max_chars']}자 이내 · "
+        f"개선 제안 {stop['min_improvements']}건 이상 · 첨부 {stop['min_attachments']}개 이상 · "
+        f"최대 {stop['max_rounds']}회전"
+    )
+    lessons = plan["lessons"]
+    if lessons:
+        print(
+            f"  스킬 메모리 교훈 {len(lessons)}개 — 이번 옵션에 반영할지 report.lessons_applied에 기록:"
+        )
+        for le in lessons[-3:]:
+            print(f"    - [{le['run_id']}] {le['text']}")
+    else:
+        print("  스킬 메모리 교훈 없음 (첫 바퀴)")
+    return 0
+
+
 def _cmd_status(paths: Paths, loop_id: str) -> int:
     spec = load_spec(paths, loop_id)
     mem = Memory(paths, loop_id)
@@ -1170,6 +1366,7 @@ def _cmd_status(paths: Paths, loop_id: str) -> int:
     print(
         f"  상태: {STATUS_LABELS[state['status']]} · 실행 {state['run_id'] or '—'} · 회전 {state['round']}"
     )
+    print(f"  스킬 메모리 교훈: {len(mem.lessons())}개")
     history = mem.read("history")
     for h in history[-5:]:
         print(f"  {h.get('at')} {h.get('event')} {h.get('run_id') or ''}".rstrip())
@@ -1189,6 +1386,13 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--at")
     p = sub.add_parser("match", help="이벤트를 루프에 배정하고 긴급도 순 대기열 출력")
     p.add_argument("--event", required=True, type=Path)
+    p = sub.add_parser(
+        "simulate",
+        help="멘탈 시뮬레이션: 시작하면 어떻게 될지 미리 판정 (아무것도 만들지 않음)",
+    )
+    p.add_argument("loop_id")
+    p.add_argument("--at")
+    p.add_argument("--event", type=Path)
     p = sub.add_parser("start", help="트리거 확인 + 가드 통과 시 실행 폴더 생성")
     p.add_argument("loop_id")
     p.add_argument("--at")
@@ -1217,16 +1421,15 @@ def main(argv: list[str] | None = None) -> int:
             return _cmd_due(paths, parse_time(args.at) if args.at else _now())
         if args.cmd == "match":
             return _cmd_match(paths, args.event)
+        if args.cmd == "simulate":
+            spec = load_spec(paths, args.loop_id)
+            event = _single_event(args.event, "simulate")
+            return _cmd_simulate(
+                paths, spec, parse_time(args.at) if args.at else _now(), event
+            )
         if args.cmd == "start":
             spec = load_spec(paths, args.loop_id)
-            event = None
-            if args.event:
-                events = _load_events(args.event)
-                if len(events) != 1:
-                    raise LoopError(
-                        "start --event 에는 이벤트 1건만 넘깁니다 (여러 건은 match로 대기열부터)"
-                    )
-                event = events[0]
+            event = _single_event(args.event, "start")
             run_dir = start_run(
                 paths, spec, parse_time(args.at) if args.at else _now(), event
             )

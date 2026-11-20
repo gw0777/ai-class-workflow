@@ -146,12 +146,21 @@ class SandboxTestCase(unittest.TestCase):
         improvements=3,
         attach=True,
         resolutions=None,
+        options=3,
+        chosen="길 1",
+        **extra,
     ):
         attachments = []
         if attach:
             (run_dir / "attachments" / "list.csv").write_text("doi\n", encoding="utf-8")
             attachments = ["attachments/list.csv"]
         report = {
+            "options": [
+                {"name": f"길 {i + 1}", "reason": f"후보 이유 {i + 1}"}
+                for i in range(options)
+            ],
+            "chosen": {"name": chosen, "reason": "가장 빨리 확인할 수 있음"},
+            **extra,
             "summary": summary,
             "improvements": [f"제안 {i + 1}" for i in range(improvements)],
             "attachments": attachments,
@@ -642,6 +651,162 @@ class TestCheckAndReview(SandboxTestCase):
             )
 
 
+class TestWildLearningModes(SandboxTestCase):
+    """야생 학습 4모드로 보강한 칸: 옵션 · 가설 · 멘탈 시뮬레이션 · 지도→옵션 다리."""
+
+    def start_inquiry(self):
+        # 98점 게이트 기록이 필요 없는 문의 루프로 판정 규칙만 본다
+        run_dir = loopcanon.start_run(
+            self.paths, self.spec(INQUIRY), FRI_0915, make_event()
+        )
+        self.write_workers(
+            run_dir, {"manual-searcher": {"findings": {"절차": "영역③"}}}
+        )
+        loopcanon.merge_run(self.paths, run_dir)
+        return run_dir
+
+    def problems(self, run_dir):
+        return "\n".join(loopcanon.check_run(self.paths, run_dir)["problems"])
+
+    # 옵션 칸 / 가설 칸 ------------------------------------------------------
+    def test_too_few_options(self):
+        run_dir = self.start_inquiry()
+        self.write_report(run_dir, options=2)
+        self.assertIn("고려한 옵션 2개 < 최소 3개", self.problems(run_dir))
+
+    def test_chosen_must_be_one_of_the_options(self):
+        run_dir = self.start_inquiry()
+        self.write_report(run_dir, chosen="없는 길")
+        self.assertIn("chosen.name이 options에 없습니다", self.problems(run_dir))
+
+    def test_option_needs_reason_and_unique_name(self):
+        run_dir = self.start_inquiry()
+        self.write_report(run_dir)
+        report = json.loads((run_dir / "report.json").read_text(encoding="utf-8"))
+        report["options"] = [
+            {"name": "길 1", "reason": "이유"},
+            {"name": "길 1", "reason": "중복"},
+            {"name": "길 2"},
+        ]
+        (run_dir / "report.json").write_text(json.dumps(report), encoding="utf-8")
+        text = self.problems(run_dir)
+        self.assertIn("중복", text)
+        self.assertIn("reason(왜 후보인지)", text)
+        self.assertIn("고려한 옵션 1개", text)
+
+    def test_min_options_zero_turns_the_check_off(self):
+        spec = real_spec(INQUIRY)
+        spec["stop_conditions"]["min_options"] = 0
+        self.write_spec(spec)
+        run_dir = self.start_inquiry()
+        self.write_report(run_dir, options=0, chosen="")
+        self.assertTrue(loopcanon.check_run(self.paths, run_dir)["passed"])
+
+    # 지도 → 옵션 다리 -------------------------------------------------------
+    def add_lesson(self, text="부상 문의는 보호자 연락 절차를 첫 줄에"):
+        mem = loopcanon.Memory(self.paths, INQUIRY)
+        mem.ensure(self.spec(INQUIRY))
+        mem.add_lesson("20261113-091500-practicum-inquiry-triage", FRI_0915, text)
+        return mem
+
+    def test_no_lessons_means_no_bridge_check(self):
+        run_dir = self.start_inquiry()
+        self.write_report(run_dir)
+        ev = loopcanon.check_run(self.paths, run_dir)
+        self.assertTrue(ev["passed"], ev["problems"])
+        self.assertEqual(ev["metrics"]["lessons_available"], 0)
+
+    def test_lessons_must_be_applied_or_skipped_with_reason(self):
+        self.assertEqual(len(self.add_lesson().lessons()), 1)
+        run_dir = self.start_inquiry()
+        self.write_report(run_dir)
+        self.assertIn("지도 → 옵션 다리", self.problems(run_dir))
+
+    def test_applied_lesson_passes(self):
+        self.add_lesson()
+        run_dir = self.start_inquiry()
+        self.write_report(
+            run_dir,
+            lessons_applied=[
+                {"lesson": "보호자 연락 절차", "how": "답장 첫 줄에 배치"}
+            ],
+        )
+        ev = loopcanon.check_run(self.paths, run_dir)
+        self.assertTrue(ev["passed"], ev["problems"])
+        self.assertEqual(ev["metrics"]["lessons_applied"], 1)
+
+    def test_lesson_can_be_cited_by_run_id(self):
+        self.add_lesson()
+        run_dir = self.start_inquiry()
+        self.write_report(
+            run_dir,
+            lessons_applied=[
+                {
+                    "lesson": "20261113-091500-practicum-inquiry-triage",
+                    "how": "그대로 따름",
+                }
+            ],
+        )
+        self.assertTrue(loopcanon.check_run(self.paths, run_dir)["passed"])
+
+    def test_made_up_lesson_is_rejected(self):
+        self.add_lesson()
+        run_dir = self.start_inquiry()
+        self.write_report(
+            run_dir,
+            lessons_applied=[{"lesson": "메모리에 없는 교훈", "how": "적용"}],
+            lessons_skip_reason="",
+        )
+        text = self.problems(run_dir)
+        self.assertIn("스킬 메모리에 없는 교훈", text)
+        self.assertIn("지도 → 옵션 다리", text)
+
+    def test_skip_reason_is_accepted(self):
+        self.add_lesson()
+        run_dir = self.start_inquiry()
+        self.write_report(
+            run_dir, lessons_skip_reason="이번 문의는 안전과 무관해 해당 없음"
+        )
+        self.assertTrue(loopcanon.check_run(self.paths, run_dir)["passed"])
+
+    # 멘탈 시뮬레이션 --------------------------------------------------------
+    def test_plan_run_changes_nothing(self):
+        plan = loopcanon.plan_run(self.paths, self.spec(DIGEST), FRI_0915)
+        self.assertEqual(plan["run_id"], f"20261120-091500-{DIGEST}")
+        self.assertEqual(
+            [w["role"] for w in plan["workers"]],
+            ["pubmed-collector", "scholar-collector", "library-auditor"],
+        )
+        self.assertFalse(self.paths.memory.exists())
+        self.assertFalse(self.paths.runs.exists())
+        # 시뮬레이션 뒤에도 실제 시작은 그대로 된다
+        loopcanon.start_run(self.paths, self.spec(DIGEST), FRI_0915)
+
+    def test_plan_run_reports_lessons_for_the_bridge(self):
+        self.add_lesson()
+        plan = loopcanon.plan_run(
+            self.paths, self.spec(INQUIRY), FRI_0915, make_event()
+        )
+        self.assertEqual(
+            plan["lessons"][0]["text"], "부상 문의는 보호자 연락 절차를 첫 줄에"
+        )
+
+    def test_cap_in_simulation_is_not_logged_but_start_is(self):
+        spec = real_spec(INQUIRY)
+        spec["stop_conditions"]["daily_run_cap"] = 1
+        spec = self.write_spec(spec)
+        mem = loopcanon.Memory(self.paths, INQUIRY)
+        loopcanon.start_run(self.paths, spec, FRI_0915, make_event("e1"))
+        mem.save_state(status="done")
+        before = len(mem.read("history"))
+        with self.assertRaises(loopcanon.CapReached):
+            loopcanon.plan_run(self.paths, spec, FRI_0920, make_event("e2"))
+        self.assertEqual(len(mem.read("history")), before)
+        with self.assertRaises(loopcanon.CapReached):
+            loopcanon.start_run(self.paths, spec, FRI_0920, make_event("e2"))
+        self.assertEqual(mem.read("history")[-1]["event"], "blocked")
+
+
 class TestCli(SandboxTestCase):
     def run_cli(self, *args):
         out, err = io.StringIO(), io.StringIO()
@@ -701,6 +866,20 @@ class TestCli(SandboxTestCase):
         code, out = self.run_cli("start", DIGEST, "--at", "2026-11-19T09:15:00+09:00")
         self.assertEqual(code, 1)
         self.assertIn("[거부]", out)
+
+    def test_simulate_via_cli(self):
+        code, out = self.run_cli(
+            "simulate", DIGEST, "--at", "2026-11-20T09:15:00+09:00"
+        )
+        self.assertEqual(code, 0, out)
+        self.assertIn("시작할 수 있습니다", out)
+        self.assertIn("옵션 3개 이상", out)
+        code, out = self.run_cli(
+            "simulate", DIGEST, "--at", "2026-11-19T09:15:00+09:00"
+        )
+        self.assertEqual(code, 1)
+        self.assertIn("거부됩니다", out)
+        self.assertFalse(self.paths.memory.exists())
 
 
 if __name__ == "__main__":

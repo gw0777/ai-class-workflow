@@ -88,8 +88,8 @@
 `loop-station/loops/`에 명세가 있는 반복 업무는 위 3장 절차를 아래 7단계 안에서 수행한다. 상세: [`loop-station/LOOP_CANON.md`](loop-station/LOOP_CANON.md)
 
 1. **트리거** — 시간 기반은 `loopcanon.py due`, 이벤트 기반은 `loopcanon.py match`로 발동 여부와 긴급도 순서를 확인한다. 긴급(high)부터 처리한다.
-2. **시작** — `loopcanon.py start <loop_id>`. 거부되면(동시 실행·중복·일일 상한) 우회하지 말고 사유를 보고한다.
-3. **메모리 읽기** — 작업 전에 `memory/<loop_id>/skill-notes.md`(스킬 메모리)와 `context.md`(컨텍스트)를 먼저 읽는다.
+2. **시작** — 먼저 `loopcanon.py simulate <loop_id>`(멘탈 시뮬레이션)로 거부 여부와 완료 조건을 확인하고, `loopcanon.py start <loop_id>`로 시작한다. 거부되면(동시 실행·중복·일일 상한) 우회하지 말고 사유를 보고한다.
+3. **메모리 읽기와 옵션** — 작업 전에 `memory/<loop_id>/skill-notes.md`(스킬 메모리)와 `context.md`(컨텍스트)를 먼저 읽는다. 바로 한 길로 가지 말고 고려한 길을 `report.json`의 `options`에 `min_options`개 이상 적은 뒤, 고른 길과 이유를 `chosen`에 적는다. 스킬 메모리에 교훈이 있으면 반영한 교훈과 방법을 `lessons_applied`에, 반영하지 않았다면 이유를 `lessons_skip_reason`에 적는다 (야생 학습의 옵션 · 가설 · 지도→옵션 다리).
 4. **서브에이전트 병렬 실행** — 같은 `group`은 한 번에 병렬로 띄운다. 각자 `workers/<role>/output.json`에 `{"findings": {...}}`만 쓰고, 자기 폴더 밖에는 쓰지 않는다. 저장소 파일을 고치는 작업은 `isolation: "worktree"`로 띄운다.
 5. **병합** — `loopcanon.py merge`. 충돌은 어느 쪽을 택했는지 근거와 함께 `report.json`의 `resolutions`에 적는다. 실패한 서브에이전트는 보고서에 빠진 출처로 밝힌다.
 6. **자가진단·판정** — 산출물은 `attachments/`에, 요약·개선 제안·첨부 목록은 `report.json`에 쓴다. `gate_record: true`이면 3장 ③~⑤대로 98점 게이트 기록을 `records/<run_id>.json`에 남긴다. `loopcanon.py check`가 미충족이면 지적된 문제만 고쳐 다시 판정한다. 회전 상한에 닿으면 중단하고 잔여 결함을 보고한다.

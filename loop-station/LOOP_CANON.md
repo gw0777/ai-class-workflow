@@ -11,6 +11,21 @@
                  └──────────────────────────── 최대 max_rounds 회전 ─────────────────────────────┘ 상한 도달 → 중단(halted)
 ```
 
+### 야생 학습 4모드와 겹쳐 보기 (2회차 보강)
+
+책 『2장 에센스 체험』 69쪽의 '야생 학습의 네 가지 모드'(옵션 → 가설 → 멘탈 시뮬레이션 → 액관해 → 지도 → 멘탈 레프리젠테이션)를 루프 정석 위에 올려 보니 빈 칸 셋이 보였고, 이를 채웠다.
+
+| 야생 학습 | 루프 정석에서 맡는 부분 | 1회차 | 2회차 보강 |
+|---|---|---|---|
+| 옵션 (미래 × 분산) | `report.options` — 고르기 전에 넓게 늘어놓은 길 `{name, reason}` | 약함 (병렬 수집만) | `stop_conditions.min_options`개 이상 필수 |
+| 가설 (미래 × 집중) | `report.chosen` + 성공 기준·중단 조건 | 갖춤 | 고른 길이 options 안에 있어야 하고 이유 필수 |
+| 멘탈 시뮬레이션 (다리) | `simulate` — start와 같은 가드를 돌리되 아무것도 만들지 않음 | 도구만 있음 | 정식 명령으로 추가 |
+| 액관해 (과거·현재 × 집중) | `start → merge → check` | 갖춤 | — |
+| 지도 (과거·현재 × 분산) | 메모리 4종 | 갖춤 | — |
+| 멘탈 레프리젠테이션 (다리) | 스킬 메모리 → `report.lessons_applied` | 읽기만 함 | 교훈이 있으면 반영 기록 또는 미반영 이유 필수 (지어낸 교훈은 거부) |
+
+> '액관해'는 책의 정의를 아직 확인하지 못했다. 여기서는 그림 속 자리(과거·현재 × 집중), 즉 실제로 한 일과 결과에 집중하는 단계로만 쓴다.
+
 **역할 분담**: 판단(수집·분석·작성·채점)은 에이전트가 하고, 규칙(발동·중복 방지·상한·격리·병합·중단·검토)은 `tools/loopcanon.py`가 결정론적으로 강제한다. API 키나 외부 호출 없이 동작한다(표준 라이브러리만 사용). 커넥터 호출은 에이전트가 세션 안에서 MCP로 한다.
 
 ---
@@ -53,7 +68,7 @@
 | 04:50 | 처리의 마음에 맞는 변명 조제가 필요하다. 직원들이 동의 필요한다 | 처리 순서·조정 규칙인지 |
 | 04:50 | 종모 역할이 분리가 되어서 핫돌전 이수로 … 스타핑 리스 | 역할 분리 뒤의 단어, '스타핑 리스'(중단 규칙 목록?) |
 | 04:50 | 몸맥은 표류하지 않도록 결정해야 한다 | 목표·맥락 표류 방지 규칙인지 |
-| 04:50 | tot 트리오브 소트 생각에 나 와 | Tree of Thoughts를 어느 단계에 쓰는지 |
+| 04:50 | tot 트리오브 소트 생각에 나 와 | Tree of Thoughts를 어느 단계에 쓰는지 (후보: 옵션·가설 칸 = `options`·`chosen`, 사용자 확인 대기) |
 
 ---
 
@@ -68,7 +83,7 @@
 | `subagents[]` | `role`(작업 폴더 이름), `task`, `group` | role 중복 금지 |
 | `worktree.isolation` | `directory`(실행 폴더 격리) · `git_worktree`(저장소 파일을 고치는 서브에이전트는 Agent 도구 `isolation: "worktree"`로 실행) | |
 | `skill` | `purpose`, `deliverable`, `user`, `instruction_mode`, `steps`, `conditions`, `success_criteria`, `prohibitions`, `reporting{to, format, when}`, `exceptions`, `self_check{rubric, gate_record}` | path 지시는 steps 필수 · 성공 기준마다 숫자 필수 · 금지마다 이유 필수 · 루브릭 파일 실재 |
-| `stop_conditions` | `summary_max_chars`, `min_improvements`, `min_attachments`, `max_rounds`(≤5), `daily_run_cap` | |
+| `stop_conditions` | `summary_max_chars`, `min_improvements`, `min_attachments`, `min_options`(0~10, 0이면 옵션 판정 끔), `max_rounds`(≤5), `daily_run_cap` | |
 | `human_review` | `required`, `reviewer`, `checklist[]` | |
 
 ## 3. 실행 절차 (CLI)
@@ -78,11 +93,14 @@ T=loop-station/tools/loopcanon.py
 python3 $T validate                                         # 명세 검증 (CI에서도 실행)
 python3 $T due --at 2026-11-20T09:05:00+09:00               # ① 시간 기반: 지금 발동할 루프
 python3 $T match --event loop-station/loops/samples/events.json   # ① 이벤트 기반: 긴급도 → 도착 순 대기열
+python3 $T simulate weekly-special-pe-digest                # 멘탈 시뮬레이션: 시작하면 어떻게 될지 (아무것도 안 만듦)
 python3 $T start weekly-special-pe-digest                   # ②③④ 가드 통과 시 실행 폴더·메모리 생성
 #   → 에이전트: skill-notes.md·context.md를 읽고, group별로 서브에이전트를 병렬 실행
 #     각자 workers/<role>/output.json 에 {"findings": {키: 값}} 만 쓴다
 python3 $T merge <run_id>                                   # ⑤ 합의/충돌/실패 정리 → merged.json
-#   → 에이전트: attachments/에 산출물, report.json 작성 (summary · improvements · attachments · resolutions)
+#   → 에이전트: attachments/에 산출물, report.json 작성
+#     options(고려한 길) · chosen(고른 길과 이유) · lessons_applied 또는 lessons_skip_reason
+#     · summary · improvements · attachments · resolutions
 #     gate_record=true 이면 records/<run_id>.json 에 98점 게이트 채점 기록 (loopstation.py validate)
 python3 $T check <run_id>                                   # ⑥ 통과 → 사람 검토 대기 / 미충족 → 다음 회전 / 상한 → 중단
 python3 $T review <run_id> --decision approve --reviewer "담당 교수" --note "발송 승인" --lesson "다음엔 …"
@@ -91,13 +109,25 @@ python3 $T status weekly-special-pe-digest                  # 상태 + 최근 �
 
 `check`는 통과 시 종료 코드 0, 미충족·중단 시 1을 돌려주므로 자동화 루프의 분기로 쓸 수 있다.
 
+### report.json (에이전트가 채우는 보고서)
+
+| 키 | 야생 학습 | 판정 |
+|---|---|---|
+| `options[{name, reason}]` | 옵션 | `min_options`개 이상, 이름 중복 금지, 이유 필수 |
+| `chosen{name, reason}` | 가설 | name이 options 안에 있어야 함 (`min_options`가 0이면 생략 가능) |
+| `lessons_applied[{lesson, how}]` / `lessons_skip_reason` | 지도 → 옵션 다리 | 스킬 메모리에 교훈이 있으면 둘 중 하나 필수. `lesson`은 교훈 문구 일부(4자 이상) 또는 그 교훈의 run_id |
+| `summary` | — | 공백 포함 `summary_max_chars`자 이내 |
+| `improvements[]` | — | `min_improvements`건 이상 |
+| `attachments[]` | — | 실행 폴더 안의 실제 파일 `min_attachments`개 이상 |
+| `resolutions{key: 근거}` | — | 병합 충돌 키마다 결정 근거 |
+
 ### 가드 (거부 사유)
 
 | 가드 | 내용 |
 |---|---|
 | 동시 실행 금지 | 같은 루프에 `진행 중`·`사람 검토 대기` 실행이 있으면 새 시작 거부 |
 | 중복 실행 방지 | 같은 예약 슬롯·같은 이벤트 id는 한 번만 시작 |
-| 일일 상한 | 루프의 시간대 기준 하루 `daily_run_cap`회 초과 시 거부하고 이력에 `blocked` 기록 |
+| 일일 상한 | 루프의 시간대 기준 하루 `daily_run_cap`회 초과 시 거부하고 이력에 `blocked` 기록 (`simulate`는 기록하지 않음) |
 | 회전 상한 | `check` 미충족이나 `review` 재작업 요청이 `max_rounds`에 닿으면 `중단(halted)` |
 | 메모리 손상 | 이력·평가 jsonl에 깨진 줄이 있으면 거부 (상한 계산이 틀어지지 않도록 fail-closed) |
 | 첨부 경로 | 실행 폴더 밖을 가리키는 첨부는 인정하지 않음 |
