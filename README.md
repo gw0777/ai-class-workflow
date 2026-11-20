@@ -14,6 +14,9 @@
 | [`tournament-bracket.html`](./tournament-bracket.html) | 실시간 토너먼트 대진표 (`TOURNAMENT_README.md`) |
 | [`projects/mobile-backend-app/`](./projects/mobile-backend-app) | 모바일 앱 + 백엔드 (주기 알림 기능 포함, 범용 폴더명 충돌 방지를 위해 projects/ 하위로 격리) |
 | [`projects/professor-student-comm/`](./projects/professor-student-comm) | 교수–학생 소통 앱 (backend/frontend, `SETUP_GUIDE.md`·`따라하기_가이드.md`) |
+| [`projects/music-impact-control/`](./projects/music-impact-control) | 음악 임팩트 컨트롤 웹앱 (app.js/index.html, projects/ 격리) |
+| [`projects/pe-expert-app/`](./projects/pe-expert-app) | APA 체육 전문가 앱 (Python `apa_expert_app.py`, `run_app.sh/.bat`) |
+| [`projects/presentation-support/`](./projects/presentation-support) | 프로젝트 발표 지원 Flask 앱 (`app.py`, static/templates) |
 
 ```bash
 pip install -r similarity_checker/requirements.txt
@@ -29,7 +32,8 @@ cd agent_office && python -m agent_office --check      # 설정 점검
 
 ## 미통합 브랜치 (루트 앱 경쟁 — 본체 선택 필요)
 
-아래 브랜치들은 저장소 **루트**에 각자의 앱 파일(`app.py`·`index.html`·`package.json`·`requirements.txt`·`firebase.json` 등)을 두어 서로 덮어쓰므로 자동 통합하지 않았습니다. 필요한 것을 골라 병합하거나 `projects/` 하위로 격리해 통합하세요:
-`claude/music-impact-control-*`(웹앱 app.js/index.html) · `claude/pe-expert-app-dev-*`(Python apa_expert_app) · `claude/project-presentation-support-*`(Flask app.py) · `claude/toss-payment-integration-*`(Firebase functions/frontend) · `claude/disability-sports-policy-platform-*`(package.json + backend/frontend)
+아래 2개 브랜치는 저장소 **루트**에 각자의 앱 파일(`package.json`·`firebase.json` 등)을 두어 서로 덮어쓰므로 자동 통합하지 않았습니다. 필요하면 병합하거나 `projects/` 하위로 격리해 통합하세요:
+`claude/toss-payment-integration-*`(Firebase functions/frontend) · `claude/disability-sports-policy-platform-*`(package.json + backend/frontend)
 
+`projects/`로 격리 통합 완료: music-impact-control · pe-expert-app-dev · project-presentation-support.
 이미 통합된 브랜치에 **완전히 포함**되어 별도 병합이 불필요한 브랜치: `claude/agent-realtime-system-*` ⊂ `sports-management-motion-graphics` / `claude/add-periodic-notification-*` ⊂ `init-project`(→ `projects/mobile-backend-app/`).
