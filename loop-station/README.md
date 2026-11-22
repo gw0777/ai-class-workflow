@@ -12,8 +12,14 @@ loop-station/
 ├── records/            # 실행별 검수 기록 JSON (<run_id>.json)
 ├── site/               # 생성된 검수 보고서·대시보드 HTML (커밋됨, build로 재생성)
 ├── tools/loopstation.py# 검증(validate) + HTML 생성(build) 도구 (표준 라이브러리만 사용)
+├── tools/loopcanon.py  # 루프 정석 실행기: 트리거·가드·격리·병합·중단·사람 검토 (LOOP_CANON.md)
+├── loops/              # 루프 명세 JSON (<loop_id>.json) + samples/ 예시 이벤트
+├── memory/             # 루프별 메모리 4종 + 스킬 메모리 (첫 실행 때 생성)
+├── runs/               # 루프 실행별 격리 작업 폴더 (첫 실행 때 생성)
 └── tests/              # 단위 테스트
 ```
+
+> **루프 정석(Loop Canon)**: 98점 게이트를 '자가진단' 단계로 품고 트리거(시간/이벤트) → 커넥터 → 메모리 → 서브에이전트 병렬 → 워크트리 병합 → 스킬 자가진단 → 사람 검토로 확장한 반복 업무 루프. 명세·CLI·강의 녹취 매핑은 [`LOOP_CANON.md`](LOOP_CANON.md).
 
 ## 사용법
 
@@ -27,8 +33,13 @@ python3 loop-station/tools/loopstation.py build
 # 새 기록 스켈레톤 출력
 python3 loop-station/tools/loopstation.py new --type education --title "제목"
 
-# 테스트
+# 테스트 (loopstation + loopcanon)
 python3 -m unittest discover -s loop-station/tests
+
+# 루프 정석: 명세 검증 · 발동 확인 · 이벤트 대기열
+python3 loop-station/tools/loopcanon.py validate
+python3 loop-station/tools/loopcanon.py due --at 2026-11-20T09:05:00+09:00
+python3 loop-station/tools/loopcanon.py match --event loop-station/loops/samples/events.json
 ```
 
 ## 기록 JSON 스키마 (schema_version 1)
