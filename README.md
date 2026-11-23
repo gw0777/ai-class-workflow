@@ -17,6 +17,8 @@
 | [`projects/music-impact-control/`](./projects/music-impact-control) | 음악 임팩트 컨트롤 웹앱 (app.js/index.html, projects/ 격리) |
 | [`projects/pe-expert-app/`](./projects/pe-expert-app) | APA 체육 전문가 앱 (Python `apa_expert_app.py`, `run_app.sh/.bat`) |
 | [`projects/presentation-support/`](./projects/presentation-support) | 프로젝트 발표 지원 Flask 앱 (`app.py`, static/templates) |
+| [`projects/toss-payment/`](./projects/toss-payment) | 토스 결제 연동 (Firebase functions/frontend/firestore) |
+| [`projects/disability-sports-policy/`](./projects/disability-sports-policy) | 장애인스포츠 정책 플랫폼 (backend/frontend, `TOPIC_GUIDE.md`) |
 
 ```bash
 pip install -r similarity_checker/requirements.txt
@@ -30,10 +32,8 @@ bash agent_office/deploy/install_macmini.sh            # venv + .env + launchd +
 cd agent_office && python -m agent_office --check      # 설정 점검
 ```
 
-## 미통합 브랜치 (루트 앱 경쟁 — 본체 선택 필요)
+## 브랜치 통합 현황
 
-아래 2개 브랜치는 저장소 **루트**에 각자의 앱 파일(`package.json`·`firebase.json` 등)을 두어 서로 덮어쓰므로 자동 통합하지 않았습니다. 필요하면 병합하거나 `projects/` 하위로 격리해 통합하세요:
-`claude/toss-payment-integration-*`(Firebase functions/frontend) · `claude/disability-sports-policy-platform-*`(package.json + backend/frontend)
+루트를 서로 다른 앱으로 차지하던 브랜치 5종은 모두 `projects/` 하위로 격리 통합되었습니다(music-impact-control · pe-expert-app · presentation-support · toss-payment · disability-sports-policy). 남은 미통합 루트 앱 브랜치는 없습니다.
 
-`projects/`로 격리 통합 완료: music-impact-control · pe-expert-app-dev · project-presentation-support.
-이미 통합된 브랜치에 **완전히 포함**되어 별도 병합이 불필요한 브랜치: `claude/agent-realtime-system-*` ⊂ `sports-management-motion-graphics` / `claude/add-periodic-notification-*` ⊂ `init-project`(→ `projects/mobile-backend-app/`).
+이미 통합된 브랜치에 **완전히 포함**되어 별도 병합이 불필요한 브랜치: `claude/agent-realtime-system-*` ⊂ `sports-management-motion-graphics` / `claude/add-periodic-notification-*` ⊂ `init-project`(→ `projects/mobile-backend-app/`). 원본 브랜치는 모두 보존되어 있습니다.
