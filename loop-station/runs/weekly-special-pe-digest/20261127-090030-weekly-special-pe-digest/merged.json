@@ -1,0 +1,103 @@
+{
+  "run_id": "20261127-090030-weekly-special-pe-digest",
+  "merged_at": "2026-11-27T00:01:47.953749+00:00",
+  "ok_workers": [
+    "pubmed-collector",
+    "library-auditor"
+  ],
+  "failed_workers": [
+    {
+      "role": "scholar-collector",
+      "reason": "산출물 없음"
+    }
+  ],
+  "merged": {
+    "doi:10.1515/jpem-2026-0657": {
+      "pmid": "43082256",
+      "title": "Paediatric hypothalamic obesity: clinical phenotype, assessment and emerging treatments.",
+      "authors": "Giri D, Mohamed Z",
+      "journal": "J Pediatr Endocrinol Metab",
+      "pub_date": "2026-11-26",
+      "population": "소아 시상하부 비만 환자",
+      "relevance": "제외",
+      "reason": "임상 리뷰. APA는 치료 요소 중 하나로만 언급, 학교 체육·실습 맥락 없음"
+    },
+    "doi:10.1016/j.jad.2026.122763": {
+      "pmid": "43072447",
+      "title": "The immediate effects of a single session of adapted physical activity on emotional states in patients with depression following hospital discharge: A single-arm pre-post study.",
+      "authors": "Longuechaud C et al.",
+      "journal": "J Affect Disord",
+      "pub_date": "2026-11-23",
+      "population": "퇴원 후 우울증 성인 45명",
+      "relevance": "제외",
+      "reason": "성인 정신건강 임상 연구, 학교 체육·실습 맥락 없음"
+    },
+    "doi:10.3390/healthcare14223965": {
+      "pmid": "43089272",
+      "title": "Exergames for Older Adults: A Scoping Review of Adapted Physical Activity Interventions and Health Outcomes.",
+      "authors": "Patsi C et al.",
+      "journal": "Healthcare (Basel)",
+      "pub_date": "2026-11-18",
+      "population": "노인",
+      "relevance": "제외",
+      "reason": "노인 대상 스코핑 리뷰, 학교 체육·실습 맥락 없음"
+    },
+    "doi:10.1038/s41514-026-00471-w": {
+      "pmid": "43073279",
+      "title": "Effects of home-based videoconference adapted physical activity on healthy aging.",
+      "authors": "Piche E et al.",
+      "journal": "NPJ Aging",
+      "pub_date": "2026-08-07 (PubMed 등록은 이번 주)",
+      "population": "노인 50명",
+      "relevance": "제외",
+      "reason": "노인 대상 원격 운동 연구, 학교 체육·실습 맥락 없음"
+    },
+    "search_log": "PubMed edat 2026/11/20~11/27: (1) \"adapted physical education\"[tiab] OR \"adapted physical activity\"[tiab] OR \"inclusive physical education\"[tiab] → 4건, (2) preservice/practicum/teacher education AND physical education AND disability/inclusion → 0건, (3) para-sport/Paralympic AND education/school/teacher → 0건",
+    "area:①": "6편 — Kwon&Block 2021, Sato&Haegele 2019, APAQ 2023(2편), Naruse 2019, Singh&Zhang 2022",
+    "area:②": "4편 — APAQ 2023(2편), Wakimizu 2020, Lleixa&Gisbert 2022",
+    "area:③": "6편 — Naruse 2019, Watanabe 2019, Lleixa&Gisbert 2022, Vodakova 2022, Marzouki 2022, He 2020 (이 중 Vodakova·Marzouki·He 3편은 수중·균형 훈련 중재로 학교 수업 밖)",
+    "area:④": "3편 — Kwon&Block 2021, Sato&Haegele 2019, Watanabe 2019 (모두 실습 효과·패럴림픽 실습 연구, 안전·행동지원·비상 대응 직접 근거 0편)",
+    "area:⑤": "1편 — Sullivan 2025 (PETE 사회정의 관점). 성찰일지·수퍼바이저 피드백 직접 근거 0편",
+    "disability_tags": "주제태그 기준 자폐ASD 3편, 지적장애 1편, 시각·청각·지체장애 0편",
+    "existing_ids": "10.1123/apaq.2020-0072; 10.1123/apaq.2019-0033; 10.1123/apaq.2022-0186; 10.1123/apaq.2021-0136; 10.1111/1471-3802.70034; 10.1111/jir.12663; 10.1111/jir.12658; 10.1111/nhs.12755; 10.3390/ijerph19042189; 10.1111/1467-9604.12428; 10.3390/ijerph192316250; 10.3390/biology11050657; 10.1007/s00415-020-09938-6"
+  },
+  "agreed_by": {
+    "doi:10.1515/jpem-2026-0657": [
+      "pubmed-collector"
+    ],
+    "doi:10.1016/j.jad.2026.122763": [
+      "pubmed-collector"
+    ],
+    "doi:10.3390/healthcare14223965": [
+      "pubmed-collector"
+    ],
+    "doi:10.1038/s41514-026-00471-w": [
+      "pubmed-collector"
+    ],
+    "search_log": [
+      "pubmed-collector"
+    ],
+    "area:①": [
+      "library-auditor"
+    ],
+    "area:②": [
+      "library-auditor"
+    ],
+    "area:③": [
+      "library-auditor"
+    ],
+    "area:④": [
+      "library-auditor"
+    ],
+    "area:⑤": [
+      "library-auditor"
+    ],
+    "disability_tags": [
+      "library-auditor"
+    ],
+    "existing_ids": [
+      "library-auditor"
+    ]
+  },
+  "conflicts": []
+}

@@ -1,0 +1,374 @@
+{
+  "schema_version": 1,
+  "run_id": "20261127-090030-weekly-special-pe-digest",
+  "created_at": "2026-11-27T09:00:30+09:00",
+  "type": "document",
+  "title": "특수체육 주간 연구 다이제스트 — 11월 4주차 (루프 첫 실제 실행)",
+  "rubric": "loop-station/rubrics/document.md",
+  "gate_threshold": 98,
+  "requirements_summary": "weekly-special-pe-digest 첫 실제 실행: 최근 7일 특수체육 관련 논문 수집·선별, 요약 200자 이내, 실습 매뉴얼 개선 제안 3건 이상, 논문 목록 CSV 첨부, 메일 초안(발송 금지)",
+  "deliverables": [
+    {
+      "path": "loop-station/runs/weekly-special-pe-digest/20261127-090030-weekly-special-pe-digest/attachments/digest-email.txt",
+      "format": "txt",
+      "description": "다이제스트 메일 초안 본문 (Gmail 초안으로도 생성, 발송 안 함)"
+    },
+    {
+      "path": "loop-station/runs/weekly-special-pe-digest/20261127-090030-weekly-special-pe-digest/attachments/new-papers.csv",
+      "format": "csv",
+      "description": "이번 주 검토 논문 4편과 판단 사유 (신규 포함 0편)"
+    }
+  ],
+  "iterations": [
+    {
+      "round": 1,
+      "total": 91,
+      "criteria": [
+        {
+          "category": "정확성",
+          "item": "사실 정확성",
+          "score": 2,
+          "max": 5,
+          "comment": "③ 개선 제안에서 Halliwick·수중 훈련 연구를 '학교 수업 밖'이라 단정. 제목으로는 훈련 중재 연구라는 것만 확인되고 수업 장소는 확인하지 않음"
+        },
+        {
+          "category": "정확성",
+          "item": "수신자/대상 정확성",
+          "score": 4,
+          "max": 5,
+          "comment": "수신자를 사용자가 지정하지 않아 비워 둠. 인사말 '교수님'은 명세의 독자(담당 교수) 기준이라 다른 수신자에게 보내면 수정 필요"
+        },
+        {
+          "category": "정확성",
+          "item": "일정·조건 일관성",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 검색 기간 11/20~11/27(등록일)이 요약·본문·CSV에서 일치, 다음 다이제스트 12/4(금)는 매주 금요일 트리거와 일치"
+        },
+        {
+          "category": "정확성",
+          "item": "오탈자 없음",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 본문 전체 1회 독해 점검, 맞춤법·띄어쓰기 오류 발견 못함"
+        },
+        {
+          "category": "구조·완결성",
+          "item": "용건 선명성",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 첫 문단 요약에서 신규 0편·빠진 출처·가장 얇은 영역이 바로 파악됨"
+        },
+        {
+          "category": "구조·완결성",
+          "item": "필수 요소 포함",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 인사·요약·본문(결과·공백·제안)·검색 조정·첨부·출처·맺음 포함"
+        },
+        {
+          "category": "구조·완결성",
+          "item": "요구사항 전부 반영",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 명세 산출물(요약 200자 이내 148자, 개선 제안 4건, 첨부 CSV)과 '신규 0편' 예외 처리, 빠진 출처 명시 반영"
+        },
+        {
+          "category": "구조·완결성",
+          "item": "분량 적정",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 섹션 4개, 제안은 각 2문장 이내로 5분 안에 읽을 분량"
+        },
+        {
+          "category": "명료성·어조",
+          "item": "문장 명료성",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 한 문장 한 용건, 판단 사유를 한 줄로 제시"
+        },
+        {
+          "category": "명료성·어조",
+          "item": "어조 적합성",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 담당 교수에게 보내는 보고 경어체 유지"
+        },
+        {
+          "category": "명료성·어조",
+          "item": "요청 명확성",
+          "score": 2,
+          "max": 5,
+          "comment": "개선 제안 4건에 대해 교수가 무엇을 언제까지 해야 하는지 요청이 없음"
+        },
+        {
+          "category": "명료성·어조",
+          "item": "부담 최소화",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 제외 4편은 한 줄씩, 세부 사유는 첨부 CSV로 분리"
+        },
+        {
+          "category": "형식·표현",
+          "item": "서식 일관성",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 섹션 번호 1~4, 목록 기호(-, 1)~4)) 일관"
+        },
+        {
+          "category": "형식·표현",
+          "item": "제목(제목줄) 품질",
+          "score": 4,
+          "max": 5,
+          "comment": "'근거 공백 4건'이 부정확. 4건 중 1건(③ 근거 구분)은 공백이 아니라 분류 제안"
+        },
+        {
+          "category": "형식·표현",
+          "item": "한국어 어문 규범",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 업무 메일 문체, 용어는 '특수체육'으로 통일(다른 표기 없음)"
+        },
+        {
+          "category": "형식·표현",
+          "item": "첨부·참조 처리",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 첨부 CSV 언급과 실제 파일 일치, 모든 논문에 DOI 링크와 PubMed 출처 표기"
+        },
+        {
+          "category": "실용성",
+          "item": "즉시 발송 가능성",
+          "score": 4,
+          "max": 5,
+          "comment": "수신자 미지정이라 발송 전 수신자 입력이 필요함"
+        },
+        {
+          "category": "실용성",
+          "item": "후속 조치 용이성",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 반영할 제안을 회신하면 스킬 메모리에 남는 흐름이 명확"
+        },
+        {
+          "category": "실용성",
+          "item": "기록 적합성",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 제목에 주차·기간·결과가 있어 검색·보관 시 맥락이 남음"
+        },
+        {
+          "category": "실용성",
+          "item": "위험 관리",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 제외 판단마다 사유를 달고, 연구 근거가 없는 항목은 '미확보'로 표시하도록 제안해 과장 없음"
+        }
+      ],
+      "deductions": [
+        {
+          "severity": "major",
+          "points": -3,
+          "where": "3. 개선 제안 4)",
+          "reason": "확인하지 않은 '학교 수업 밖' 단정",
+          "fix_directive": "제목으로 확인되는 사실(훈련 중재 효과 연구)만 쓰고 분류 이름도 '수업 적합화 근거/훈련 중재 참고'로 바꾼다"
+        },
+        {
+          "severity": "major",
+          "points": -3,
+          "where": "3. 개선 제안 뒤",
+          "reason": "독자가 할 행동과 기한이 없음",
+          "fix_directive": "반영할 제안을 12/4(금) 다음 다이제스트 전까지 알려 달라는 요청 문장을 넣는다"
+        },
+        {
+          "severity": "minor",
+          "points": -1,
+          "where": "제목줄",
+          "reason": "'근거 공백 4건'이 내용과 다름",
+          "fix_directive": "'매뉴얼 개선 제안 4건'으로 바꾼다"
+        },
+        {
+          "severity": "minor",
+          "points": -1,
+          "where": "수신자·인사말",
+          "reason": "수신자 미정, 인사말이 담당 교수 독자를 가정",
+          "fix_directive": "사용자 결정 사항이므로 검토 때 수신자를 정하도록 보고한다"
+        },
+        {
+          "severity": "minor",
+          "points": -1,
+          "where": "Gmail 초안 수신자 칸",
+          "reason": "발송 전 수신자 입력 필요",
+          "fix_directive": "검토 체크리스트 '메일 수신자·제목이 맞는가'에서 처리한다"
+        }
+      ],
+      "verdict": "revise"
+    },
+    {
+      "round": 2,
+      "total": 98,
+      "criteria": [
+        {
+          "category": "정확성",
+          "item": "사실 정확성",
+          "score": 5,
+          "max": 5,
+          "comment": "회전 1 중대 감점 해소됨: '학교 수업 밖' 단정을 지우고 '특정 훈련 중재의 효과를 본 연구'로 고침. 그 밖의 수치(4편·13편·영역별 6/4/6/3/1편·태그별 편수)는 검색 결과와 CSV 집계로 확인 (원본 library-auditor 출력은 보존 원칙대로 수정하지 않음)"
+        },
+        {
+          "category": "정확성",
+          "item": "수신자/대상 정확성",
+          "score": 4,
+          "max": 5,
+          "comment": "수신자를 사용자가 지정하지 않아 비워 둠. 인사말 '교수님'은 명세의 독자(담당 교수) 기준이라 다른 수신자에게 보내면 수정 필요"
+        },
+        {
+          "category": "정확성",
+          "item": "일정·조건 일관성",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 검색 기간 11/20~11/27(등록일)이 요약·본문·CSV에서 일치, 다음 다이제스트 12/4(금)는 매주 금요일 트리거와 일치"
+        },
+        {
+          "category": "정확성",
+          "item": "오탈자 없음",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 본문 전체 1회 독해 점검, 맞춤법·띄어쓰기 오류 발견 못함"
+        },
+        {
+          "category": "구조·완결성",
+          "item": "용건 선명성",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 첫 문단 요약에서 신규 0편·빠진 출처·가장 얇은 영역이 바로 파악됨"
+        },
+        {
+          "category": "구조·완결성",
+          "item": "필수 요소 포함",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 인사·요약·본문(결과·공백·제안)·검색 조정·첨부·출처·맺음 포함"
+        },
+        {
+          "category": "구조·완결성",
+          "item": "요구사항 전부 반영",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 명세 산출물(요약 200자 이내 148자, 개선 제안 4건, 첨부 CSV)과 '신규 0편' 예외 처리, 빠진 출처 명시 반영"
+        },
+        {
+          "category": "구조·완결성",
+          "item": "분량 적정",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 섹션 4개, 제안은 각 2문장 이내로 5분 안에 읽을 분량"
+        },
+        {
+          "category": "명료성·어조",
+          "item": "문장 명료성",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 한 문장 한 용건, 판단 사유를 한 줄로 제시"
+        },
+        {
+          "category": "명료성·어조",
+          "item": "어조 적합성",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 담당 교수에게 보내는 보고 경어체 유지"
+        },
+        {
+          "category": "명료성·어조",
+          "item": "요청 명확성",
+          "score": 5,
+          "max": 5,
+          "comment": "회전 1 중대 감점 해소됨: '반영할 항목을 12/4(금) 전까지 알려 달라'는 요청과 그 뒤 처리 방식을 추가"
+        },
+        {
+          "category": "명료성·어조",
+          "item": "부담 최소화",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 제외 4편은 한 줄씩, 세부 사유는 첨부 CSV로 분리"
+        },
+        {
+          "category": "형식·표현",
+          "item": "서식 일관성",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 섹션 번호 1~4, 목록 기호(-, 1)~4)) 일관"
+        },
+        {
+          "category": "형식·표현",
+          "item": "제목(제목줄) 품질",
+          "score": 5,
+          "max": 5,
+          "comment": "회전 1 경미 감점 해소됨: 제목을 '신규 0편, 매뉴얼 개선 제안 4건'으로 고침"
+        },
+        {
+          "category": "형식·표현",
+          "item": "한국어 어문 규범",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 업무 메일 문체, 용어는 '특수체육'으로 통일(다른 표기 없음)"
+        },
+        {
+          "category": "형식·표현",
+          "item": "첨부·참조 처리",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 첨부 CSV 언급과 실제 파일 일치, 모든 논문에 DOI 링크와 PubMed 출처 표기"
+        },
+        {
+          "category": "실용성",
+          "item": "즉시 발송 가능성",
+          "score": 4,
+          "max": 5,
+          "comment": "수신자 미지정이라 발송 전 수신자 입력이 필요함"
+        },
+        {
+          "category": "실용성",
+          "item": "후속 조치 용이성",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 반영할 제안을 회신하면 스킬 메모리에 남는 흐름이 명확"
+        },
+        {
+          "category": "실용성",
+          "item": "기록 적합성",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 제목에 주차·기간·결과가 있어 검색·보관 시 맥락이 남음"
+        },
+        {
+          "category": "실용성",
+          "item": "위험 관리",
+          "score": 5,
+          "max": 5,
+          "comment": "확인: 제외 판단마다 사유를 달고, 연구 근거가 없는 항목은 '미확보'로 표시하도록 제안해 과장 없음"
+        }
+      ],
+      "deductions": [
+        {
+          "severity": "minor",
+          "points": -1,
+          "where": "수신자·인사말",
+          "reason": "수신자 미정, 인사말이 담당 교수 독자를 가정",
+          "fix_directive": "사용자 결정 사항이므로 검토 때 수신자를 정하도록 보고한다"
+        },
+        {
+          "severity": "minor",
+          "points": -1,
+          "where": "Gmail 초안 수신자 칸",
+          "reason": "발송 전 수신자 입력 필요",
+          "fix_directive": "검토 체크리스트 '메일 수신자·제목이 맞는가'에서 처리한다"
+        }
+      ],
+      "verdict": "pass"
+    }
+  ],
+  "final_total": 98,
+  "passed": true,
+  "notes": "남은 경미 2건은 같은 원인(사용자가 수신자를 지정하지 않음)으로, 사람 검토에서 처리한다."
+}

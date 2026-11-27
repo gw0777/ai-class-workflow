@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>검수 보고서 — 특수체육 주간 연구 다이제스트 — 11월 4주차 (루프 첫 실제 실행)</title>
+<style>
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#5c5c5c; --line:#dcdcdc;
+  --card:#f6f6f6; --accent:#2456a6; --pass:#1c7a3d; --fail:#b32424;
+  --bar:#2456a6; --barbg:#e4e4e4; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#16181c; --fg:#e8e8e8; --muted:#a0a0a0; --line:#3a3d44;
+    --card:#20232a; --accent:#7fa7e0; --pass:#54c078; --fail:#e06c6c;
+    --bar:#7fa7e0; --barbg:#33363d; } }
+* { box-sizing: border-box; }
+body { margin:0; padding:2rem 1rem; background:var(--bg); color:var(--fg);
+  font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif; line-height:1.6; }
+main { max-width:60rem; margin:0 auto; }
+h1 { font-size:1.5rem; } h2 { font-size:1.15rem; margin-top:2rem; }
+a { color:var(--accent); }
+table { border-collapse:collapse; width:100%; margin:0.5rem 0; }
+th, td { border:1px solid var(--line); padding:0.4rem 0.6rem; text-align:left;
+  font-size:0.92rem; }
+th { background:var(--card); }
+.tablewrap { overflow-x:auto; }
+.tiles { display:flex; flex-wrap:wrap; gap:0.8rem; margin:1rem 0; }
+.tile { background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding:0.8rem 1.2rem; min-width:9rem; }
+.tile .num { font-size:1.6rem; font-weight:bold; }
+.tile .lbl { color:var(--muted); font-size:0.85rem; }
+.badge { display:inline-block; padding:0.1rem 0.55rem; border-radius:999px;
+  font-size:0.8rem; font-weight:bold; }
+.badge.pass { background:var(--pass); color:#fff; }
+.badge.fail { background:var(--fail); color:#fff; }
+.bar { background:var(--barbg); border-radius:4px; height:0.6rem; width:100%;
+  min-width:6rem; overflow:hidden; }
+.bar > span { display:block; height:100%; background:var(--bar); }
+.muted { color:var(--muted); font-size:0.88rem; }
+.sev-critical { color:var(--fail); font-weight:bold; }
+.sev-major { color:var(--fail); }
+.sev-minor { color:var(--muted); }
+footer { margin-top:3rem; color:var(--muted); font-size:0.85rem; }
+
+</style>
+</head>
+<body>
+<main>
+<p><a href="index.html">← 대시보드</a></p>
+<h1>검수 보고서: 특수체육 주간 연구 다이제스트 — 11월 4주차 (루프 첫 실제 실행)</h1>
+<div class="tablewrap"><table>
+<tr><th>run_id</th><td>20261127-090030-weekly-special-pe-digest</td></tr>
+<tr><th>생성 시각</th><td>2026-11-27T09:00:30+09:00</td></tr>
+<tr><th>유형</th><td>이메일/업무 문서</td></tr>
+<tr><th>루브릭</th><td>loop-station/rubrics/document.md</td></tr>
+<tr><th>게이트</th><td>98점 이상</td></tr>
+<tr><th>최종 점수</th><td>98/100 <span class="badge pass">통과</span></td></tr>
+<tr><th>요구사항 요약</th><td>weekly-special-pe-digest 첫 실제 실행: 최근 7일 특수체육 관련 논문 수집·선별, 요약 200자 이내, 실습 매뉴얼 개선 제안 3건 이상, 논문 목록 CSV 첨부, 메일 초안(발송 금지)</td></tr>
+</table></div>
+
+<h2>회전별 점수 추이</h2>
+<div class="tablewrap"><table>
+<tr><th>회전</th><th>총점</th><th></th><th>판정</th><th>감점 수</th></tr>
+<tr><td>1</td><td>91/100</td><td><div class="bar" role="img" aria-label="91점"><span style="width:91%"></span></div></td><td>재작업</td><td>5건</td></tr><tr><td>2</td><td>98/100</td><td><div class="bar" role="img" aria-label="98점"><span style="width:98%"></span></div></td><td>통과</td><td>2건</td></tr></table></div>
+
+<h2>최종 회전 항목별 점수</h2>
+<div class="tablewrap"><table>
+<tr><th>카테고리</th><th>하위 항목</th><th>점수</th><th>코멘트</th></tr>
+<tr><td>정확성</td><td>사실 정확성</td><td>5/5</td><td>회전 1 중대 감점 해소됨: &#x27;학교 수업 밖&#x27; 단정을 지우고 &#x27;특정 훈련 중재의 효과를 본 연구&#x27;로 고침. 그 밖의 수치(4편·13편·영역별 6/4/6/3/1편·태그별 편수)는 검색 결과와 CSV 집계로 확인 (원본 library-auditor 출력은 보존 원칙대로 수정하지 않음)</td></tr><tr><td>정확성</td><td>수신자/대상 정확성</td><td>4/5</td><td>수신자를 사용자가 지정하지 않아 비워 둠. 인사말 &#x27;교수님&#x27;은 명세의 독자(담당 교수) 기준이라 다른 수신자에게 보내면 수정 필요</td></tr><tr><td>정확성</td><td>일정·조건 일관성</td><td>5/5</td><td>확인: 검색 기간 11/20~11/27(등록일)이 요약·본문·CSV에서 일치, 다음 다이제스트 12/4(금)는 매주 금요일 트리거와 일치</td></tr><tr><td>정확성</td><td>오탈자 없음</td><td>5/5</td><td>확인: 본문 전체 1회 독해 점검, 맞춤법·띄어쓰기 오류 발견 못함</td></tr><tr><td>구조·완결성</td><td>용건 선명성</td><td>5/5</td><td>확인: 첫 문단 요약에서 신규 0편·빠진 출처·가장 얇은 영역이 바로 파악됨</td></tr><tr><td>구조·완결성</td><td>필수 요소 포함</td><td>5/5</td><td>확인: 인사·요약·본문(결과·공백·제안)·검색 조정·첨부·출처·맺음 포함</td></tr><tr><td>구조·완결성</td><td>요구사항 전부 반영</td><td>5/5</td><td>확인: 명세 산출물(요약 200자 이내 148자, 개선 제안 4건, 첨부 CSV)과 &#x27;신규 0편&#x27; 예외 처리, 빠진 출처 명시 반영</td></tr><tr><td>구조·완결성</td><td>분량 적정</td><td>5/5</td><td>확인: 섹션 4개, 제안은 각 2문장 이내로 5분 안에 읽을 분량</td></tr><tr><td>명료성·어조</td><td>문장 명료성</td><td>5/5</td><td>확인: 한 문장 한 용건, 판단 사유를 한 줄로 제시</td></tr><tr><td>명료성·어조</td><td>어조 적합성</td><td>5/5</td><td>확인: 담당 교수에게 보내는 보고 경어체 유지</td></tr><tr><td>명료성·어조</td><td>요청 명확성</td><td>5/5</td><td>회전 1 중대 감점 해소됨: &#x27;반영할 항목을 12/4(금) 전까지 알려 달라&#x27;는 요청과 그 뒤 처리 방식을 추가</td></tr><tr><td>명료성·어조</td><td>부담 최소화</td><td>5/5</td><td>확인: 제외 4편은 한 줄씩, 세부 사유는 첨부 CSV로 분리</td></tr><tr><td>형식·표현</td><td>서식 일관성</td><td>5/5</td><td>확인: 섹션 번호 1~4, 목록 기호(-, 1)~4)) 일관</td></tr><tr><td>형식·표현</td><td>제목(제목줄) 품질</td><td>5/5</td><td>회전 1 경미 감점 해소됨: 제목을 &#x27;신규 0편, 매뉴얼 개선 제안 4건&#x27;으로 고침</td></tr><tr><td>형식·표현</td><td>한국어 어문 규범</td><td>5/5</td><td>확인: 업무 메일 문체, 용어는 &#x27;특수체육&#x27;으로 통일(다른 표기 없음)</td></tr><tr><td>형식·표현</td><td>첨부·참조 처리</td><td>5/5</td><td>확인: 첨부 CSV 언급과 실제 파일 일치, 모든 논문에 DOI 링크와 PubMed 출처 표기</td></tr><tr><td>실용성</td><td>즉시 발송 가능성</td><td>4/5</td><td>수신자 미지정이라 발송 전 수신자 입력이 필요함</td></tr><tr><td>실용성</td><td>후속 조치 용이성</td><td>5/5</td><td>확인: 반영할 제안을 회신하면 스킬 메모리에 남는 흐름이 명확</td></tr><tr><td>실용성</td><td>기록 적합성</td><td>5/5</td><td>확인: 제목에 주차·기간·결과가 있어 검색·보관 시 맥락이 남음</td></tr><tr><td>실용성</td><td>위험 관리</td><td>5/5</td><td>확인: 제외 판단마다 사유를 달고, 연구 근거가 없는 항목은 &#x27;미확보&#x27;로 표시하도록 제안해 과장 없음</td></tr></table></div>
+
+<h2>개선 이력 (회전별 감점·수정 지시)</h2>
+<h3>회전 1 — 91점</h3><div class="tablewrap"><table><tr><th>등급(감점)</th><th>위치</th><th>사유</th><th>수정 지시</th></tr><tr><td><span class="sev-major">중대 (-3)</span></td><td>3. 개선 제안 4)</td><td>확인하지 않은 &#x27;학교 수업 밖&#x27; 단정</td><td>제목으로 확인되는 사실(훈련 중재 효과 연구)만 쓰고 분류 이름도 &#x27;수업 적합화 근거/훈련 중재 참고&#x27;로 바꾼다</td></tr><tr><td><span class="sev-major">중대 (-3)</span></td><td>3. 개선 제안 뒤</td><td>독자가 할 행동과 기한이 없음</td><td>반영할 제안을 12/4(금) 다음 다이제스트 전까지 알려 달라는 요청 문장을 넣는다</td></tr><tr><td><span class="sev-minor">경미 (-1)</span></td><td>제목줄</td><td>&#x27;근거 공백 4건&#x27;이 내용과 다름</td><td>&#x27;매뉴얼 개선 제안 4건&#x27;으로 바꾼다</td></tr><tr><td><span class="sev-minor">경미 (-1)</span></td><td>수신자·인사말</td><td>수신자 미정, 인사말이 담당 교수 독자를 가정</td><td>사용자 결정 사항이므로 검토 때 수신자를 정하도록 보고한다</td></tr><tr><td><span class="sev-minor">경미 (-1)</span></td><td>Gmail 초안 수신자 칸</td><td>발송 전 수신자 입력 필요</td><td>검토 체크리스트 &#x27;메일 수신자·제목이 맞는가&#x27;에서 처리한다</td></tr></table></div><h3>회전 2 — 98점</h3><div class="tablewrap"><table><tr><th>등급(감점)</th><th>위치</th><th>사유</th><th>수정 지시</th></tr><tr><td><span class="sev-minor">경미 (-1)</span></td><td>수신자·인사말</td><td>수신자 미정, 인사말이 담당 교수 독자를 가정</td><td>사용자 결정 사항이므로 검토 때 수신자를 정하도록 보고한다</td></tr><tr><td><span class="sev-minor">경미 (-1)</span></td><td>Gmail 초안 수신자 칸</td><td>발송 전 수신자 입력 필요</td><td>검토 체크리스트 &#x27;메일 수신자·제목이 맞는가&#x27;에서 처리한다</td></tr></table></div>
+
+<h2>산출물</h2>
+<div class="tablewrap"><table>
+<tr><th>경로</th><th>형식</th><th>설명</th></tr>
+<tr><td><a href="../../loop-station/runs/weekly-special-pe-digest/20261127-090030-weekly-special-pe-digest/attachments/digest-email.txt">loop-station/runs/weekly-special-pe-digest/20261127-090030-weekly-special-pe-digest/attachments/digest-email.txt</a></td><td>txt</td><td>다이제스트 메일 초안 본문 (Gmail 초안으로도 생성, 발송 안 함)</td></tr><tr><td><a href="../../loop-station/runs/weekly-special-pe-digest/20261127-090030-weekly-special-pe-digest/attachments/new-papers.csv">loop-station/runs/weekly-special-pe-digest/20261127-090030-weekly-special-pe-digest/attachments/new-papers.csv</a></td><td>csv</td><td>이번 주 검토 논문 4편과 판단 사유 (신규 포함 0편)</td></tr></table></div>
+<h2>비고</h2><p>남은 경미 2건은 같은 원인(사용자가 수신자를 지정하지 않음)으로, 사람 검토에서 처리한다.</p>
+
+<footer>루프 스테이션 — 98점 게이트 품질 시스템 (loopstation.py build 로 생성됨)</footer>
+</main>
+</body>
+</html>
