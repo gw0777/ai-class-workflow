@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "loop_id": "weekly-special-pe-digest",
+  "run_id": "20261127-090030-weekly-special-pe-digest",
+  "started_at": "2026-11-27T00:00:30.230033+00:00",
+  "updated_at": "2026-11-27T00:03:44.478887+00:00",
+  "trigger_type": "schedule",
+  "trigger_key": "2026-11-27T09:00:00+09:00",
+  "priority": "normal",
+  "event": null,
+  "isolation": "directory",
+  "round": 1,
+  "status": "awaiting_review",
+  "workers": [
+    {
+      "role": "pubmed-collector",
+      "task": "PubMed에서 키워드별 최근 7일 논문을 모아 DOI를 키로 서지·요지를 findings에 낸다",
+      "group": 1,
+      "output": "workers/pubmed-collector/output.json"
+    },
+    {
+      "role": "scholar-collector",
+      "task": "Scholar Gateway에서 같은 키워드로 모아 DOI를 키로 서지·요지를 findings에 낸다",
+      "group": 1,
+      "output": "workers/scholar-collector/output.json"
+    },
+    {
+      "role": "library-auditor",
+      "task": "기존 근거 라이브러리를 분석해 실습 5개 영역별 공백과 중복 DOI를 findings에 낸다",
+      "group": 1,
+      "output": "workers/library-auditor/output.json"
+    }
+  ]
+}

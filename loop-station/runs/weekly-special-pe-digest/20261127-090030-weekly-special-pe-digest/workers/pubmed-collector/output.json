@@ -1,0 +1,46 @@
+{
+  "findings": {
+    "doi:10.1515/jpem-2026-0657": {
+      "pmid": "43082256",
+      "title": "Paediatric hypothalamic obesity: clinical phenotype, assessment and emerging treatments.",
+      "authors": "Giri D, Mohamed Z",
+      "journal": "J Pediatr Endocrinol Metab",
+      "pub_date": "2026-11-26",
+      "population": "소아 시상하부 비만 환자",
+      "relevance": "제외",
+      "reason": "임상 리뷰. APA는 치료 요소 중 하나로만 언급, 학교 체육·실습 맥락 없음"
+    },
+    "doi:10.1016/j.jad.2026.122763": {
+      "pmid": "43072447",
+      "title": "The immediate effects of a single session of adapted physical activity on emotional states in patients with depression following hospital discharge: A single-arm pre-post study.",
+      "authors": "Longuechaud C et al.",
+      "journal": "J Affect Disord",
+      "pub_date": "2026-11-23",
+      "population": "퇴원 후 우울증 성인 45명",
+      "relevance": "제외",
+      "reason": "성인 정신건강 임상 연구, 학교 체육·실습 맥락 없음"
+    },
+    "doi:10.3390/healthcare14223965": {
+      "pmid": "43089272",
+      "title": "Exergames for Older Adults: A Scoping Review of Adapted Physical Activity Interventions and Health Outcomes.",
+      "authors": "Patsi C et al.",
+      "journal": "Healthcare (Basel)",
+      "pub_date": "2026-11-18",
+      "population": "노인",
+      "relevance": "제외",
+      "reason": "노인 대상 스코핑 리뷰, 학교 체육·실습 맥락 없음"
+    },
+    "doi:10.1038/s41514-026-00471-w": {
+      "pmid": "43073279",
+      "title": "Effects of home-based videoconference adapted physical activity on healthy aging.",
+      "authors": "Piche E et al.",
+      "journal": "NPJ Aging",
+      "pub_date": "2026-08-07 (PubMed 등록은 이번 주)",
+      "population": "노인 50명",
+      "relevance": "제외",
+      "reason": "노인 대상 원격 운동 연구, 학교 체육·실습 맥락 없음"
+    },
+    "search_log": "PubMed edat 2026/11/20~11/27: (1) \"adapted physical education\"[tiab] OR \"adapted physical activity\"[tiab] OR \"inclusive physical education\"[tiab] → 4건, (2) preservice/practicum/teacher education AND physical education AND disability/inclusion → 0건, (3) para-sport/Paralympic AND education/school/teacher → 0건"
+  },
+  "notes": "Agent 도구 대신 병렬 도구 호출로 수행"
+}
